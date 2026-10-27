@@ -495,24 +495,11 @@ a.whatsapp-btn { color: #fff }
 .nav-cta, .pacote-btn { border-radius: 12px }
 .pacote-btn { display: block; padding: 13px }
 .nav-acoes { display: flex; align-items: center; gap: 8px }
-.nav-sistema { color: var(--fg3); font-size: 13px; font-weight: 600; padding: 8px 6px; white-space: nowrap }
-.nav-sistema:hover { color: var(--gold) }
-.so-celular { display: none }
-.link-aluno { display: block; text-align: center; margin-top: 12px; font-size: 13px; color: var(--fg3) }
-.link-aluno a { color: var(--fg2); text-decoration: underline; text-underline-offset: 3px }
-.link-aluno a:hover { color: var(--gold) }
-.conta-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:16px; text-align:center; max-width:420px; margin:0 auto }
-.conta-topo { display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:4px }
-.conta-nome { font-weight:800; font-size:15px; color:#e6edf3; letter-spacing:-.01em }
-.conta-chip { font-size:10px; font-weight:700; color:var(--gold); background:var(--gold-bg); border:1px solid var(--gold-bd); border-radius:99px; padding:2px 8px }
-.conta-sub { font-size:11px; color:#8b949e; margin-bottom:12px }
-.mini-grafico { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:12px 14px 8px; margin-top:12px }
-.mini-grafico-topo { display:flex; justify-content:space-between; font-size:11px; color:#8b949e; margin-bottom:4px }
-.mini-grafico-pe { font-size:11px; color:#8b949e; text-align:center; margin-top:6px }
-.mini-grafico-pe strong { color:var(--gold) }
-.section-cols > * { min-width: 0 }
-.abas-mock { flex-wrap: wrap }
-@media (max-width: 500px) { .abas-mock { gap: 5px !important } .abas-mock > div { padding: 6px 8px !important; font-size: 10.5px !important } }
+.nav-sistema {
+  color: var(--fg2); font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 12px;
+  border: 1px solid var(--bd); white-space: nowrap;
+}
+.nav-sistema:hover { color: var(--gold); border-color: var(--gold-bd) }
 a.live-card { display: block; color: inherit; transition: border-color .2s, transform .2s }
 a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
 .sistema-acoes { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px }
@@ -520,7 +507,6 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
 
 @media (max-width: 760px) {
   .nav-sistema { display: none }
-  nav .nav-links a.so-celular { display: block; color: var(--gold) }
   nav { gap: 8px }
   .nav-acoes { margin-left: auto }
   nav .nav-toggle { margin-left: 0 }
@@ -544,12 +530,11 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
     <a href="#metodologia">Metodologia</a>
     <a href="#sala">Sala ao Vivo</a>
     <a href="#lives">Lives</a>
-    <a href="sistema.html">Gestão de Risco</a>
-    <a class="so-celular" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">🔒 Área do aluno</a>
+    <a href="#sistema">Gestão de Risco</a>
     <a href="#pacotes">Pacotes</a>
   </div>
   <div class="nav-acoes">
-    <a class="nav-sistema" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener" title="Login do TraderSystem para quem já é aluno">🔒 Área do aluno</a>
+    <a class="nav-sistema" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Acessar sistema</a>
     <a class="nav-cta" href="#pacotes">Entrar na Sala</a>
   </div>
   <button class="nav-toggle" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
@@ -822,43 +807,46 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
           <span style="font-family:var(--fonte);font-size:12px;color:#8b949e;flex:1;text-align:center">TraderSystem — Dashboard</span>
         </div>
         <div style="padding:20px">
-          <div class="abas-mock" style="display:flex;gap:8px;margin-bottom:16px">
+          <div style="display:flex;gap:8px;margin-bottom:16px">
             <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#c8971e;font-weight:700">Dashboard</div>
             <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Plano</div>
             <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Performance</div>
             <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Config</div>
           </div>
-          <div class="conta-card">
-            <div class="conta-topo"><span class="conta-nome">Conta Mesa · Arkadi</span><span class="conta-chip">WIN · 3 ct</span></div>
-            <div class="conta-sub">Ciclo desde 01/10 · loss limit R$ 5.000</div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
-              <div style="background:#0d1117;border-radius:8px;padding:10px 6px">
-                <div style="font-size:10px;color:#8b949e;margin-bottom:2px">META</div>
-                <div style="font-size:15px;font-weight:700;color:#e6edf3">R$ 2.500</div>
-              </div>
-              <div style="background:#0d1117;border-radius:8px;padding:10px 6px">
-                <div style="font-size:10px;color:#8b949e;margin-bottom:2px">STOP</div>
-                <div style="font-size:15px;font-weight:700;color:#f85149">R$ 1.500</div>
-              </div>
-              <div style="background:#0d1117;border-radius:8px;padding:10px 6px">
-                <div style="font-size:10px;color:#8b949e;margin-bottom:2px">HOJE</div>
-                <div style="font-size:15px;font-weight:700;color:#3fb950">+R$ 840</div>
-              </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
+              <div style="font-size:10px;color:#8b949e;margin-bottom:4px">META</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#e6edf3">R$ 2.500</div>
             </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
+              <div style="font-size:10px;color:#8b949e;margin-bottom:4px">STOP</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#f85149">R$ 1.500</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
+              <div style="font-size:10px;color:#8b949e;margin-bottom:4px">RESULTADO</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#3fb950">+R$ 840</div>
+            </div>
+          </div>
+          <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 14px;margin-bottom:14px">
             <div style="display:flex;justify-content:space-between;font-size:11px;color:#8b949e;margin-bottom:6px"><span>Meta mensal</span><span style="color:#3fb950;font-weight:700">34% atingida</span></div>
             <div style="height:6px;background:#0d1117;border-radius:99px;overflow:hidden"><div style="width:34%;height:100%;background:#3fb950"></div></div>
           </div>
-          <div class="mini-grafico">
-            <div class="mini-grafico-topo"><span>Evolução do ciclo</span><span style="color:#3fb950;font-weight:700">+R$ 2.720</span></div>
-            <div style="height:70px"><canvas id="miniDash"></canvas></div>
-            <div class="mini-grafico-pe">Detalhamento completo na aba <strong>Performance</strong></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 12px">
+              <div style="font-size:10px;color:#8b949e;margin-bottom:6px">WIN · Contratos sugeridos</div>
+              <div style="font-family:var(--fonte);font-size:20px;font-weight:700;color:#e6edf3">3</div>
+            </div>
+            <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 12px">
+              <div style="font-size:10px;color:#8b949e;margin-bottom:6px">Ops hoje</div>
+              <div style="font-family:var(--fonte);font-size:20px;font-weight:700;color:#e6edf3">2 / 5</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="sistema-acoes">
         <a class="btn-primary" href="sistema.html">Conhecer o TraderSystem</a>
+        <a class="btn-secondary" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Já sou aluno · Entrar</a>
       </div>
-      <p class="link-aluno">Já é aluno? <a href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Entrar no sistema</a></p>
     </div>
   </div>
 </section>
@@ -1031,15 +1019,6 @@ document.querySelectorAll('nav .nav-links a').forEach(a =>
 </script>
 
 <script>
-// mini gráfico do dashboard (exemplo)
-(() => {
-  const el = document.getElementById('miniDash'); if (!el) return;
-  const c = el.getContext('2d'); const d = [0,320,180,610,540,900,1240,1080,1520,1890,1760,2210,2480,2720];
-  const g = c.createLinearGradient(0,0,0,70); g.addColorStop(0,'rgba(62,207,122,.3)'); g.addColorStop(1,'rgba(62,207,122,0)');
-  new Chart(c, { type:'line', data:{ labels:d.map(()=>''), datasets:[{ data:d, borderColor:'#3ecf7a', borderWidth:2, backgroundColor:g, fill:true, tension:.35, pointRadius:0 }] },
-    options:{ responsive:true, maintainAspectRatio:false, animation:false, plugins:{ legend:{display:false}, tooltip:{enabled:false} }, scales:{ x:{display:false}, y:{display:false} } } });
-})();
-
 // sala chart — candlestick-style area
 const ctx1 = document.getElementById('salaChart').getContext('2d');
 const pts = [130200,130320,130280,130450,130380,130520,130490,130600,130550,130680,130620,130710,130750,130690,130820,130780,130900,130860];
