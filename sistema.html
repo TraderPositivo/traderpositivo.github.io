@@ -88,6 +88,7 @@ nav {
 .nav-links { display: flex; gap: 24px; align-items: center }
 .nav-links a { color: var(--fg2); font-size: 14px; font-weight: 500; transition: color .2s }
 .nav-links a:hover { color: var(--gold) }
+.nav-links a.so-celular { display: none }
 .nav-cta {
   background: var(--gold); color: #000;
   font-weight: 700; font-size: 13px;
@@ -392,6 +393,18 @@ h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em }
 .section-text p { font-size: 16px }
 
 /* ── NAV + BOTÕES ── */
+.nav-aluno { color: var(--fg3); font-size: 13px; font-weight: 600; white-space: nowrap }
+.nav-aluno:hover { color: var(--gold) }
+.link-aluno { margin-top: 16px; font-size: 14px; color: var(--fg3) }
+.link-aluno a { color: var(--fg2); text-decoration: underline; text-underline-offset: 3px }
+.link-aluno a:hover { color: var(--gold) }
+.db-card { text-align: center }
+.db-card-header { justify-content: center; gap: 8px; flex-wrap: wrap }
+.db-footer .db-pill { text-align: center }
+.mini-grafico { background: var(--card); border: 1px solid var(--bd); border-radius: 10px; padding: 12px 14px 8px; margin-top: 10px }
+.mini-grafico-topo { display: flex; justify-content: space-between; font-size: 11px; color: var(--fg3); margin-bottom: 4px }
+.mini-grafico-pe { font-size: 11px; color: var(--fg3); text-align: center; margin-top: 6px }
+.mini-grafico-pe a { color: var(--gold); font-weight: 700 }
 .nav-voltar { color: var(--fg2); font-size: 14px; font-weight: 600; white-space: nowrap }
 .nav-voltar:hover { color: var(--gold) }
 .nav-acoes { display: flex; align-items: center; gap: 12px }
@@ -405,7 +418,8 @@ a.nav-cta:hover { background: var(--gold2) }
 @media (max-width: 720px) {
   nav { flex-wrap: wrap; padding: 12px 16px }
   .nav-toggle { display: block }
-  .nav-voltar { display: none }
+  .nav-voltar, .nav-aluno { display: none }
+  nav .nav-links.open a.so-celular { display: block; color: var(--gold) }
   nav .nav-links.open {
     display: flex; flex-direction: column; align-items: stretch; gap: 0; width: 100%; order: 3;
     border-top: 1px solid var(--bd); margin-top: 10px; padding-top: 6px;
@@ -429,10 +443,12 @@ a.nav-cta:hover { background: var(--gold2) }
     <a href="#performance">Performance</a>
     <a href="#csv">CSV</a>
     <a href="#config">Config</a>
+    <a class="so-celular" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">🔒 Área do aluno</a>
   </div>
   <div class="nav-acoes">
     <a class="nav-voltar" href="index.html">← Trader Positivo</a>
-    <a class="nav-cta" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Entrar</a>
+    <a class="nav-aluno" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener" title="Login do TraderSystem para quem já é aluno">🔒 Área do aluno</a>
+    <a class="nav-cta" href="index.html#pacotes">Ver planos</a>
     <button class="nav-toggle" type="button" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">☰</button>
   </div>
 </nav>
@@ -535,6 +551,11 @@ a.nav-cta:hover { background: var(--gold2) }
               <div style="font-size:10px;color:var(--fg3)">Média necessária</div>
             </div>
           </div>
+        </div>
+        <div class="mini-grafico">
+          <div class="mini-grafico-topo"><span>Evolução do ciclo</span><span style="color:var(--green);font-weight:700">+R$ 12.450</span></div>
+          <div style="height:70px"><canvas id="miniDash"></canvas></div>
+          <div class="mini-grafico-pe">Detalhamento completo na aba <a href="#performance">Performance</a></div>
         </div>
       </div>
     </div>
@@ -837,8 +858,8 @@ a.nav-cta:hover { background: var(--gold2) }
   <p>O TraderSystem vem incluído nos planos do Trader Positivo. Já é aluno? Entre direto no sistema.</p>
   <div class="cta-acoes">
     <a class="cta-btn" href="index.html#pacotes">Ver os planos</a>
-    <a class="cta-btn contorno" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Já sou aluno · Entrar</a>
-  </div>
+    </div>
+  <p class="link-aluno">Já é aluno? <a href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Entrar no sistema</a></p>
   <div class="cta-contact">
     Ou entre em contato diretamente: <strong>matheuscosta1056@gmail.com</strong>
   </div>
@@ -855,6 +876,15 @@ document.querySelectorAll('nav .nav-links a').forEach(a =>
 </script>
 
 <script>
+// mini gráfico do dashboard (exemplo)
+(() => {
+  const c = document.getElementById('miniDash').getContext('2d');
+  const d = [0,1200,2800,2100,4500,6800,6200,5900,7400,9200,10800,10100,11600,12450];
+  const g = c.createLinearGradient(0,0,0,70); g.addColorStop(0,'rgba(76,175,130,.3)'); g.addColorStop(1,'rgba(76,175,130,0)');
+  new Chart(c, { type:'line', data:{ labels:d.map(()=>''), datasets:[{ data:d, borderColor:'#4caf82', borderWidth:2, backgroundColor:g, fill:true, tension:.35, pointRadius:0 }] },
+    options:{ responsive:true, maintainAspectRatio:false, animation:false, plugins:{ legend:{display:false}, tooltip:{enabled:false} }, scales:{ x:{display:false}, y:{display:false} } } });
+})();
+
 // equity curve chart
 const ctx = document.getElementById('equityChart').getContext('2d');
 const labels = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14'];
