@@ -221,31 +221,6 @@ section:nth-child(even) { background: var(--bg2) }
 }
 .db-pill .pval { display: block; font-family: var(--fonte); font-weight: 700; font-size: 13px; color: var(--fg); margin-bottom: 2px }
 
-/* semaforo mockup */
-.sem-panel { padding: 14px }
-.sem-light {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  margin-bottom: 14px;
-}
-.sem-circle {
-  width: 52px; height: 52px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
-  transition: all .3s;
-}
-.sem-circle.verde { background: rgba(76,175,130,.15); box-shadow: 0 0 24px rgba(76,175,130,.5); border: 2px solid var(--green) }
-.sem-circle.amarelo { background: rgba(240,192,64,.15); box-shadow: 0 0 24px rgba(240,192,64,.4); border: 2px solid var(--yellow) }
-.sem-circle.vermelho { background: rgba(224,92,106,.15); box-shadow: 0 0 24px rgba(224,92,106,.5); border: 2px solid var(--red) }
-.sem-label { font-family: var(--fonte); font-weight: 800; font-size: 18px; letter-spacing: 1px }
-.sem-motivo {
-  background: var(--bg3); border-radius: 8px; padding: 8px 12px;
-  font-size: 12px; color: var(--fg2); margin-bottom: 10px;
-}
-.sem-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px }
-.sem-stat { background: var(--bg3); border-radius: 7px; padding: 8px; text-align: center }
-.sem-stat label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 2px }
-.sem-stat .v { font-family: var(--fonte); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
-
 /* calculadora mockup */
 .calc-tabs { display: flex; gap: 6px; margin-bottom: 10px }
 .calc-tab {
@@ -500,7 +475,7 @@ a.nav-cta:hover { background: var(--gold2) }
         <li>Resultado do dia e do ciclo em tempo real, por conta</li>
         <li>Indicadores: stop/dia, dias restantes, ops realizadas</li>
         <li>Painel de mercado: pregões restantes no mês, se hoje é pregão e média diária necessária para bater a meta</li>
-        <li>Libera ou bloqueia o registro de operações conforme o semáforo</li>
+        <li>Alerta quando o loss limit do ciclo se aproxima</li>
         <li>Alternância Líquido / Bruto com um clique</li>
       </ul>
     </div>
@@ -514,7 +489,7 @@ a.nav-cta:hover { background: var(--gold2) }
         <div class="db-card">
           <div class="db-card-header">
             <div class="db-card-name">Conta Arkadi Remunerada</div>
-            <span class="badge verde">● VERDE</span>
+            <span class="badge amarelo">MESA</span>
           </div>
           <div class="db-corretora">📊 Clear — 2ct · R$0,20/pt</div>
           <div class="db-grid">
@@ -566,50 +541,22 @@ a.nav-cta:hover { background: var(--gold2) }
   </div>
 </section>
 
-<!-- SECTION 2: PLANO DO PREGÃO + SEMÁFORO -->
+<!-- SECTION 2: PLANO DO PREGÃO -->
 <section id="plano">
   <div class="section-inner reverse">
     <div class="section-text">
       <div class="section-eyebrow">Plano do Pregão</div>
       <h2>Antes da primeira entrada, o plano já está pronto</h2>
       <p>A aba <strong style="color:var(--fg)">Plano</strong> monta o briefing da sessão: capital disponível, parâmetros da conta e posição de hoje. Os contratos saem da conta <em>capital × risco% ÷ (stop × valor do ponto)</em>, com stop, alvo 1:2 e custos B3 já calculados.</p>
-      <p>No Dashboard, o semáforo avalia em tempo real se você ainda pode operar: stop diário e mensal, máximo de operações e loss limit do ciclo são monitorados juntos.</p>
+      <p>Durante o dia, o Dashboard acompanha o resultado de cada conta e avisa quando o loss limit do ciclo está perto do fim.</p>
       <ul class="feature-list">
         <li>Briefing da sessão com capital disponível e posição do dia</li>
         <li>Contratos calculados pelo risco, para WIN e WDO</li>
         <li>Stop, alvo 1:2, break-even e custos B3 em reais</li>
         <li>Plano de metas e taxa de acerto mínima para ser lucrativo</li>
-        <li>Semáforo VERDE / AMARELO / VERMELHO no Dashboard</li>
       </ul>
     </div>
     <div>
-      <div class="mockup" style="margin-bottom:12px">
-        <div class="mockup-bar">
-          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          <div class="title-bar">Dashboard — Semáforo</div>
-        </div>
-        <div class="sem-panel">
-          <div class="sem-light">
-            <div class="sem-circle verde">🟢</div>
-            <div class="sem-label" style="color:var(--green)">VERDE</div>
-          </div>
-          <div class="sem-motivo">✅ Tudo certo para operar</div>
-          <div class="sem-stats">
-            <div class="sem-stat">
-              <label>Ops hoje</label>
-              <div class="v">3/5</div>
-            </div>
-            <div class="sem-stat">
-              <label>Res. dia</label>
-              <div class="v" style="color:var(--green)">+R$1.840</div>
-            </div>
-            <div class="sem-stat">
-              <label>Stop disp.</label>
-              <div class="v" style="color:var(--fg2)">R$1.500</div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="mockup">
         <div class="mockup-bar">
           <div class="dot"></div><div class="dot"></div><div class="dot"></div>
@@ -841,7 +788,7 @@ a.nav-cta:hover { background: var(--gold2) }
         <div class="how-num">02</div>
         <div class="how-icon">🤖</div>
         <h4>Sistema calcula o resto</h4>
-        <p>Contratos pelo risco, plano do pregão, semáforo automático e análise de performance gerada na hora.</p>
+        <p>Contratos pelo risco, plano do pregão, alerta de loss limit e análise de performance gerada na hora.</p>
       </div>
       <div class="how-card">
         <div class="how-num">03</div>
