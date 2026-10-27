@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assinatura · Trader Positivo</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08090e">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #08090e; --bg2: #0f1018; --bg3: #161825; --card: #1a1d2e;
+  --gold: #c8971e; --gold2: #e8b840; --gold-bg: rgba(200,151,30,.08); --gold-bd: rgba(200,151,30,.22);
+  --green: #3ecf7a; --red: #e0566a; --fg: #eceef6; --fg2: #9ba3c0; --fg3: #5a6280; --bd: rgba(255,255,255,.065);
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+body { font-family: var(--fonte); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.55; overflow-x: hidden }
+a { color: var(--gold); text-decoration: none }
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15 }
+.envelope { max-width: 1040px; margin: 0 auto; padding: 0 20px }
+
+.topo { border-bottom: 1px solid var(--bd) }
+.topo-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 62px }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; font-size: 19px; letter-spacing: -0.02em }
+.marca span { color: var(--gold) }
+.marca img { width: 32px; height: 32px }
+.seguro { color: var(--fg3); font-size: 13px; font-weight: 600 }
+
+.demo { background: rgba(240,192,64,.1); border: 1px solid rgba(240,192,64,.3); color: #f0c040; font-size: 13px; font-weight: 700;
+  text-align: center; padding: 9px 14px; border-radius: 12px; margin: 18px 0 0 }
+
+.passos { display: flex; gap: 8px; margin: 22px 0 18px; flex-wrap: wrap }
+.passo { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--fg3) }
+.passo b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--bd) }
+.passo.ativo { color: var(--fg) }
+.passo.ativo b { background: var(--gold); color: #000; border-color: var(--gold) }
+.passo.feito { color: var(--green) }
+.passo.feito b { background: rgba(62,207,122,.15); border-color: rgba(62,207,122,.4); color: var(--green) }
+.passo + .passo::before { content: ''; width: 18px; height: 1px; background: var(--bd); margin-right: 2px }
+
+.grade { display: grid; gap: 18px; grid-template-columns: 1fr; padding-bottom: 40px; align-items: start }
+@media (min-width: 880px) { .grade { grid-template-columns: 1.25fr .85fr } .resumo { position: sticky; top: 18px } }
+.grade > * { min-width: 0 }
+.card { background: var(--card); border: 1px solid var(--bd); border-radius: 20px; padding: 22px }
+.card h2 { font-size: 19px; margin-bottom: 4px }
+.card .sub { color: var(--fg2); font-size: 14px; margin-bottom: 16px }
+
+.planos { display: grid; gap: 8px; grid-template-columns: repeat(3, 1fr); margin-bottom: 14px }
+@media (max-width: 520px) { .planos { grid-template-columns: 1fr } }
+.plano { background: var(--bg3); border: 1px solid var(--bd); border-radius: 14px; padding: 12px; cursor: pointer; text-align: left; color: var(--fg); font: inherit }
+.plano strong { display: block; font-size: 14px }
+.plano span { font-size: 12px; color: var(--fg2) }
+.plano[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-bg) }
+.ciclo { display: inline-flex; background: var(--bg3); border: 1px solid var(--bd); border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 18px }
+.ciclo button { background: none; border: 0; color: var(--fg2); font: inherit; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 9px; cursor: pointer }
+.ciclo button[aria-pressed="true"] { background: var(--gold); color: #000 }
+.ciclo button:disabled { opacity: .4; cursor: not-allowed }
+
+label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px }
+.campo { width: 100%; background: var(--bg); border: 1px solid var(--bd); border-radius: 12px; color: var(--fg); font: inherit; font-size: 16px; padding: 12px 14px; outline: none }
+.campo:focus { border-color: var(--gold) }
+.linha { display: grid; gap: 12px; grid-template-columns: 1fr; margin-bottom: 14px }
+@media (min-width: 560px) { .linha.dupla { grid-template-columns: 1fr 1fr } }
+.dica { font-size: 12px; color: var(--fg3); margin-top: 5px }
+
+.metodos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 6px 0 14px }
+.metodo { background: var(--bg3); border: 1px solid var(--bd); border-radius: 12px; padding: 11px 8px; color: var(--fg); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer }
+.metodo[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-bg); color: var(--gold2) }
+.painel { background: var(--bg3); border: 1px solid var(--bd); border-radius: 14px; padding: 16px; display: none }
+.painel.ativo { display: block }
+.pix { display: flex; gap: 16px; align-items: center; flex-wrap: wrap }
+.pix svg { width: 128px; height: 128px; background: #fff; border-radius: 10px; padding: 8px; flex-shrink: 0 }
+.pix p { font-size: 14px; color: var(--fg2); flex: 1; min-width: 180px }
+.copia { margin-top: 10px; font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--fg3); background: var(--bg); border-radius: 8px; padding: 8px 10px; word-break: break-all }
+.cartao-demo { text-align: center; color: var(--fg2); font-size: 14px; padding: 8px 0 }
+.cartao-demo strong { display: block; color: var(--fg); margin-bottom: 4px }
+
+.resumo .plano-nome { font-size: 20px; font-weight: 800; letter-spacing: -0.02em }
+.resumo ul { list-style: none; display: grid; gap: 7px; margin: 14px 0 }
+.resumo li { display: flex; gap: 8px; font-size: 14px; color: var(--fg2) }
+.resumo li::before { content: '✓'; color: var(--green); font-weight: 800 }
+.total { border-top: 1px solid var(--bd); padding-top: 14px; display: flex; justify-content: space-between; align-items: baseline }
+.total span { color: var(--fg2); font-size: 14px }
+.total strong { font-size: 30px; letter-spacing: -0.03em }
+.economia { color: var(--green); font-size: 13px; font-weight: 700; text-align: right; min-height: 20px }
+.btn { display: block; width: 100%; text-align: center; background: var(--gold); color: #000; border: 0; font: inherit; font-weight: 800; font-size: 16px; padding: 15px; border-radius: 14px; cursor: pointer; margin-top: 16px }
+.btn:hover { background: var(--gold2) }
+.garantias { display: grid; gap: 6px; margin-top: 14px; font-size: 12px; color: var(--fg3) }
+.erro { color: var(--red); font-size: 13px; font-weight: 600; margin-top: 10px; min-height: 18px }
+
+/* sucesso */
+.sucesso { display: none; max-width: 640px; margin: 36px auto 60px; text-align: center }
+.sucesso.ativo { display: block }
+.sucesso .ok { width: 72px; height: 72px; border-radius: 50%; background: rgba(62,207,122,.12); border: 2px solid var(--green); display: grid; place-items: center; font-size: 34px; margin: 0 auto 16px }
+.sucesso h1 { font-size: clamp(1.8rem, 6vw, 2.6rem); margin-bottom: 8px }
+.sucesso > p { color: var(--fg2); margin-bottom: 24px }
+.linha-tempo { text-align: left; display: grid; gap: 10px; margin-bottom: 24px }
+.etapa { display: flex; gap: 14px; align-items: flex-start; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 16px }
+.etapa .ic { font-size: 22px; line-height: 1.2 }
+.etapa strong { display: block; margin-bottom: 2px }
+.etapa span { color: var(--fg2); font-size: 14px }
+.btn.inline { display: inline-block; width: auto; padding: 14px 26px }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="envelope topo-in">
+    <a class="marca" href="index.html"><img src="favicon.svg" alt="">Trader <span>Positivo</span></a>
+    <span class="seguro">🔒 Pagamento seguro</span>
+  </div>
+</header>
+
+<main class="envelope">
+  <p class="demo">⚠ Página de demonstração do fluxo de assinatura. Nenhum pagamento é processado e nenhum dado é enviado.</p>
+
+  <div id="compra">
+    <div class="passos" aria-label="Etapas">
+      <div class="passo ativo"><b>1</b>Plano e dados</div>
+      <div class="passo ativo"><b>2</b>Pagamento</div>
+      <div class="passo"><b>3</b>Acesso liberado</div>
+    </div>
+
+    <div class="grade">
+      <form class="card" id="form" novalidate>
+        <h2>Escolha o plano</h2>
+        <p class="sub">Todos os planos incluem o TraderSystem e os indicadores, dentro da Área do aluno.</p>
+        <div class="planos" id="planos"></div>
+        <div class="ciclo" id="ciclo">
+          <button type="button" data-ciclo="mensal">Mensal</button>
+          <button type="button" data-ciclo="anual">Anual</button>
+        </div>
+
+        <h2>Seus dados</h2>
+        <p class="sub">O acesso é liberado pelo e-mail: é com ele que você entra na Área do aluno e na sala ao vivo.</p>
+        <div class="linha">
+          <div><label for="nome">Nome completo</label><input class="campo" id="nome" autocomplete="name" placeholder="Seu nome"></div>
+        </div>
+        <div class="linha dupla">
+          <div><label for="email">E-mail</label><input class="campo" id="email" type="email" autocomplete="email" placeholder="voce@email.com">
+            <p class="dica">Use o mesmo e-mail que vai usar no Zoom.</p></div>
+          <div><label for="whats">WhatsApp</label><input class="campo" id="whats" type="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
+        </div>
+
+        <h2 style="margin-top:6px">Pagamento</h2>
+        <div class="metodos">
+          <button type="button" class="metodo" data-metodo="pix" aria-pressed="true">Pix</button>
+          <button type="button" class="metodo" data-metodo="cartao" aria-pressed="false">Cartão</button>
+          <button type="button" class="metodo" data-metodo="boleto" aria-pressed="false">Boleto</button>
+        </div>
+        <div class="painel ativo" data-painel="pix">
+          <div class="pix">
+            <svg viewBox="0 0 29 29" aria-label="QR Code ilustrativo" shape-rendering="crispEdges" id="qr"></svg>
+            <p>Escaneie o QR Code no app do seu banco ou use o Pix copia e cola. A confirmação é automática, em poucos segundos.</p>
+          </div>
+          <div class="copia">00020126DEMONSTRACAO-TRADERPOSITIVO-PIX-NAO-PAGAVEL5204000053039865802BR6009SAO PAULO</div>
+        </div>
+        <div class="painel" data-painel="cartao">
+          <div class="cartao-demo"><strong>💳 Cartão de crédito em até 12×</strong>Na versão real, os dados do cartão são digitados no ambiente seguro do gateway de pagamento, e não nesta página.</div>
+        </div>
+        <div class="painel" data-painel="boleto">
+          <div class="cartao-demo"><strong>🧾 Boleto bancário</strong>O boleto é gerado após a confirmação e compensa em até 2 dias úteis. O acesso é liberado assim que o pagamento for confirmado.</div>
+        </div>
+        <p class="erro" id="erro"></p>
+      </form>
+
+      <aside class="card resumo">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Resumo</div>
+        <div class="plano-nome" id="rNome">—</div>
+        <div style="color:var(--fg2);font-size:14px" id="rDesc"></div>
+        <ul id="rItens"></ul>
+        <div class="total"><span id="rCiclo">Total</span><strong id="rTotal">—</strong></div>
+        <div class="economia" id="rEconomia"></div>
+        <button class="btn" type="submit" form="form" id="pagar">Simular pagamento aprovado</button>
+        <div class="garantias">
+          <span>✓ Acesso liberado na hora, pelo seu e-mail</span>
+          <span>✓ Cancele quando quiser</span>
+          <span>✓ Conteúdo educacional · não é recomendação de investimento</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="sucesso" id="sucesso" aria-live="polite">
+    <div class="passos" aria-label="Etapas" style="justify-content:center">
+      <div class="passo feito"><b>✓</b>Plano e dados</div>
+      <div class="passo feito"><b>✓</b>Pagamento</div>
+      <div class="passo ativo"><b>3</b>Acesso liberado</div>
+    </div>
+    <div class="ok">✓</div>
+    <h1>Pagamento aprovado!</h1>
+    <p id="sTexto">Simulação concluída. Veja o que acontece automaticamente a partir daqui:</p>
+    <div class="linha-tempo" id="sEtapas"></div>
+    <a class="btn inline" href="https://trader-frontend-one.vercel.app/aluno">Ir para a Área do aluno →</a>
+    <p style="margin-top:14px;font-size:13px;color:var(--fg3)">Esta foi uma demonstração. <a href="index.html#pacotes">Voltar aos pacotes</a></p>
+  </section>
+</main>
+
+<script>
+const PLANOS = {
+  lives:    { nome: 'Lives Gravadas', desc: 'Estude no seu ritmo.', mensal: 97,  anual: 797,
+              itens: ['+120 lives gravadas', 'Módulo de metodologia', 'TraderSystem (gestão de risco)', 'Indicadores Trader Positivo', 'Chat da comunidade'] },
+  sala:     { nome: 'Sala ao Vivo', desc: 'Opere junto com o Marcelo, todo dia.', mensal: 297, anual: 2497,
+              itens: ['Sala ao vivo seg–sex, 9h às 12h', 'WIN e WDO operados ao vivo', 'Replay de todas as sessões', 'TraderSystem (gestão de risco)', 'Indicadores Trader Positivo', 'Análise semanal de performance'] },
+  mentoria: { nome: 'Mentoria Individual', desc: 'Acompanhamento personalizado.', mensal: 997, anual: null,
+              itens: ['Tudo do plano Sala ao Vivo', '1 sessão individual por semana', 'Análise do seu histórico de trades', 'TraderSystem configurado com você', 'WhatsApp direto com o Marcelo'] },
+}
+const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
+const $ = id => document.getElementById(id)
+const qs = new URLSearchParams(location.search)
+let plano = PLANOS[qs.get('plano')] ? qs.get('plano') : 'sala'
+let ciclo = qs.get('ciclo') === 'anual' ? 'anual' : 'mensal'
+
+$('planos').innerHTML = Object.entries(PLANOS).map(([k, p]) =>
+  `<button type="button" class="plano" data-plano="${k}"><strong>${p.nome}</strong><span>${brl(p.mensal)}/mês</span></button>`).join('')
+
+function render() {
+  const p = PLANOS[plano]
+  if (!p.anual) ciclo = 'mensal'
+  document.querySelectorAll('.plano').forEach(b => b.setAttribute('aria-pressed', b.dataset.plano === plano))
+  document.querySelectorAll('#ciclo button').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.ciclo === ciclo)
+    b.disabled = b.dataset.ciclo === 'anual' && !p.anual
+  })
+  $('rNome').textContent = p.nome
+  $('rDesc').textContent = p.desc
+  $('rItens').innerHTML = p.itens.map(i => `<li>${i}</li>`).join('')
+  $('rCiclo').textContent = ciclo === 'anual' ? 'Total anual' : 'Total mensal'
+  $('rTotal').textContent = brl(ciclo === 'anual' ? p.anual : p.mensal)
+  $('rEconomia').textContent = ciclo === 'anual' ? `Economia de ${brl(p.mensal * 12 - p.anual)} no ano` : (p.anual ? `No anual: ${brl(p.anual)} (economize ${brl(p.mensal * 12 - p.anual)})` : 'Vagas limitadas')
+  history.replaceState(null, '', `?plano=${plano}&ciclo=${ciclo}`)
+}
+
+$('planos').addEventListener('click', e => { const b = e.target.closest('.plano'); if (b) { plano = b.dataset.plano; render() } })
+$('ciclo').addEventListener('click', e => { const b = e.target.closest('button'); if (b && !b.disabled) { ciclo = b.dataset.ciclo; render() } })
+document.querySelectorAll('.metodo').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.metodo').forEach(x => x.setAttribute('aria-pressed', x === b))
+  document.querySelectorAll('.painel').forEach(p => p.classList.toggle('ativo', p.dataset.painel === b.dataset.metodo))
+}))
+
+// QR Code ilustrativo (não é um Pix de verdade)
+;(() => {
+  let seed = 7, r = ''
+  const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280
+  const finder = (x, y) => `<rect x="${x}" y="${y}" width="7" height="7"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3"/>`
+  for (let y = 0; y < 29; y++) for (let x = 0; x < 29; x++) {
+    const canto = (x < 8 && y < 8) || (x > 20 && y < 8) || (x < 8 && y > 20)
+    if (!canto && rnd() > .55) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`
+  }
+  $('qr').innerHTML = `<g fill="#0b0d13">${r}${finder(0,0)}${finder(22,0)}${finder(0,22)}</g>`
+})()
+
+$('form').addEventListener('submit', e => {
+  e.preventDefault()
+  const nome = $('nome').value.trim(), email = $('email').value.trim()
+  if (!nome) { $('erro').textContent = 'Informe seu nome.'; return }
+  if (!/^\S+@\S+\.\S+$/.test(email)) { $('erro').textContent = 'Informe um e-mail válido: é por ele que o acesso é liberado.'; return }
+  $('erro').textContent = ''
+  const p = PLANOS[plano]
+  const sala = plano !== 'lives'
+  const etapas = [
+    ['👤', 'Conta criada com o seu e-mail', `${email} vira o seu login no TraderSystem e na Área do aluno.`],
+    ['📧', 'E-mail de primeiro acesso', 'Você recebe um link para criar a sua senha.'],
+    ['🎓', 'Área do aluno liberada', `Plano ${p.nome}, com TraderSystem, indicadores${plano === 'lives' ? ' e lives gravadas' : ', lives e aulas'}.`],
+    ...(sala ? [['🔴', 'Sala ao vivo liberada para o seu e-mail', 'Inscrição no Zoom feita automaticamente com o mesmo e-mail. Sem conferência por nome.']] : []),
+    ['🔁', 'Renovação automática', ciclo === 'anual' ? 'Acesso por 12 meses. Se não renovar, o acesso é pausado e seus dados ficam guardados.' : 'Todo mês. Se o pagamento não for renovado, o acesso é pausado e seus dados ficam guardados.'],
+  ]
+  $('sTexto').textContent = `${nome.split(' ')[0]}, sua assinatura do plano ${p.nome} foi confirmada (simulação). Veja o que acontece automaticamente a partir daqui:`
+  $('sEtapas').innerHTML = etapas.map(([ic, t, d]) => `<div class="etapa"><div class="ic">${ic}</div><div><strong>${t}</strong><span>${d.replace(/</g, '&lt;')}</span></div></div>`).join('')
+  $('compra').style.display = 'none'
+  $('sucesso').classList.add('ativo')
+  scrollTo(0, 0)
+})
+
+render()
+</script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trader Positivo · Sala ao vivo de mini índice</title>
-<meta name="description" content="Marcelo Ceribelli opera WIN ao vivo, de segunda a sexta, das 9h ao meio-dia. Sala ao vivo, lives gravadas e o TraderSystem de gestão de risco.">
+<meta name="description" content="Marcelo Ceribelli opera mini índice (WIN) e mini dólar (WDO) ao vivo, de segunda a sexta, das 9h ao meio-dia. Sala ao vivo, lives gravadas e o TraderSystem de gestão de risco.">
 <meta name="theme-color" content="#08090e">
 <meta property="og:title" content="Trader Positivo">
 <meta property="og:description" content="Sala ao vivo, lives gravadas e TraderSystem: o ecossistema do Trader Positivo.">
@@ -471,6 +471,12 @@ footer .brand { font-family: var(--fonte); font-size: 18px; color: var(--gold); 
   .lives-grid { grid-template-columns: 1fr !important }
 }
 
+/* ── FOTOS ── */
+.avatar-foto { display: block; width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 20px; border: 2px solid var(--gold); box-shadow: 0 0 0 6px var(--gold-bg) }
+.estudio { margin: 18px 0 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--bd); position: relative }
+.estudio img { display: block; width: 100%; height: 230px; object-fit: cover; object-position: center 42% }
+.estudio figcaption { position: absolute; left: 10px; bottom: 10px; background: rgba(0,0,0,.65); color: var(--gold2); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px }
+
 /* ── TIPOGRAFIA (estilo OrçaLar: fonte do sistema, títulos grossos e compactos) ── */
 h1, h2, h3, h4, .section-title { font-weight: 800; letter-spacing: -0.02em }
 .hero-title {
@@ -580,18 +586,18 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
     <div>
       <div class="eyebrow">Quem é o Trader Positivo</div>
       <h2 class="section-title">Marcelo Ceribelli<br><span style="color:var(--gold)">O trader que opera ao vivo.</span></h2>
-      <p class="section-body">Marcelo Ceribelli é trader profissional focado no mini-índice (WIN). Enquanto a maioria fala de trading, ele opera na frente de você — todo dia útil (seg–sex), todo setup, toda gestão, em tempo real.</p>
+      <p class="section-body">Marcelo Ceribelli é trader profissional dos minicontratos da B3: mini índice (WIN) e mini dólar (WDO). Enquanto a maioria fala de trading, ele opera na frente de você — todo dia útil (seg–sex), todo setup, toda gestão, em tempo real.</p>
       <p class="section-body">A filosofia é simples: consistência bate performance pontual. Um método sólido, replicado todo dia com disciplina, gera resultado sustentável ao longo do tempo.</p>
       <ul class="check-list">
         <li>Opera ao vivo das 09h às 12h, todo dia útil (seg–sex)</li>
         <li>Explica cada entrada, saída e gestão em tempo real</li>
-        <li>Foco em WIN (mini-índice) com estratégia de leitura de fluxo</li>
+        <li>Opera WIN (mini índice) e WDO (mini dólar) com leitura de fluxo</li>
         <li>Usa VWAP, Weis Wave e análise de volume</li>
         <li>Gestão de risco integrada ao TraderSystem</li>
       </ul>
     </div>
     <div class="sobre-photo">
-      <div class="avatar-circle">MC</div>
+      <img class="avatar-foto" src="img/marcelo.jpg" alt="Marcelo Ceribelli" width="100" height="100">
       <div class="sobre-name">Marcelo Ceribelli</div>
       <div class="sobre-role">Trader Positivo · @marceloceribelli</div>
       <div class="sobre-stats">
@@ -604,8 +610,8 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
           <div class="sl">Sala ao vivo</div>
         </div>
         <div class="sobre-stat">
-          <div class="sv">WIN</div>
-          <div class="sl">Instrumento</div>
+          <div class="sv" style="font-size:1.2rem;white-space:nowrap">WIN · WDO</div>
+          <div class="sl">Instrumentos</div>
         </div>
         <div class="sobre-stat">
           <div class="sv">Diário</div>
@@ -615,6 +621,10 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
       <div class="sobre-quote">
         "Operações e gestão em tempo real. Estratégia testada. Leitura afiada. Consistente."
       </div>
+      <figure class="estudio">
+        <img src="img/estudio.jpg" alt="Estúdio Trader Positivo" loading="lazy">
+        <figcaption>Estúdio Trader Positivo</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -681,7 +691,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
       <div class="sala-mockup">
         <div class="sala-header">
           <div class="sala-live">🔴 AO VIVO</div>
-          <div style="font-size:13px;font-weight:600;margin-left:10px">WIN — Sala Trader Positivo</div>
+          <div style="font-size:13px;font-weight:600;margin-left:10px">WIN · WDO — Sala Trader Positivo</div>
           <div class="sala-hora">09:47 AM · 3 ops</div>
         </div>
         <div class="sala-screen">
@@ -703,7 +713,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
           </div>
           <div class="sala-op">
             <span class="tipo c">▲ COMPRA</span>
-            <span style="color:var(--fg3);font-size:10px">09:47 · WIN</span>
+            <span style="color:var(--fg3);font-size:10px">09:47 · WDO</span>
             <span style="color:var(--fg2);font-size:12px">aberta…</span>
           </div>
         </div>
@@ -794,7 +804,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
     <div>
       <div class="eyebrow">Gestão de Risco · TraderSystem</div>
       <h2 class="section-title">O sistema de gestão incluído no ecossistema</h2>
-      <p class="section-body">Todos os alunos da sala têm acesso ao TraderSystem — a plataforma de gestão de contas que o próprio Marcelo usa ao vivo.</p>
+      <p class="section-body">Todos os planos incluem o TraderSystem, dentro da Área do aluno — a plataforma de gestão de contas que o próprio Marcelo usa ao vivo, para WIN e WDO.</p>
       <p class="section-body">Configure suas metas, stops e contratos. O plano do pregão mostra quanto arriscar, o dashboard acompanha o resultado de cada conta e a análise inteligente aponta onde você pode melhorar.</p>
       <ul class="check-list">
         <li><strong>Dashboard:</strong> todas as contas, resultado do dia e do ciclo, alerta de loss limit e importação do CSV do Profit</li>
@@ -940,10 +950,11 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
         <li>+120 lives gravadas</li>
         <li>Módulo de metodologia</li>
         <li>Acesso ao TraderSystem</li>
+        <li>Indicadores Trader Positivo</li>
         <li>Chat da comunidade</li>
         <li style="opacity:.5;text-decoration:line-through">Sala ao vivo</li>
       </ul>
-      <a class="pacote-btn secondary" href="em-construcao.html?p=lives-gravadas">Começar agora</a>
+      <a class="pacote-btn secondary" href="checkout.html?plano=lives">Começar agora</a>
     </div>
     <div class="pacote-card destaque">
       <div class="pacote-destaque-label">POPULAR</div>
@@ -961,10 +972,11 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
         <li>Replay de todas as sessões</li>
         <li>+120 lives gravadas</li>
         <li>Acesso ao TraderSystem</li>
+        <li>Indicadores Trader Positivo</li>
         <li>Suporte direto no chat</li>
         <li>Análise semanal de performance</li>
       </ul>
-      <a class="pacote-btn primary" href="em-construcao.html?p=sala">Entrar na sala agora</a>
+      <a class="pacote-btn primary" href="checkout.html?plano=sala">Entrar na sala agora</a>
     </div>
     <div class="pacote-card">
       <div class="pacote-icon">👥</div>
@@ -983,7 +995,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
         <li>Configuração personalizada do TraderSystem</li>
         <li>Acesso direto ao WhatsApp do Marcelo</li>
       </ul>
-      <a class="pacote-btn secondary" href="em-construcao.html?p=mentoria">Consultar disponibilidade</a>
+      <a class="pacote-btn secondary" href="checkout.html?plano=mentoria">Garantir minha vaga</a>
     </div>
   </div>
 </section>
@@ -997,7 +1009,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
   <div class="cta-links">
     <a class="cta-link" href="https://www.instagram.com/marceloceribelli/" target="_blank">📸 @marceloceribelli</a>
     <a class="cta-link" href="https://www.instagram.com/traderpositivo8/" target="_blank">📊 @traderpositivo8</a>
-    <span class="cta-link" style="color:var(--fg3)">contate.me/traderspreditivos</span>
+    <a class="cta-link" href="https://contate.me/traderspreditivos" target="_blank" rel="noopener">💬 contate.me/traderspreditivos</a>
   </div>
 </section>
 
