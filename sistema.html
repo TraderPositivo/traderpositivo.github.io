@@ -452,7 +452,6 @@ a.nav-cta:hover { background: var(--gold2) }
     <a href="#dashboard">Dashboard</a>
     <a href="#plano">Plano</a>
     <a href="#performance">Performance</a>
-    <a href="#checklist">Checklist</a>
     <a href="#csv">CSV</a>
     <a href="#config">Config</a>
   </div>
@@ -574,7 +573,7 @@ a.nav-cta:hover { background: var(--gold2) }
       <div class="section-eyebrow">Plano do Pregão</div>
       <h2>Antes da primeira entrada, o plano já está pronto</h2>
       <p>A aba <strong style="color:var(--fg)">Plano</strong> monta o briefing da sessão: capital disponível, parâmetros da conta e posição de hoje. Os contratos saem da conta <em>capital × risco% ÷ (stop × valor do ponto)</em>, com stop, alvo 1:2 e custos B3 já calculados.</p>
-      <p>No Dashboard, o semáforo avalia em tempo real se você ainda pode operar: stop diário, máximo de operações, janela de horário e loss limit do ciclo são monitorados juntos.</p>
+      <p>No Dashboard, o semáforo avalia em tempo real se você ainda pode operar: stop diário e mensal, máximo de operações e loss limit do ciclo são monitorados juntos.</p>
       <ul class="feature-list">
         <li>Briefing da sessão com capital disponível e posição do dia</li>
         <li>Contratos calculados pelo risco, para WIN e WDO</li>
@@ -693,85 +692,18 @@ a.nav-cta:hover { background: var(--gold2) }
   </div>
 </section>
 
-<!-- SECTION 4: CHECKLIST -->
-<section id="checklist">
-  <div class="section-inner reverse">
-    <div class="section-text">
-      <div class="section-eyebrow">Checklist de entrada</div>
-      <h2>Monte seu setup antes de cada operação</h2>
-      <p>Defina quais condições devem estar presentes antes de uma entrada de compra ou venda. O checklist é personalizado por conta e ajuda a manter a disciplina operacional.</p>
-      <p>Cada item pode ser marcado, desmarcado ou removido. Resete para os itens padrão (VWAP, Weis, confirmação de seta) a qualquer momento.</p>
-      <ul class="feature-list">
-        <li>Colunas separadas para COMPRA e VENDA</li>
-        <li>Tags personalizadas por item (VWAP, WEIS, ENTRADA...)</li>
-        <li>Checklist salvo por conta no banco de dados</li>
-        <li>Reset rápido para itens padrão</li>
-      </ul>
-    </div>
-    <div class="mockup">
-      <div class="mockup-bar">
-        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-        <div class="title-bar">Checklist — Conta Arkadi</div>
-      </div>
-      <div class="mockup-body">
-        <div class="ck-cols">
-          <div class="ck-col buy">
-            <h4>▲ Compra</h4>
-            <div class="ck-item">
-              <div class="ck-check on">✓</div>
-              VWAP a favor
-              <span class="ck-tag">VWAP</span>
-            </div>
-            <div class="ck-item">
-              <div class="ck-check on">✓</div>
-              Weis 5t exaustão
-              <span class="ck-tag">WEIS</span>
-            </div>
-            <div class="ck-item">
-              <div class="ck-check off"></div>
-              Seta ▲ confirma
-              <span class="ck-tag">ENTRADA</span>
-            </div>
-          </div>
-          <div class="ck-col sell">
-            <h4>▼ Venda</h4>
-            <div class="ck-item">
-              <div class="ck-check on">✓</div>
-              VWAP a favor
-              <span class="ck-tag">VWAP</span>
-            </div>
-            <div class="ck-item">
-              <div class="ck-check on">✓</div>
-              Weis 5t exaustão
-              <span class="ck-tag">WEIS</span>
-            </div>
-            <div class="ck-item">
-              <div class="ck-check on">✓</div>
-              Seta ▼ confirma
-              <span class="ck-tag">ENTRADA</span>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:10px;font-size:11px;color:var(--fg3);text-align:center">
-          Itens personalizáveis — clique para marcar/desmarcar
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- SECTION 5: CSV -->
 <section id="csv">
-  <div class="section-inner">
+  <div class="section-inner reverse">
     <div class="section-text">
       <div class="section-eyebrow">Importação CSV</div>
       <h2>Importe direto do Profit ou da sua corretora</h2>
       <p>Carregue o extrato de operações em CSV e o sistema registra tudo automaticamente: data, horário, tipo, pontos e resultado — inclusive calculando os custos operacionais.</p>
-      <p>A primeira importação do ciclo define automaticamente a data de início. Importações seguintes acumulam as operações sem duplicar.</p>
+      <p>Prefere lançar na mão? Também dá para registrar cada operação manualmente, direto no Dashboard.</p>
       <ul class="feature-list">
-        <li>Compatível com exportação padrão do Profit</li>
+        <li>Compatível com a exportação padrão do Profit (MT5 em breve)</li>
         <li>Calcula custo por contrato e resultado líquido</li>
-        <li>Detecta início de ciclo automaticamente</li>
+        <li>Escolha a conta de destino de cada importação</li>
         <li>Também aceita lançamento manual operação a operação</li>
       </ul>
     </div>
@@ -818,19 +750,19 @@ a.nav-cta:hover { background: var(--gold2) }
 
 <!-- SECTION 6: CONFIG -->
 <section id="config">
-  <div class="section-inner reverse">
+  <div class="section-inner">
     <div class="section-text">
       <div class="section-eyebrow">Configurações</div>
       <h2>Você define as regras. O sistema garante o cumprimento.</h2>
-      <p>Em cada conta você configura os parâmetros que fazem sentido para o seu perfil: meta e stop diário, meta e stop mensal, loss limit do ciclo e número de contratos.</p>
+      <p>Cada conta começa pelo tipo: <strong style="color:var(--fg)">pessoal</strong> ou <strong style="color:var(--fg)">mesa proprietária</strong>. Depois você informa o ativo, o capital, o risco por operação e os limites do dia, do mês e do ciclo.</p>
       <p>O sistema nunca altera esses valores — ele apenas calcula, avisa e bloqueia quando os limites são atingidos. Quem manda é você.</p>
       <ul class="feature-list">
-        <li>Meta diária e stop diário por conta</li>
-        <li>Meta mensal e stop mensal (loss limit do ciclo)</li>
-        <li>Contratos padrão para WIN e WDO</li>
-        <li>Contratos em modo seguro (reduzidos automaticamente)</li>
-        <li>Janela de operação: manhã, tarde ou horário personalizado</li>
-        <li>Ativar ou desativar o semáforo de controle por conta</li>
+        <li>Conta pessoal ou de mesa proprietária</li>
+        <li>Ativo: WIN, WDO ou os dois</li>
+        <li>Capital disponível e risco por operação (%)</li>
+        <li>Stop padrão em pontos para WIN e WDO</li>
+        <li>Meta e stop diários, meta e stop mensais</li>
+        <li>Mesa: loss limit do ciclo, custo de renovação, data de início e saldo de partida</li>
       </ul>
     </div>
     <div class="mockup">
@@ -843,20 +775,18 @@ a.nav-cta:hover { background: var(--gold2) }
         <div style="background:var(--gold-bg);border:1px solid var(--gold-bd);border-radius:8px;padding:10px 12px;margin-bottom:10px">
           <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px">Como o sistema funciona</div>
           <div style="font-size:11px;color:var(--fg2);display:flex;flex-direction:column;gap:4px">
-            <div>📌 <strong style="color:var(--fg)">Você define</strong> — Meta, Stop, Loss limit, Contratos</div>
-            <div>🤖 <strong style="color:var(--fg)">Sistema calcula</strong> — Contratos sugeridos pelo % do ciclo</div>
-            <div>🔄 <strong style="color:var(--fg)">Ciclo</strong> — Rastreado desde a 1ª importação CSV</div>
+            <div>📌 <strong style="color:var(--fg)">Você define</strong> — Capital, risco %, metas, stops e loss limit</div>
+            <div>🤖 <strong style="color:var(--fg)">Sistema calcula</strong> — Contratos pelo risco por operação</div>
+            <div>🔄 <strong style="color:var(--fg)">Ciclo</strong> — Pessoal: mês corrente · Mesa: a partir da data de início</div>
           </div>
         </div>
         <!-- toggle -->
         <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border-radius:8px;padding:10px 12px;margin-bottom:10px">
           <div>
-            <div style="font-size:13px;font-weight:600">Ativar controle de operações</div>
-            <div style="font-size:11px;color:var(--fg3);margin-top:2px">Semáforo, stop e janela de horário</div>
+            <div style="font-size:13px;font-weight:600">Tipo de conta</div>
+            <div style="font-size:11px;color:var(--fg3);margin-top:2px">Mesa proprietária · WIN + WDO</div>
           </div>
-          <div style="width:40px;height:22px;background:var(--green);border-radius:99px;position:relative;flex-shrink:0">
-            <div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;right:2px"></div>
-          </div>
+          <div style="font-size:11px;font-weight:700;color:var(--gold);background:var(--gold-bg);border:1px solid var(--gold-bd);border-radius:99px;padding:3px 10px">MESA</div>
         </div>
         <!-- campos -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
@@ -877,16 +807,16 @@ a.nav-cta:hover { background: var(--gold2) }
             <div style="font-family:var(--fonte);font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 5.000</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Contratos WIN</div>
-            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">2 ct</div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Capital disponível</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">R$ 10.000</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Janela de operação</div>
-            <div style="font-family:var(--fonte);font-weight:600;font-size:14px">☀️ Manhã</div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Risco por operação</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">1%</div>
           </div>
         </div>
         <div style="background:var(--bg3);border-radius:7px;padding:9px 12px;font-size:11px;color:var(--fg3)">
-          Max operações/dia: <strong style="color:var(--fg)">5</strong> &nbsp;·&nbsp; Stop pts WIN: <strong style="color:var(--fg)">200</strong> &nbsp;·&nbsp; Stop pts WDO: <strong style="color:var(--fg)">100</strong>
+          Stop padrão WIN: <strong style="color:var(--fg)">200 pts</strong> &nbsp;·&nbsp; Stop padrão WDO: <strong style="color:var(--fg)">10 pts</strong>
         </div>
       </div>
     </div>
@@ -905,19 +835,19 @@ a.nav-cta:hover { background: var(--gold2) }
         <div class="how-num">01</div>
         <div class="how-icon">⚙️</div>
         <h4>Você define as regras</h4>
-        <p>Meta mensal, stop diário, máximo de operações, janela de horário e contratos por instrumento.</p>
+        <p>Tipo de conta, ativo, capital, risco por operação, metas, stops e loss limit.</p>
       </div>
       <div class="how-card">
         <div class="how-num">02</div>
         <div class="how-icon">🤖</div>
         <h4>Sistema calcula o resto</h4>
-        <p>Contratos sugeridos baseados no ciclo, semáforo automático e análise de performance gerada na hora.</p>
+        <p>Contratos pelo risco, plano do pregão, semáforo automático e análise de performance gerada na hora.</p>
       </div>
       <div class="how-card">
         <div class="how-num">03</div>
         <div class="how-icon">📅</div>
-        <h4>Ciclo de renovação</h4>
-        <p>A primeira importação CSV define o início do ciclo. O sistema rastreia acúmulo e dias restantes até a meta.</p>
+        <h4>Ciclo da conta</h4>
+        <p>Na conta pessoal o ciclo é o mês; na mesa, começa na data que você define. O sistema acompanha o acumulado e os dias restantes.</p>
       </div>
       <div class="how-card">
         <div class="how-num">04</div>
