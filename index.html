@@ -426,20 +426,38 @@ footer {
 footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gold); letter-spacing: 1px }
 
 /* ── RESPONSIVE ── */
+.nav-toggle { display: none }
+
 @media (max-width: 760px) {
-  .section-cols { grid-template-columns: 1fr; gap: 40px }
+  nav { flex-wrap: wrap; padding: 0 16px; height: auto; min-height: 60px }
+  .nav-toggle {
+    display: flex; flex-direction: column; justify-content: center; gap: 5px;
+    width: 36px; height: 36px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto;
+  }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px }
+  nav .nav-links {
+    display: none; flex-direction: column; width: 100%; order: 3;
+    background: var(--bg2); padding: 12px 0; border-top: 1px solid var(--bd);
+  }
+  nav .nav-links.open { display: flex }
+  nav .nav-links a { padding: 13px 20px; font-size: 15px; border-bottom: 1px solid var(--bd) }
+  nav .nav-cta { font-size: 12px; padding: 8px 14px }
+  section { padding: 64px 20px }
+  .section-cols { grid-template-columns: 1fr; gap: 36px }
   .section-cols.flip > :first-child { order: 0 }
   .section-cols.flip > :last-child  { order: 0 }
   .metodo-grid { grid-template-columns: 1fr 1fr }
   .pacotes-grid { grid-template-columns: 1fr }
   .depo-grid { grid-template-columns: 1fr }
-  nav .nav-links { display: none }
+  .depo-inline { grid-template-columns: 1fr !important }
   .hero-title { font-size: clamp(3rem, 15vw, 5rem) }
+  .hero { padding: 100px 20px 60px }
+  .lives-grid { grid-template-columns: 1fr 1fr !important }
 }
 @media (max-width: 500px) {
   .metodo-grid { grid-template-columns: 1fr }
   .sobre-stats { grid-template-columns: 1fr 1fr }
-  .sistema-stats { grid-template-columns: 1fr 1fr }
+  .lives-grid { grid-template-columns: 1fr !important }
 }
 </style>
 
@@ -458,6 +476,9 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
     <a href="#pacotes">Pacotes</a>
   </div>
   <button class="nav-cta">Entrar na Sala</button>
+  <button class="nav-toggle" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- ── HERO ── -->
