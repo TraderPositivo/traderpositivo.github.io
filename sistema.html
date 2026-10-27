@@ -1,0 +1,967 @@
+<title>TraderSystem</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+/* ── dark-first design: sistema de trading, visual escuro/ouro ──────────── */
+:root {
+  --bg:      #0b0d13;
+  --bg2:     #131620;
+  --bg3:     #1a1e2c;
+  --card:    #1e2234;
+  --card2:   #252a3e;
+  --gold:    #c9a227;
+  --gold2:   #e8c04a;
+  --gold-bg: rgba(201,162,39,.08);
+  --gold-bd: rgba(201,162,39,.2);
+  --green:   #4caf82;
+  --red:     #e05c6a;
+  --yellow:  #f0c040;
+  --fg:      #e8eaf0;
+  --fg2:     #a0a8c0;
+  --fg3:     #6a7490;
+  --bd:      rgba(255,255,255,.07);
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg:    #f2f3f7;
+    --bg2:   #e8eaf2;
+    --bg3:   #dde0ec;
+    --card:  #ffffff;
+    --card2: #f5f6fc;
+    --fg:    #0e1020;
+    --fg2:   #4a5070;
+    --fg3:   #8890b0;
+    --bd:    rgba(0,0,0,.08);
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg:    #f2f3f7; --bg2: #e8eaf2; --bg3: #dde0ec;
+  --card:  #ffffff; --card2: #f5f6fc;
+  --fg:    #0e1020; --fg2: #4a5070; --fg3: #8890b0;
+  --bd:    rgba(0,0,0,.08);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+html { scroll-behavior: smooth }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-inline: 0;
+  padding-block: 0;
+}
+img { max-width: 100% }
+h1,h2,h3,h4 { font-family: 'Syne', sans-serif; text-wrap: balance; line-height: 1.15 }
+a { color: var(--gold); text-decoration: none }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,13,19,.85);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--bd);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -.3px;
+}
+.nav-logo span { color: var(--gold) }
+.nav-links { display: flex; gap: 24px; align-items: center }
+.nav-links a { color: var(--fg2); font-size: 14px; font-weight: 500; transition: color .2s }
+.nav-links a:hover { color: var(--gold) }
+.nav-cta {
+  background: var(--gold); color: #000;
+  font-weight: 700; font-size: 13px;
+  padding: 8px 18px; border-radius: 6px;
+  white-space: nowrap;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 24px 64px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -80px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(201,162,39,.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); border: 1px solid var(--gold-bd);
+  background: var(--gold-bg); padding: 5px 14px; border-radius: 99px;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  max-width: 720px; margin: 0 auto 20px;
+}
+.hero h1 em { color: var(--gold); font-style: normal }
+.hero-sub {
+  max-width: 540px; margin: 0 auto 40px;
+  color: var(--fg2); font-size: 16px; line-height: 1.7;
+}
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  max-width: 760px; margin: 0 auto 48px;
+}
+.hero-stat {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 20px 16px; text-align: center;
+}
+.hero-stat .val {
+  font-family: 'Inter', sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600;
+  color: var(--gold); font-variant-numeric: tabular-nums; letter-spacing: -.5px;
+  white-space: nowrap;
+}
+.hero-stat .lbl { font-size: 11px; color: var(--fg3); text-transform: uppercase; letter-spacing: .8px; margin-top: 6px }
+@media (max-width: 600px) {
+  .hero-stats { grid-template-columns: repeat(2, 1fr) }
+}
+.demo-note { font-size: 11px; color: var(--fg3); margin-top: -32px; margin-bottom: 40px }
+
+/* ── SECTION ── */
+section { padding: 80px 24px }
+section:nth-child(even) { background: var(--bg2) }
+.section-inner {
+  max-width: 1060px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 56px; align-items: center;
+}
+.section-inner.reverse > :first-child { order: 2 }
+.section-inner.reverse > :last-child  { order: 1 }
+.section-inner.full { grid-template-columns: 1fr; max-width: 860px; text-align: center }
+.section-eyebrow {
+  font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 12px;
+}
+.section-text h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 16px }
+.section-text p { color: var(--fg2); line-height: 1.75; margin-bottom: 12px }
+.feature-list { list-style: none; margin-top: 20px; display: flex; flex-direction: column; gap: 10px }
+.feature-list li { display: flex; align-items: flex-start; gap: 10px; color: var(--fg2); font-size: 14px }
+.feature-list li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px }
+
+/* ── MOCKUPS ── */
+.mockup {
+  background: var(--bg3);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+  font-size: 13px;
+}
+.mockup-bar {
+  background: var(--bg2);
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--bd);
+}
+.mockup-bar .dot { width: 9px; height: 9px; border-radius: 50% }
+.mockup-bar .dot:nth-child(1) { background: var(--red) }
+.mockup-bar .dot:nth-child(2) { background: var(--yellow) }
+.mockup-bar .dot:nth-child(3) { background: var(--green) }
+.mockup-bar .title-bar {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px;
+  color: var(--fg2); flex: 1; text-align: center; letter-spacing: .5px;
+}
+.mockup-body { padding: 14px }
+
+/* dashboard card */
+.db-card {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 14px; margin-bottom: 10px;
+}
+.db-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px }
+.db-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px }
+.badge {
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 99px;
+}
+.badge.livre { background: rgba(76,175,130,.15); color: var(--green); border: 1px solid rgba(76,175,130,.3) }
+.badge.verde { background: rgba(76,175,130,.2); color: var(--green); border: 1px solid rgba(76,175,130,.4) }
+.badge.vermelho { background: rgba(224,92,106,.2); color: var(--red); border: 1px solid rgba(224,92,106,.4) }
+.badge.amarelo { background: rgba(240,192,64,.15); color: var(--yellow); border: 1px solid rgba(240,192,64,.3) }
+.db-corretora { font-size: 10px; color: var(--fg3); margin-bottom: 10px }
+.db-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.db-kv label { font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--fg3); display: block; margin-bottom: 2px }
+.db-kv .val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
+.db-kv .val.green { color: var(--green) }
+.db-kv .val.red { color: var(--red) }
+.db-kv .val.gold { color: var(--gold) }
+.db-bar { margin-top: 10px; background: var(--bg3); border-radius: 99px; height: 5px; overflow: hidden }
+.db-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--green), #6ff0b0) }
+.db-footer { display: flex; gap: 8px; margin-top: 8px }
+.db-pill {
+  flex: 1; text-align: center; padding: 7px 4px;
+  background: var(--bg3); border-radius: 7px;
+  font-size: 10px; color: var(--fg3); text-transform: uppercase; letter-spacing: .5px;
+}
+.db-pill .pval { display: block; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--fg); margin-bottom: 2px }
+
+/* semaforo mockup */
+.sem-panel { padding: 14px }
+.sem-light {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  margin-bottom: 14px;
+}
+.sem-circle {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  transition: all .3s;
+}
+.sem-circle.verde { background: rgba(76,175,130,.15); box-shadow: 0 0 24px rgba(76,175,130,.5); border: 2px solid var(--green) }
+.sem-circle.amarelo { background: rgba(240,192,64,.15); box-shadow: 0 0 24px rgba(240,192,64,.4); border: 2px solid var(--yellow) }
+.sem-circle.vermelho { background: rgba(224,92,106,.15); box-shadow: 0 0 24px rgba(224,92,106,.5); border: 2px solid var(--red) }
+.sem-label { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 1px }
+.sem-motivo {
+  background: var(--bg3); border-radius: 8px; padding: 8px 12px;
+  font-size: 12px; color: var(--fg2); margin-bottom: 10px;
+}
+.sem-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px }
+.sem-stat { background: var(--bg3); border-radius: 7px; padding: 8px; text-align: center }
+.sem-stat label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 2px }
+.sem-stat .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
+
+/* calculadora mockup */
+.calc-tabs { display: flex; gap: 6px; margin-bottom: 10px }
+.calc-tab {
+  flex: 1; text-align: center; padding: 7px;
+  background: var(--bg3); border-radius: 7px; font-size: 11px; font-weight: 600;
+  cursor: pointer;
+}
+.calc-tab.active { background: var(--gold); color: #000 }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px }
+.calc-row { background: var(--bg3); border-radius: 7px; padding: 8px 10px }
+.calc-row label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 3px }
+.calc-row .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
+.calc-row .v.red { color: var(--red) }
+.calc-row .v.green { color: var(--green) }
+.calc-row .v.gold { color: var(--gold) }
+
+/* performance mockup */
+.perf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 10px }
+.perf-card { background: var(--bg3); border-radius: 7px; padding: 9px }
+.perf-card label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 3px }
+.perf-card .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
+.perf-card .v.green { color: var(--green) }
+.perf-card .v.red { color: var(--red) }
+.perf-card .v.gold { color: var(--gold) }
+.chart-wrap { background: var(--bg3); border-radius: 8px; padding: 10px; margin-bottom: 10px }
+.seq-dots { display: flex; gap: 4px; flex-wrap: wrap }
+.seq-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+}
+.seq-dot.g { background: var(--green) }
+.seq-dot.r { background: var(--red) }
+.seq-dot.z { background: var(--fg3) }
+
+/* checklist mockup */
+.ck-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.ck-col h4 {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  padding: 7px 10px; border-radius: 7px; margin-bottom: 6px;
+}
+.ck-col.buy h4 { background: rgba(76,175,130,.1); color: var(--green) }
+.ck-col.sell h4 { background: rgba(224,92,106,.1); color: var(--red) }
+.ck-item {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--bg3); border-radius: 7px; padding: 7px 9px;
+  margin-bottom: 5px; font-size: 12px;
+}
+.ck-check {
+  width: 16px; height: 16px; border-radius: 4px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+}
+.ck-check.on { background: var(--green); color: #fff }
+.ck-check.off { border: 1.5px solid var(--fg3) }
+.ck-tag {
+  margin-left: auto; font-size: 10px; font-weight: 600; padding: 2px 7px;
+  border-radius: 99px; background: var(--gold-bg); color: var(--gold); border: 1px solid var(--gold-bd);
+  flex-shrink: 0;
+}
+
+/* csv mockup */
+.csv-area {
+  border: 2px dashed var(--gold-bd); border-radius: 10px; padding: 24px;
+  text-align: center; margin-bottom: 10px; background: var(--gold-bg);
+}
+.csv-area .icon { font-size: 32px; margin-bottom: 8px }
+.csv-area p { color: var(--fg2); font-size: 13px; margin-bottom: 4px }
+.csv-area small { color: var(--fg3); font-size: 11px }
+.csv-row {
+  display: flex; gap: 8px; align-items: center;
+  background: var(--bg3); border-radius: 7px; padding: 8px 10px; margin-bottom: 5px;
+  font-size: 12px; font-variant-numeric: tabular-nums;
+}
+.csv-row .tp { font-weight: 700; width: 40px }
+.csv-row .tp.c { color: var(--green) }
+.csv-row .tp.v { color: var(--red) }
+.csv-row .ml { margin-left: auto; font-weight: 600 }
+.csv-row .ml.g { color: var(--green) }
+.csv-row .ml.r { color: var(--red) }
+
+/* análise inteligente */
+.analise {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 14px; font-size: 12px;
+}
+.analise-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px }
+.analise-nota {
+  width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: #000;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.analise p { color: var(--fg2); line-height: 1.6; margin-bottom: 6px }
+.analise-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px }
+.analise-tag {
+  font-size: 11px; padding: 3px 10px; border-radius: 99px;
+  background: var(--bg3); color: var(--fg3);
+}
+
+/* multi-conta */
+.conta-pills { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 24px 0 }
+.conta-pill {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 10px; padding: 12px 20px; min-width: 140px; text-align: center;
+}
+.conta-pill .cn { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; margin-bottom: 4px }
+.conta-pill .cb { font-size: 11px; color: var(--fg3) }
+.conta-pill .cv { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums }
+
+/* HOW IT WORKS */
+.how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; max-width: 900px; margin: 40px auto 0 }
+.how-card {
+  background: var(--card); border: 1px solid var(--bd);
+  border-radius: 12px; padding: 24px 20px; position: relative;
+}
+.how-num {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem;
+  color: var(--gold-bd); position: absolute; top: 16px; right: 16px;
+}
+.how-icon { font-size: 28px; margin-bottom: 12px }
+.how-card h4 { font-size: 14px; margin-bottom: 8px }
+.how-card p { color: var(--fg2); font-size: 13px; line-height: 1.6 }
+
+/* CTA section */
+.cta-section {
+  text-align: center; padding: 80px 24px;
+  background: linear-gradient(180deg, var(--bg2), var(--bg));
+}
+.cta-section h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 800; margin-bottom: 16px }
+.cta-section p { color: var(--fg2); max-width: 480px; margin: 0 auto 36px; font-size: 16px }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: #000; font-weight: 700; font-size: 15px;
+  padding: 14px 32px; border-radius: 8px; cursor: pointer;
+  border: none; font-family: 'Syne', sans-serif;
+  transition: background .2s, transform .1s;
+}
+.cta-btn:hover { background: var(--gold2); transform: translateY(-1px) }
+.cta-contact { margin-top: 20px; color: var(--fg3); font-size: 14px }
+.cta-contact strong { color: var(--fg2) }
+
+/* FOOTER */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--bd);
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--fg3); font-size: 13px;
+}
+footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .section-inner { grid-template-columns: 1fr; gap: 32px }
+  .section-inner.reverse { direction: ltr }
+  nav .nav-links { display: none }
+  .hero h1 { font-size: 2rem }
+  .perf-grid { grid-template-columns: repeat(2,1fr) }
+  .how-grid { grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 440px) {
+  .hero-stats { flex-direction: column }
+  .how-grid { grid-template-columns: 1fr }
+  .ck-cols { grid-template-columns: 1fr }
+}
+</style>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span>Trader</span>System</div>
+  <div class="nav-links">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#operar">Controle</a>
+    <a href="#performance">Performance</a>
+    <a href="#checklist">Checklist</a>
+    <a href="#csv">CSV</a>
+    <a href="#config">Config</a>
+  </div>
+  <div class="nav-cta">Solicitar acesso</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Sistema de Gestão para Day Traders</div>
+  <h1>Controle <em>inteligente</em> para quem opera WIN e WDO</h1>
+  <p class="hero-sub">Gerencie metas, stops, contratos e performance de todas as suas contas em um único painel — com regras automáticas que protegem seu capital.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="val">R$ 12.450</div>
+      <div class="lbl">Lucro do ciclo</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">71%</div>
+      <div class="lbl">Taxa de acerto</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">3,2</div>
+      <div class="lbl">Fator de lucro</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">87</div>
+      <div class="lbl">Operações no ciclo</div>
+    </div>
+  </div>
+  <p class="demo-note">* dados de exemplo</p>
+</section>
+
+<!-- SECTION 1: DASHBOARD -->
+<section id="dashboard">
+  <div class="section-inner">
+    <div class="section-text">
+      <div class="section-eyebrow">Dashboard</div>
+      <h2>Visão geral de todas as suas contas</h2>
+      <p>Veja em segundos o resultado do dia, saldo real, operações realizadas e quanto falta para a meta — em cada conta separadamente.</p>
+      <p>O sistema monitora o ciclo desde o início, mostrando a evolução e calculando a média diária necessária para bater a meta mensal.</p>
+      <ul class="feature-list">
+        <li>Resultado do dia e do ciclo em tempo real, por conta</li>
+        <li>Indicadores: stop/dia, dias restantes, ops realizadas</li>
+        <li>Painel de mercado: pregões restantes no mês, se hoje é pregão e média diária necessária para bater a meta</li>
+        <li>Libera ou bloqueia o registro de operações conforme o semáforo</li>
+        <li>Alternância Líquido / Bruto com um clique</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title-bar">TraderSystem — Dashboard</div>
+      </div>
+      <div class="mockup-body">
+        <!-- conta 1 -->
+        <div class="db-card">
+          <div class="db-card-header">
+            <div class="db-card-name">Conta Arkadi Remunerada</div>
+            <span class="badge verde">● VERDE</span>
+          </div>
+          <div class="db-corretora">📊 Clear — 2ct · R$0,20/pt</div>
+          <div class="db-grid">
+            <div class="db-kv">
+              <label>Hoje</label>
+              <div class="val green">R$ 1.840</div>
+            </div>
+            <div class="db-kv">
+              <label>Ciclo desde 01/10</label>
+              <div class="val green">R$ 12.450</div>
+            </div>
+            <div class="db-kv">
+              <label>Saldo Real</label>
+              <div class="val">R$ 62.450</div>
+            </div>
+            <div class="db-kv">
+              <label>Ops hoje</label>
+              <div class="val">3/5</div>
+            </div>
+          </div>
+          <div class="db-bar"><div class="db-bar-fill" style="width:74%"></div></div>
+          <div style="font-size:10px;color:var(--fg3);text-align:right;margin-top:3px">Meta: R$8.000 — 74% atingido</div>
+          <div class="db-footer">
+            <div class="db-pill"><span class="pval red">R$ 1.500</span>Stop/dia</div>
+            <div class="db-pill"><span class="pval">11</span>Dias restantes</div>
+            <div class="db-pill"><span class="pval gold">R$ 500</span>Média nec.</div>
+          </div>
+        </div>
+        <!-- mercado -->
+        <div style="background:var(--bg2);border-radius:9px;padding:10px 12px;margin-top:4px">
+          <div style="font-size:10px;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Mercado — Outubro 2026</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+            <div style="text-align:center">
+              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:22px;color:var(--fg);font-variant-numeric:tabular-nums">16</div>
+              <div style="font-size:10px;color:var(--fg3)">Pregões restantes</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--green)">✓ Sim</div>
+              <div style="font-size:10px;color:var(--fg3)">Hoje é pregão?</div>
+            </div>
+            <div style="text-align:center">
+              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--gold);font-variant-numeric:tabular-nums">R$ 500</div>
+              <div style="font-size:10px;color:var(--fg3)">Média necessária</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: OPERAR / SEMÁFORO -->
+<section id="operar">
+  <div class="section-inner reverse">
+    <div class="section-text">
+      <div class="section-eyebrow">Controle Operacional</div>
+      <h2>Semáforo automático que protege seu capital</h2>
+      <p>Com o controle ativo, o sistema avalia em tempo real se você pode abrir novas operações. Stop diário, máximo de operações, janela de horário e loss limit do ciclo são monitorados juntos.</p>
+      <p>A calculadora de contratos adapta o tamanho automaticamente: em modo seguro ou crítico, sugere metade dos contratos normais.</p>
+      <ul class="feature-list">
+        <li>Semáforo VERDE / AMARELO / VERMELHO automático</li>
+        <li>Stop diário e máximo de ops configuráveis por conta</li>
+        <li>Janela de horário (manhã, tarde ou personalizada)</li>
+        <li>Calculadora WIN e WDO: stop, alvo e break-even em reais</li>
+        <li>Modo conservador: reduz contratos automaticamente</li>
+      </ul>
+    </div>
+    <div>
+      <div class="mockup" style="margin-bottom:12px">
+        <div class="mockup-bar">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <div class="title-bar">Controle de Operações</div>
+        </div>
+        <div class="sem-panel">
+          <div class="sem-light">
+            <div class="sem-circle verde">🟢</div>
+            <div class="sem-label" style="color:var(--green)">VERDE</div>
+          </div>
+          <div class="sem-motivo">✅ Tudo certo para operar</div>
+          <div class="sem-stats">
+            <div class="sem-stat">
+              <label>Ops hoje</label>
+              <div class="v">3/5</div>
+            </div>
+            <div class="sem-stat">
+              <label>Res. dia</label>
+              <div class="v" style="color:var(--green)">+R$1.840</div>
+            </div>
+            <div class="sem-stat">
+              <label>Stop disp.</label>
+              <div class="v" style="color:var(--fg2)">R$1.500</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <div class="title-bar">Calculadora WIN — Normal · 2ct</div>
+        </div>
+        <div class="mockup-body">
+          <div class="calc-tabs">
+            <div class="calc-tab active">▲▼ WIN</div>
+            <div class="calc-tab">$ WDO</div>
+          </div>
+          <div class="calc-grid">
+            <div class="calc-row"><label>Stop</label><div class="v red">200 pts · R$ 80,00</div></div>
+            <div class="calc-row"><label>Alvo mín.</label><div class="v green">400 pts · R$ 160,00</div></div>
+            <div class="calc-row"><label>Break-even</label><div class="v gold">100 pts</div></div>
+            <div class="calc-row"><label>Contratos</label><div class="v">2ct (sugerido)</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: PERFORMANCE -->
+<section id="performance">
+  <div class="section-inner">
+    <div class="section-text">
+      <div class="section-eyebrow">Performance</div>
+      <h2>Análise profunda de cada operação</h2>
+      <p>Visualize o extrato completo com data, hora, tipo, pontos, resultado bruto e líquido. Filtre por conta e mês, e acompanhe a sequência de dias positivos e negativos.</p>
+      <p>A <strong style="color:var(--gold)">Análise Inteligente</strong> avalia seu desempenho automaticamente: acerto, sequências, fator de lucro, riscos e recomendações — tudo gerado a partir das suas operações reais.</p>
+      <ul class="feature-list">
+        <li>Curva de capital do período selecionado</li>
+        <li>Melhores e piores dias destacados</li>
+        <li>Análise automática com nota e recomendações</li>
+        <li>Sequência de dias: visualize padrões de consistência</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title-bar">Performance — Out/2026</div>
+      </div>
+      <div class="mockup-body">
+        <div class="perf-grid">
+          <div class="perf-card"><label>Resultado</label><div class="v green">+R$12.450</div></div>
+          <div class="perf-card"><label>Acerto</label><div class="v gold">71%</div></div>
+          <div class="perf-card"><label>Ops</label><div class="v">87</div></div>
+          <div class="perf-card"><label>Fator lucro</label><div class="v green">3,2</div></div>
+          <div class="perf-card"><label>Melhor dia</label><div class="v green">+R$3.200</div></div>
+          <div class="perf-card"><label>Pior dia</label><div class="v red">-R$800</div></div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="equityChart" height="100"></canvas>
+        </div>
+        <div style="font-size:11px;color:var(--fg3);margin-bottom:6px;font-weight:600">Sequência de dias</div>
+        <div class="seq-dots">
+          <div class="seq-dot g"></div><div class="seq-dot g"></div><div class="seq-dot r"></div>
+          <div class="seq-dot g"></div><div class="seq-dot g"></div><div class="seq-dot g"></div>
+          <div class="seq-dot z"></div><div class="seq-dot r"></div><div class="seq-dot g"></div>
+          <div class="seq-dot g"></div><div class="seq-dot g"></div><div class="seq-dot r"></div>
+          <div class="seq-dot g"></div><div class="seq-dot g"></div>
+        </div>
+        <div class="analise" style="margin-top:10px">
+          <div class="analise-header">
+            <div class="analise-nota">A</div>
+            <div>
+              <div style="font-weight:700;font-size:13px">🤖 Análise Inteligente</div>
+              <div style="font-size:11px;color:var(--fg3)">Desempenho excelente no período</div>
+            </div>
+          </div>
+          <p>71% de acerto com fator de lucro 3,2 indica gestão de risco sólida. Sequência de 3+ gains seguidos sugere boa leitura do mercado.</p>
+          <div class="analise-tags">
+            <div class="analise-tag">Consistência alta</div>
+            <div class="analise-tag">Risco controlado</div>
+            <div class="analise-tag">Meta em rota</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: CHECKLIST -->
+<section id="checklist">
+  <div class="section-inner reverse">
+    <div class="section-text">
+      <div class="section-eyebrow">Checklist de entrada</div>
+      <h2>Monte seu setup antes de cada operação</h2>
+      <p>Defina quais condições devem estar presentes antes de uma entrada de compra ou venda. O checklist é personalizado por conta e ajuda a manter a disciplina operacional.</p>
+      <p>Cada item pode ser marcado, desmarcado ou removido. Resete para os itens padrão (VWAP, Weis, confirmação de seta) a qualquer momento.</p>
+      <ul class="feature-list">
+        <li>Colunas separadas para COMPRA e VENDA</li>
+        <li>Tags personalizadas por item (VWAP, WEIS, ENTRADA...)</li>
+        <li>Checklist salvo por conta no banco de dados</li>
+        <li>Reset rápido para itens padrão</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title-bar">Checklist — Conta Arkadi</div>
+      </div>
+      <div class="mockup-body">
+        <div class="ck-cols">
+          <div class="ck-col buy">
+            <h4>▲ Compra</h4>
+            <div class="ck-item">
+              <div class="ck-check on">✓</div>
+              VWAP a favor
+              <span class="ck-tag">VWAP</span>
+            </div>
+            <div class="ck-item">
+              <div class="ck-check on">✓</div>
+              Weis 5t exaustão
+              <span class="ck-tag">WEIS</span>
+            </div>
+            <div class="ck-item">
+              <div class="ck-check off"></div>
+              Seta ▲ confirma
+              <span class="ck-tag">ENTRADA</span>
+            </div>
+          </div>
+          <div class="ck-col sell">
+            <h4>▼ Venda</h4>
+            <div class="ck-item">
+              <div class="ck-check on">✓</div>
+              VWAP a favor
+              <span class="ck-tag">VWAP</span>
+            </div>
+            <div class="ck-item">
+              <div class="ck-check on">✓</div>
+              Weis 5t exaustão
+              <span class="ck-tag">WEIS</span>
+            </div>
+            <div class="ck-item">
+              <div class="ck-check on">✓</div>
+              Seta ▼ confirma
+              <span class="ck-tag">ENTRADA</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--fg3);text-align:center">
+          Itens personalizáveis — clique para marcar/desmarcar
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: CSV -->
+<section id="csv">
+  <div class="section-inner">
+    <div class="section-text">
+      <div class="section-eyebrow">Importação CSV</div>
+      <h2>Importe direto do Profit ou da sua corretora</h2>
+      <p>Carregue o extrato de operações em CSV e o sistema registra tudo automaticamente: data, horário, tipo, pontos e resultado — inclusive calculando os custos operacionais.</p>
+      <p>A primeira importação do ciclo define automaticamente a data de início. Importações seguintes acumulam as operações sem duplicar.</p>
+      <ul class="feature-list">
+        <li>Compatível com exportação padrão do Profit</li>
+        <li>Calcula custo por contrato e resultado líquido</li>
+        <li>Detecta início de ciclo automaticamente</li>
+        <li>Também aceita lançamento manual operação a operação</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title-bar">Importar Operações — CSV</div>
+      </div>
+      <div class="mockup-body">
+        <div class="csv-area">
+          <div class="icon">📄</div>
+          <p>Arraste o CSV do Profit aqui</p>
+          <small>ou clique para selecionar o arquivo</small>
+        </div>
+        <div style="font-size:11px;color:var(--fg3);margin-bottom:8px;font-weight:600">Operações detectadas (5)</div>
+        <div class="csv-row">
+          <span class="tp c">C</span>
+          <span>07/10 09:32</span>
+          <span style="color:var(--fg2)">WIN · 2ct</span>
+          <span class="ml g">+320 pts · +R$ 128,00</span>
+        </div>
+        <div class="csv-row">
+          <span class="tp v">V</span>
+          <span>07/10 10:05</span>
+          <span style="color:var(--fg2)">WIN · 2ct</span>
+          <span class="ml g">+180 pts · +R$ 72,00</span>
+        </div>
+        <div class="csv-row">
+          <span class="tp c">C</span>
+          <span>07/10 10:41</span>
+          <span style="color:var(--fg2)">WIN · 2ct</span>
+          <span class="ml r">-200 pts · -R$ 80,00</span>
+        </div>
+        <div class="csv-row">
+          <span class="tp v">V</span>
+          <span>07/10 11:10</span>
+          <span style="color:var(--fg2)">WDO · 1ct</span>
+          <span class="ml g">+100 pts · +R$ 1.000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: CONFIG -->
+<section id="config">
+  <div class="section-inner reverse">
+    <div class="section-text">
+      <div class="section-eyebrow">Configurações</div>
+      <h2>Você define as regras. O sistema garante o cumprimento.</h2>
+      <p>Em cada conta você configura os parâmetros que fazem sentido para o seu perfil: meta e stop diário, meta e stop mensal, loss limit do ciclo e número de contratos.</p>
+      <p>O sistema nunca altera esses valores — ele apenas calcula, avisa e bloqueia quando os limites são atingidos. Quem manda é você.</p>
+      <ul class="feature-list">
+        <li>Meta diária e stop diário por conta</li>
+        <li>Meta mensal e stop mensal (loss limit do ciclo)</li>
+        <li>Contratos padrão para WIN e WDO</li>
+        <li>Contratos em modo seguro (reduzidos automaticamente)</li>
+        <li>Janela de operação: manhã, tarde ou horário personalizado</li>
+        <li>Ativar ou desativar o semáforo de controle por conta</li>
+      </ul>
+    </div>
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="title-bar">Configurações — Conta Arkadi</div>
+      </div>
+      <div class="mockup-body">
+        <!-- info box -->
+        <div style="background:var(--gold-bg);border:1px solid var(--gold-bd);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+          <div style="font-size:11px;font-weight:700;color:var(--gold);margin-bottom:6px">Como o sistema funciona</div>
+          <div style="font-size:11px;color:var(--fg2);display:flex;flex-direction:column;gap:4px">
+            <div>📌 <strong style="color:var(--fg)">Você define</strong> — Meta, Stop, Loss limit, Contratos</div>
+            <div>🤖 <strong style="color:var(--fg)">Sistema calcula</strong> — Contratos sugeridos pelo % do ciclo</div>
+            <div>🔄 <strong style="color:var(--fg)">Ciclo</strong> — Rastreado desde a 1ª importação CSV</div>
+          </div>
+        </div>
+        <!-- toggle -->
+        <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg3);border-radius:8px;padding:10px 12px;margin-bottom:10px">
+          <div>
+            <div style="font-size:13px;font-weight:600">Ativar controle de operações</div>
+            <div style="font-size:11px;color:var(--fg3);margin-top:2px">Semáforo, stop e janela de horário</div>
+          </div>
+          <div style="width:40px;height:22px;background:var(--green);border-radius:99px;position:relative;flex-shrink:0">
+            <div style="width:18px;height:18px;background:#fff;border-radius:50%;position:absolute;top:2px;right:2px"></div>
+          </div>
+        </div>
+        <!-- campos -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Meta diária</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 600</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Stop diário</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 1.500</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Meta mensal</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 8.000</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Loss limit ciclo</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 5.000</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Contratos WIN</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">2 ct</div>
+          </div>
+          <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Janela de operação</div>
+            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px">☀️ Manhã</div>
+          </div>
+        </div>
+        <div style="background:var(--bg3);border-radius:7px;padding:9px 12px;font-size:11px;color:var(--fg3)">
+          Max operações/dia: <strong style="color:var(--fg)">5</strong> &nbsp;·&nbsp; Stop pts WIN: <strong style="color:var(--fg)">200</strong> &nbsp;·&nbsp; Stop pts WDO: <strong style="color:var(--fg)">100</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:var(--bg2)">
+  <div style="max-width:900px;margin:0 auto;padding:0 0">
+    <div style="text-align:center">
+      <div class="section-eyebrow">Como funciona</div>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800">Simples de configurar. Poderoso no dia a dia.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-icon">⚙️</div>
+        <h4>Você define as regras</h4>
+        <p>Meta mensal, stop diário, máximo de operações, janela de horário e contratos por instrumento.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-icon">🤖</div>
+        <h4>Sistema calcula o resto</h4>
+        <p>Contratos sugeridos baseados no ciclo, semáforo automático e análise de performance gerada na hora.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-icon">📅</div>
+        <h4>Ciclo de renovação</h4>
+        <p>A primeira importação CSV define o início do ciclo. O sistema rastreia acúmulo e dias restantes até a meta.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-num">04</div>
+        <div class="how-icon">📊</div>
+        <h4>Analise e melhore</h4>
+        <p>Acesso ao histórico completo com taxa de acerto, fator de lucro e análise inteligente de padrões.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MULTI-CONTA -->
+<section>
+  <div class="section-inner full">
+    <div class="section-eyebrow">Multi-conta</div>
+    <h2 style="font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800">Gerencie quantas contas precisar</h2>
+    <p style="color:var(--fg2);max-width:480px;margin:0 auto">Cada conta tem suas próprias metas, regras e histórico. Ideal para traders que operam em mais de uma corretora ou modalidade.</p>
+    <div class="conta-pills">
+      <div class="conta-pill">
+        <div class="cn">Arkadi Remunerada</div>
+        <div class="cb">Clear · 2ct · WIN/WDO</div>
+        <div class="cv" style="color:var(--green)">+R$ 12.450</div>
+      </div>
+      <div class="conta-pill">
+        <div class="cn">Conta Ativação</div>
+        <div class="cb">Clear · 1ct · WIN</div>
+        <div class="cv" style="color:var(--fg3)">R$ 0,00</div>
+      </div>
+      <div class="conta-pill" style="border-style:dashed;background:transparent;color:var(--fg3)">
+        <div style="font-size:22px;margin-bottom:4px">+</div>
+        <div style="font-size:12px">Adicionar conta</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Pronto para operar com <em style="color:var(--gold)">disciplina</em>?</h2>
+  <p>Solicite acesso ao TraderSystem e comece a controlar seu capital de forma profissional.</p>
+  <button class="cta-btn" onclick="this.textContent='✓ Obrigado! Entraremos em contato.'">
+    Quero acesso ao sistema
+  </button>
+  <div class="cta-contact">
+    Ou entre em contato diretamente: <strong>matheuscosta1056@gmail.com</strong>
+  </div>
+</section>
+
+<footer>
+  <strong>TraderSystem</strong> &nbsp;·&nbsp; Sistema de gestão para day traders
+</footer>
+
+<script>
+// equity curve chart
+const ctx = document.getElementById('equityChart').getContext('2d');
+const labels = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14'];
+const data = [0, 1200, 2800, 2100, 4500, 6800, 6200, 5900, 7400, 9200, 10800, 10100, 11600, 12450];
+
+const grad = ctx.createLinearGradient(0, 0, 0, 100);
+grad.addColorStop(0, 'rgba(76,175,130,.25)');
+grad.addColorStop(1, 'rgba(76,175,130,0)');
+
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels,
+    datasets: [{
+      data,
+      borderColor: '#4caf82',
+      borderWidth: 1.5,
+      backgroundColor: grad,
+      fill: true,
+      tension: 0.35,
+      pointRadius: 0,
+      pointHoverRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    animation: false,
+    plugins: { legend: { display: false }, tooltip: {
+      callbacks: { label: ctx => 'R$ ' + ctx.parsed.y.toLocaleString('pt-BR') }
+    }},
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,.04)' }, ticks: { color: '#6a7490', font: { size: 9 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,.04)' },
+        ticks: { color: '#6a7490', font: { size: 9 }, callback: v => 'R$' + (v/1000).toFixed(0) + 'k' }
+      }
+    }
+  }
+});
+</script>
