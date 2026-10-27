@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicadores Trader Positivo · VWAP, Weis Wave e Volume Profile</title>
+<meta name="description" content="Os indicadores que o Marcelo Ceribelli usa ao vivo na sala: VWAP, Weis Wave, Volume Profile, Força vs Resultado, Volume Barras e Fibonacci, para MetaTrader 5.">
+<meta name="theme-color" content="#08090e">
+<meta property="og:title" content="Indicadores Trader Positivo">
+<meta property="og:description" content="VWAP, Weis Wave, Volume Profile e mais: a leitura de fluxo do Trader Positivo no seu gráfico.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #08090e; --bg2: #0f1018; --bg3: #161825; --card: #1a1d2e;
+  --gold: #c8971e; --gold2: #e8b840; --gold-bg: rgba(200,151,30,.08); --gold-bd: rgba(200,151,30,.22);
+  --green: #3ecf7a; --red: #e0566a; --blue: #4ea3ff; --violet: #8a5cf6; --orange: #f08a24;
+  --fg: #eceef6; --fg2: #9ba3c0; --fg3: #5a6280; --bd: rgba(255,255,255,.065);
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+html { scroll-behavior: smooth }
+body { font-family: var(--fonte); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.6; overflow-x: hidden }
+a { color: var(--gold); text-decoration: none }
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; text-wrap: balance }
+.envelope { max-width: 1080px; margin: 0 auto; padding: 0 20px }
+
+/* topo */
+.topo { position: sticky; top: 0; z-index: 50; background: rgba(8,9,14,.9); backdrop-filter: blur(14px); border-bottom: 1px solid var(--bd) }
+.topo-in { display: flex; align-items: center; gap: 12px; height: 62px }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; font-size: 19px; letter-spacing: -0.02em; white-space: nowrap }
+.marca span { color: var(--gold) }
+.marca img { width: 32px; height: 32px }
+.menu { display: flex; gap: 4px; margin-left: auto; align-items: center }
+.menu a { color: var(--fg2); font-size: 14px; font-weight: 600; padding: 8px 12px; border-radius: 10px }
+.menu a:hover { color: var(--fg); background: var(--bg3) }
+.menu a[aria-current] { color: var(--gold2); background: var(--gold-bg) }
+.menu a.cta { background: var(--gold); color: #000; margin-left: 6px }
+.menu a.cta:hover { background: var(--gold2) }
+.abrir { display: none; margin-left: auto; background: none; border: 1px solid var(--bd); border-radius: 10px; width: 42px; height: 42px; color: var(--fg); font-size: 18px; cursor: pointer }
+@media (max-width: 760px) {
+  .abrir { display: block }
+  .menu { display: none; position: absolute; top: 62px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg2); border-bottom: 1px solid var(--bd); padding: 8px 16px 16px }
+  .menu.aberto { display: flex }
+  .menu a { padding: 13px 10px; font-size: 16px; border-bottom: 1px solid var(--bd); border-radius: 0 }
+  .menu a.cta { margin: 12px 0 0; border-radius: 12px; text-align: center; border: 0 }
+}
+
+/* herói */
+.heroi { text-align: center; padding: 72px 0 40px; position: relative }
+.heroi::before { content: ''; position: absolute; inset: -60px 0 auto; height: 420px; z-index: -1;
+  background: radial-gradient(ellipse 60% 70% at 50% 0%, rgba(200,151,30,.14), transparent 70%) }
+.olho { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold);
+  background: var(--gold-bg); border: 1px solid var(--gold-bd); border-radius: 99px; padding: 5px 14px; margin-bottom: 20px }
+.heroi h1 { font-size: clamp(2.3rem, 7vw, 4.2rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 16px }
+.heroi h1 em { font-style: normal; color: var(--gold) }
+.heroi p { color: var(--fg2); font-size: 18px; max-width: 36em; margin: 0 auto 26px }
+.selos { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px }
+.selo { background: var(--card); border: 1px solid var(--bd); border-radius: 99px; padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--fg2) }
+
+/* seções */
+.secao { padding: 56px 0 }
+.secao > .envelope > h2 { font-size: clamp(1.7rem, 4.5vw, 2.5rem); text-align: center; margin-bottom: 10px }
+.secao .sub { color: var(--fg2); text-align: center; max-width: 38em; margin: 0 auto 32px }
+.faixa { background: var(--bg2) }
+
+/* camadas da leitura */
+.camadas { display: grid; gap: 14px; grid-template-columns: 1fr }
+.camada { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; padding: 22px; position: relative }
+.camada .n { font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: .06em }
+.camada h3 { font-size: 20px; margin: 6px 0 6px }
+.camada p { color: var(--fg2); font-size: 15px }
+.camada .quem { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px }
+.camada .quem a { font-size: 12px; font-weight: 700; color: var(--gold2); background: var(--gold-bg); border: 1px solid var(--gold-bd); border-radius: 99px; padding: 3px 10px }
+@media (min-width: 820px) { .camadas { grid-template-columns: repeat(3, 1fr) } }
+
+/* indicadores */
+.grupo { margin-top: 44px }
+.grupo:first-child { margin-top: 0 }
+.grupo-titulo { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 14px }
+.grupo-titulo h3 { font-size: 22px }
+.grupo-titulo span { color: var(--fg3); font-size: 14px }
+.inds { display: grid; gap: 14px; grid-template-columns: 1fr }
+@media (min-width: 760px) { .inds { grid-template-columns: 1fr 1fr } }
+.ind { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; scroll-margin-top: 80px }
+.ind:target { border-color: var(--gold) }
+.ind-arte { background: linear-gradient(180deg, #0c0f1a, #0a0c14); border-bottom: 1px solid var(--bd); height: 132px; display: grid; place-items: center }
+.ind-arte svg { width: 100%; height: 100% }
+.ind-corpo { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1 }
+.ind-corpo h4 { font-size: 18px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px }
+.ind-corpo .resumo { color: var(--fg2); font-size: 15px; margin-bottom: 14px }
+.ind-corpo ul { list-style: none; display: grid; gap: 7px; margin-bottom: 16px }
+.ind-corpo li { display: flex; gap: 9px; font-size: 14px; color: var(--fg2) }
+.ind-corpo li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0 }
+.ind-corpo li strong { color: var(--fg); font-weight: 600 }
+.plataformas { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px }
+.plat { font-size: 11px; font-weight: 700; border-radius: 99px; padding: 3px 10px; background: var(--bg3); color: var(--fg2); border: 1px solid var(--bd) }
+.plat.mt5 { color: var(--blue); border-color: rgba(78,163,255,.3); background: rgba(78,163,255,.08) }
+.plat.profit { color: var(--orange); border-color: rgba(240,138,36,.3); background: rgba(240,138,36,.08) }
+
+/* setup */
+.setup { display: grid; gap: 14px; grid-template-columns: 1fr }
+@media (min-width: 820px) { .setup { grid-template-columns: repeat(4, 1fr) } }
+.passo { background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 20px }
+.passo b { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: #000; font-weight: 800; margin-bottom: 10px }
+.passo h4 { font-size: 16px; font-weight: 800; margin-bottom: 4px }
+.passo p { font-size: 14px; color: var(--fg2) }
+
+/* perguntas */
+.perguntas { max-width: 760px; margin: 0 auto }
+.perguntas details { background: var(--card); border: 1px solid var(--bd); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px }
+.perguntas summary { font-weight: 700; cursor: pointer }
+.perguntas details p { color: var(--fg2); margin-top: 8px; font-size: 15px }
+
+/* chamada */
+.chamada { text-align: center; background: linear-gradient(135deg, #2a2210, #120f08); border: 1px solid var(--gold-bd); border-radius: 24px; padding: 44px 22px }
+.chamada h2 { font-size: clamp(1.7rem, 5vw, 2.6rem); margin-bottom: 10px }
+.chamada p { color: var(--fg2); max-width: 32em; margin: 0 auto 24px }
+.btn { display: inline-block; background: var(--gold); color: #000; font-weight: 700; font-size: 16px; padding: 14px 28px; border-radius: 14px }
+.btn:hover { background: var(--gold2) }
+.aluno { margin-top: 16px; font-size: 14px; color: var(--fg3) }
+.aluno a { color: var(--fg2); text-decoration: underline; text-underline-offset: 3px }
+.aluno a:hover { color: var(--gold) }
+
+footer { border-top: 1px solid var(--bd); margin-top: 56px; padding: 32px 20px 40px; text-align: center; color: var(--fg3); font-size: 13px }
+footer .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-bottom: 14px }
+footer .links a { color: var(--fg2); font-size: 14px }
+footer p { max-width: 640px; margin: 0 auto }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="envelope topo-in">
+    <a class="marca" href="index.html"><img src="favicon.svg" alt="">Trader <span>Positivo</span></a>
+    <button class="abrir" type="button" aria-label="Menu" onclick="document.getElementById('menu').classList.toggle('aberto')">☰</button>
+    <nav class="menu" id="menu">
+      <a href="index.html">Início</a>
+      <a href="index.html#metodologia">Metodologia</a>
+      <a href="indicadores.html" aria-current="page">Indicadores</a>
+      <a href="sistema.html">Gestão de Risco</a>
+      <a href="area-do-aluno.html">Área do aluno</a>
+      <a class="cta" href="index.html#pacotes">Ver planos</a>
+    </nav>
+  </div>
+</header>
+
+<section class="envelope heroi">
+  <div class="olho">Indicadores Trader Positivo</div>
+  <h1>A leitura de fluxo do Marcelo, <em>no seu gráfico.</em></h1>
+  <p>Os mesmos indicadores usados ao vivo na sala, todos os dias: VWAP, Weis Wave, Volume Profile, Força vs Resultado, Volume Barras e Fibonacci. Feitos para o mini índice e o mini dólar.</p>
+  <div class="selos">
+    <span class="selo">9 indicadores</span>
+    <span class="selo">MetaTrader 5</span>
+    <span class="selo">WIN e WDO</span>
+    <span class="selo">Volume real da B3</span>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="envelope">
+    <h2>Três perguntas antes de cada entrada</h2>
+    <p class="sub">Os indicadores não são para enfeitar a tela. Cada um responde uma pergunta da leitura de fluxo.</p>
+    <div class="camadas">
+      <div class="camada">
+        <div class="n">01 · ONDE</div>
+        <h3>Onde está o preço justo?</h3>
+        <p>As regiões em que o mercado mais negociou e o preço médio do dia mostram onde comprar barato, onde vender caro e onde não fazer nada.</p>
+        <div class="quem"><a href="#volume-profile">Volume Profile</a><a href="#vwap-diario">VWAP Diário</a><a href="#vwap">VWAP Ancorada</a></div>
+      </div>
+      <div class="camada">
+        <div class="n">02 · QUEM</div>
+        <h3>Quem está no controle?</h3>
+        <p>O volume acumulado em cada onda de alta e de baixa mostra se comprador ou vendedor está colocando dinheiro de verdade no movimento.</p>
+        <div class="quem"><a href="#volume-agressao">Volume Agressão</a><a href="#volume-negociado">Volume Negociado</a></div>
+      </div>
+      <div class="camada">
+        <div class="n">03 · QUANDO</div>
+        <h3>O movimento está acabando?</h3>
+        <p>Muito esforço com pouco resultado, ou um candle de volume fora do normal, avisam exaustão antes do preço virar. E o Fibonacci marca até onde ir.</p>
+        <div class="quem"><a href="#forca-resultado">Força vs Resultado</a><a href="#volume-barras">Volume Barras</a><a href="#fibonacci">Fibonacci</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao faixa">
+  <div class="envelope">
+    <h2>Os indicadores</h2>
+    <p class="sub">O que cada um mostra e como ele entra na operação.</p>
+
+    <div class="grupo">
+      <div class="grupo-titulo"><h3>Preço médio</h3><span>a âncora do setup</span></div>
+      <div class="inds">
+        <article class="ind" id="vwap-diario">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g stroke="#3a4060" stroke-width="1">
+                <line x1="20" y1="70" x2="20" y2="100"/><line x1="40" y1="60" x2="40" y2="92"/><line x1="60" y1="50" x2="60" y2="80"/><line x1="80" y1="58" x2="80" y2="88"/><line x1="100" y1="66" x2="100" y2="96"/><line x1="120" y1="54" x2="120" y2="84"/><line x1="140" y1="40" x2="140" y2="72"/><line x1="160" y1="30" x2="160" y2="62"/><line x1="180" y1="36" x2="180" y2="66"/><line x1="200" y1="48" x2="200" y2="78"/><line x1="220" y1="56" x2="220" y2="86"/><line x1="240" y1="46" x2="240" y2="74"/><line x1="260" y1="34" x2="260" y2="62"/><line x1="280" y1="26" x2="280" y2="54"/><line x1="300" y1="20" x2="300" y2="48"/>
+              </g>
+              <g>
+                <rect x="16" y="76" width="8" height="18" fill="#3ecf7a"/><rect x="36" y="64" width="8" height="20" fill="#3ecf7a"/><rect x="56" y="54" width="8" height="18" fill="#e0566a"/><rect x="76" y="62" width="8" height="20" fill="#e0566a"/><rect x="96" y="70" width="8" height="18" fill="#3ecf7a"/><rect x="116" y="58" width="8" height="20" fill="#3ecf7a"/><rect x="136" y="44" width="8" height="20" fill="#3ecf7a"/><rect x="156" y="34" width="8" height="20" fill="#e0566a"/><rect x="176" y="40" width="8" height="18" fill="#e0566a"/><rect x="196" y="52" width="8" height="18" fill="#e0566a"/><rect x="216" y="60" width="8" height="18" fill="#3ecf7a"/><rect x="236" y="50" width="8" height="18" fill="#3ecf7a"/><rect x="256" y="38" width="8" height="18" fill="#3ecf7a"/><rect x="276" y="30" width="8" height="18" fill="#3ecf7a"/><rect x="296" y="24" width="8" height="18" fill="#3ecf7a"/>
+              </g>
+              <path d="M10 88 C 60 80, 100 76, 140 68 S 220 62, 310 50" fill="none" stroke="#e8b840" stroke-width="3"/>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>VWAP Diário</h4>
+            <p class="resumo">O preço médio ponderado pelo volume do dia, zerado a cada pregão. É a referência principal do setup: compra acima, venda abaixo.</p>
+            <ul>
+              <li><span><strong>Recomeça todo dia</strong> na abertura do pregão</span></li>
+              <li><span>Calculado com o <strong>volume real</strong> negociado</span></li>
+              <li><span>Retorno à VWAP é um dos pontos de entrada do método</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+
+        <article class="ind" id="vwap">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M10 100 L40 92 L70 104 L100 80 L130 70 L160 84 L190 58 L220 48 L250 62 L280 40 L310 30" fill="none" stroke="#3a4060" stroke-width="2"/>
+              <circle cx="70" cy="104" r="4" fill="#4ea3ff"/><path d="M70 104 C 140 96, 220 80, 310 66" fill="none" stroke="#4ea3ff" stroke-width="2.5"/>
+              <circle cx="160" cy="84" r="4" fill="#3ecf7a"/><path d="M160 84 C 210 74, 260 64, 310 52" fill="none" stroke="#3ecf7a" stroke-width="2.5"/>
+              <circle cx="100" cy="80" r="4" fill="#e0566a"/><path d="M100 80 C 170 70, 240 54, 310 40" fill="none" stroke="#e0566a" stroke-width="2.5" stroke-dasharray="6 4"/>
+              <g font-family="system-ui" font-size="10" font-weight="700"><text x="16" y="20" fill="#4ea3ff">Compra 1</text><text x="80" y="20" fill="#3ecf7a">Compra 2</text><text x="144" y="20" fill="#e0566a">Venda 1</text><text x="200" y="20" fill="#4ad7d1">Venda 2</text></g>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>VWAP Ancorada</h4>
+            <p class="resumo">Até quatro VWAPs ancoradas no ponto que você escolher: duas de compra, a partir de fundos, e duas de venda, a partir de topos.</p>
+            <ul>
+              <li><span><strong>Ancoragem com um clique</strong>, pelos botões no gráfico</span></li>
+              <li><span>Compra calculada pelas mínimas, venda pelas máximas</span></li>
+              <li><span>Mostra o preço médio de quem entrou a partir de um evento</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <div class="grupo-titulo"><h3>Onde o mercado negociou</h3><span>suporte, resistência e equilíbrio</span></div>
+      <div class="inds">
+        <article class="ind" id="volume-profile">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g fill="#e0566a" opacity=".85"><rect x="20" y="10" width="30" height="8"/><rect x="20" y="20" width="52" height="8"/></g>
+              <g fill="#8a5cf6"><rect x="20" y="30" width="90" height="8"/><rect x="20" y="40" width="130" height="8"/><rect x="20" y="50" width="170" height="8"/><rect x="20" y="70" width="150" height="8"/><rect x="20" y="80" width="110" height="8"/><rect x="20" y="90" width="80" height="8"/></g>
+              <rect x="20" y="60" width="210" height="8" fill="#f08a24"/>
+              <g fill="#e0566a" opacity=".85"><rect x="20" y="100" width="56" height="8"/><rect x="20" y="110" width="30" height="8"/></g>
+              <line x1="20" y1="29" x2="310" y2="29" stroke="#4ad7d1" stroke-width="2"/>
+              <line x1="20" y1="64" x2="310" y2="64" stroke="#f08a24" stroke-width="2"/>
+              <line x1="20" y1="99" x2="310" y2="99" stroke="#e0566a" stroke-width="2"/>
+              <g font-family="system-ui" font-size="11" font-weight="800"><text x="270" y="25" fill="#4ad7d1">VAH</text><text x="270" y="60" fill="#f08a24">POC</text><text x="270" y="95" fill="#e0566a">VAL</text></g>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Volume Profile</h4>
+            <p class="resumo">O mapa de quanto foi negociado em cada preço. Mostra o POC, preço com mais volume, e a área de valor, a faixa onde o mercado aceitou negociar.</p>
+            <ul>
+              <li><span><strong>POC, VAH e VAL</strong> desenhados e estendidos até o fim do dia seguinte</span></li>
+              <li><span>Área de valor de <strong>70%</strong>, ajustável, com nível de 1 tick</span></li>
+              <li><span>De <strong>1 a 10 dias</strong> de perfil no gráfico, com o dia atual ao vivo</span></li>
+              <li><span>Usa os negócios reais da B3, não só os candles</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+
+        <article class="ind" id="fibonacci">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M20 112 L80 50 L120 84" fill="none" stroke="#9ba3c0" stroke-width="2.5"/>
+              <circle cx="20" cy="112" r="4" fill="#9ba3c0"/><circle cx="80" cy="50" r="4" fill="#9ba3c0"/><circle cx="120" cy="84" r="4" fill="#9ba3c0"/>
+              <g stroke-width="1.6" stroke-dasharray="5 4"><line x1="120" y1="22" x2="300" y2="22" stroke="#e8b840"/><line x1="120" y1="46" x2="300" y2="46" stroke="#3ecf7a"/></g>
+              <g font-family="system-ui" font-size="11" font-weight="800"><text x="262" y="18" fill="#e8b840">1.27</text><text x="262" y="42" fill="#3ecf7a">1.0</text></g>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Fibonacci Trader Positivo</h4>
+            <p class="resumo">Projeções de alvo a partir do último movimento, para saber até onde o preço costuma ir, sem desenhar linha por linha.</p>
+            <ul>
+              <li><span>Níveis <strong>1.0, 1.27 e 1.618</strong> (e o 0, se quiser)</span></li>
+              <li><span>Botões no gráfico para projetar e apagar a última projeção</span></li>
+              <li><span>Ajuda a manter o alvo mínimo de 2× o stop</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="grupo">
+      <div class="grupo-titulo"><h3>Fluxo em ondas</h3><span>a família Weis Wave</span></div>
+      <div class="inds">
+        <article class="ind" id="volume-agressao">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g fill="#3ecf7a"><rect x="14" y="94" width="14" height="28"/><rect x="30" y="80" width="14" height="42"/><rect x="46" y="62" width="14" height="60"/></g>
+              <g fill="#e0566a"><rect x="66" y="104" width="14" height="18"/><rect x="82" y="92" width="14" height="30"/></g>
+              <g fill="#3ecf7a"><rect x="102" y="98" width="14" height="24"/><rect x="118" y="78" width="14" height="44"/><rect x="134" y="56" width="14" height="66"/><rect x="150" y="36" width="14" height="86"/></g>
+              <g fill="#e0566a"><rect x="170" y="100" width="14" height="22"/><rect x="186" y="84" width="14" height="38"/><rect x="202" y="64" width="14" height="58"/></g>
+              <g fill="#3ecf7a"><rect x="222" y="104" width="14" height="18"/><rect x="238" y="96" width="14" height="26"/></g>
+              <g fill="#e0566a"><rect x="258" y="96" width="14" height="26"/><rect x="274" y="74" width="14" height="48"/><rect x="290" y="48" width="14" height="74"/></g>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Volume Agressão <small style="color:var(--fg3);font-weight:600">· 5 ticks</small></h4>
+            <p class="resumo">Weis Wave curto: soma o volume de cada onda de alta e de baixa. Mostra quem está agredindo agora e quando a força começa a trocar de lado.</p>
+            <ul>
+              <li><span>Ondas de <strong>alta, baixa e neutras</strong> em cores separadas</span></li>
+              <li><span>Vira a onda com 5 ticks contra: leitura rápida para o day trade</span></li>
+              <li><span>Exaustão de onda é um dos pontos de entrada do método</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+
+        <article class="ind" id="volume-negociado">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g fill="#3ecf7a"><rect x="14" y="96" width="20" height="26"/><rect x="36" y="80" width="20" height="42"/><rect x="58" y="62" width="20" height="60"/><rect x="80" y="40" width="20" height="82"/></g>
+              <g fill="#e0566a"><rect x="106" y="100" width="20" height="22"/><rect x="128" y="88" width="20" height="34"/><rect x="150" y="74" width="20" height="48"/></g>
+              <g fill="#3ecf7a"><rect x="176" y="98" width="20" height="24"/><rect x="198" y="76" width="20" height="46"/><rect x="220" y="50" width="20" height="72"/><rect x="242" y="22" width="20" height="100"/></g>
+              <g fill="#e0566a"><rect x="268" y="102" width="20" height="20"/><rect x="290" y="92" width="20" height="30"/></g>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Volume Negociado <small style="color:var(--fg3);font-weight:600">· 15 ticks</small></h4>
+            <p class="resumo">Weis Wave longo: o mesmo princípio com ondas maiores. Filtra o ruído e mostra a tendência do fluxo no contexto do dia.</p>
+            <ul>
+              <li><span>Vira a onda só com <strong>15 ticks</strong> contra</span></li>
+              <li><span>Confirma ou desmente o que o Volume Agressão está mostrando</span></li>
+              <li><span>Usa volume real, com contagem de negócios como alternativa</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+
+        <article class="ind" id="forca-resultado">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g fill="#3ecf7a" opacity=".9"><rect x="16" y="70" width="64" height="52"/></g>
+              <g fill="#e0566a" opacity=".9"><rect x="84" y="88" width="46" height="34"/></g>
+              <g fill="#3ecf7a" opacity=".9"><rect x="134" y="26" width="76" height="96"/></g>
+              <g fill="#e0566a" opacity=".9"><rect x="214" y="58" width="44" height="64"/></g>
+              <g fill="#3ecf7a" opacity=".55"><rect x="262" y="96" width="44" height="26"/></g>
+              <path d="M16 80 L80 60 L130 70 L210 52 L258 66 L306 62" fill="none" stroke="#e8b840" stroke-width="2.5"/>
+              <text x="140" y="20" font-family="system-ui" font-size="10" font-weight="800" fill="#e8b840">muito esforço, pouco resultado</text>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Força vs Resultado <small style="color:var(--fg3);font-weight:600">· 5 e 15 ticks</small></h4>
+            <p class="resumo">Compara o esforço, o volume de cada onda, com o resultado, o quanto o preço andou. Volume alto com pouco deslocamento é sinal de absorção e de virada próxima.</p>
+            <ul>
+              <li><span>Blocos por onda, de alta e de baixa, numa janela separada</span></li>
+              <li><span>Duas versões: <strong>5 ticks</strong> (curta) e <strong>15 ticks</strong> (longa)</span></li>
+              <li><span>Antecipa exaustão antes de o preço virar</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span></div>
+          </div>
+        </article>
+
+        <article class="ind" id="volume-barras">
+          <div class="ind-arte">
+            <svg viewBox="0 0 320 132" preserveAspectRatio="none" aria-hidden="true">
+              <g stroke="#3a4060" stroke-width="1"><line x1="24" y1="58" x2="24" y2="98"/><line x1="52" y1="52" x2="52" y2="92"/><line x1="80" y1="48" x2="80" y2="88"/><line x1="108" y1="40" x2="108" y2="84"/><line x1="136" y1="28" x2="136" y2="90"/><line x1="164" y1="44" x2="164" y2="86"/><line x1="192" y1="50" x2="192" y2="90"/><line x1="220" y1="36" x2="220" y2="104"/><line x1="248" y1="56" x2="248" y2="96"/><line x1="276" y1="50" x2="276" y2="90"/><line x1="304" y1="46" x2="304" y2="86"/></g>
+              <rect x="17" y="64" width="14" height="24" fill="#eceef6"/><rect x="45" y="58" width="14" height="24" fill="#e8b840"/><rect x="73" y="54" width="14" height="24" fill="#eceef6"/><rect x="101" y="46" width="14" height="28" fill="#f08a24"/><rect x="129" y="34" width="14" height="46" fill="#e0566a"/><rect x="157" y="50" width="14" height="26" fill="#e8b840"/><rect x="185" y="56" width="14" height="24" fill="#eceef6"/><rect x="213" y="42" width="14" height="52" fill="#e0566a"/><rect x="241" y="62" width="14" height="24" fill="#f08a24"/><rect x="269" y="56" width="14" height="24" fill="#e8b840"/><rect x="297" y="52" width="14" height="24" fill="#eceef6"/>
+            </svg>
+          </div>
+          <div class="ind-corpo">
+            <h4>Volume Barras</h4>
+            <p class="resumo">Pinta cada candle conforme o volume, comparado com a média recente. Um candle vermelho no meio de candles brancos chama a atenção na hora.</p>
+            <ul>
+              <li><span>Quatro faixas: <strong>branco, amarelo, laranja e vermelho</strong></span></li>
+              <li><span>Média de 60 períodos e faixas ajustáveis</span></li>
+              <li><span>Mostra onde entrou volume fora do normal sem olhar outra janela</span></li>
+            </ul>
+            <div class="plataformas"><span class="plat mt5">MetaTrader 5</span><span class="plat profit">Profit</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="secao">
+  <div class="envelope">
+    <h2>Como entram no setup</h2>
+    <p class="sub">A sequência que o Marcelo explica ao vivo, operação por operação.</p>
+    <div class="setup">
+      <div class="passo"><b>1</b><h4>Contexto</h4><p>VWAP e Volume Profile dizem se o preço está caro, barato ou em equilíbrio.</p></div>
+      <div class="passo"><b>2</b><h4>Região</h4><p>Espera o preço chegar num nível: POC, VAH, VAL ou retorno à VWAP.</p></div>
+      <div class="passo"><b>3</b><h4>Gatilho</h4><p>Exaustão de onda no Weis e na Força vs Resultado, com volume anormal no candle.</p></div>
+      <div class="passo"><b>4</b><h4>Gestão</h4><p>Stop fixo, alvo de pelo menos 2× o stop e tudo registrado no TraderSystem.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="secao faixa">
+  <div class="envelope">
+    <h2>Perguntas frequentes</h2>
+    <p class="sub">&nbsp;</p>
+    <div class="perguntas">
+      <details><summary>Em qual plataforma funcionam?</summary><p>Todos os 9 indicadores funcionam no MetaTrader 5, com uma conta que tenha os dados da B3. Os indicadores marcados com o selo Profit também têm versão para o Profit (Nelogica).</p></details>
+      <details><summary>Servem para WIN e WDO?</summary><p>Sim. Foram feitos para os minicontratos da B3 e usam o volume real negociado, com a contagem de negócios como alternativa quando o volume não está disponível.</p></details>
+      <details><summary>Os indicadores dão sinal de compra e venda?</summary><p>Não. Eles organizam a leitura de fluxo. A decisão de entrar continua sendo sua, seguindo o método e a gestão de risco. Na sala ao vivo você vê como o Marcelo usa cada um.</p></details>
+      <details><summary>Como recebo os indicadores?</summary><p>Eles fazem parte dos planos do Trader Positivo. Depois da inscrição, o download e o passo a passo de instalação ficam na Área do aluno.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="envelope" style="padding-top:56px">
+  <div class="chamada">
+    <h2>Opere com a mesma leitura da sala</h2>
+    <p>Os indicadores vêm junto com os planos do Trader Positivo, com a sala ao vivo, as lives gravadas e o TraderSystem.</p>
+    <a class="btn" href="index.html#pacotes">Ver os planos</a>
+    <p class="aluno">Já é aluno? <a href="area-do-aluno.html">Baixe na Área do aluno</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="index.html">Início</a><a href="index.html#sala">Sala ao vivo</a><a href="sistema.html">Gestão de Risco</a><a href="area-do-aluno.html">Área do aluno</a><a href="index.html#pacotes">Pacotes</a>
+  </div>
+  <p>Conteúdo educacional. Indicadores não são recomendação de investimento nem garantem resultado. Operações com contratos futuros envolvem alto risco e podem gerar perdas superiores ao capital investido.</p>
+</footer>
+
+<script>
+document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => document.getElementById('menu').classList.remove('aberto')));
+</script>
+</body>
+</html>

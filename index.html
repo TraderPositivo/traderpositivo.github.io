@@ -500,6 +500,11 @@ a.whatsapp-btn { color: #fff }
   border: 1px solid var(--bd); white-space: nowrap;
 }
 .nav-sistema:hover { color: var(--gold); border-color: var(--gold-bd) }
+.nav-links a.so-celular { display: none }
+.metodo-mais { text-align: center; margin-top: 28px }
+.metodo-mais a { display: inline-flex; align-items: center; gap: 8px; background: var(--gold-bg); border: 1px solid var(--gold-bd); color: var(--gold2); font-weight: 700; font-size: 15px; padding: 11px 22px; border-radius: 12px }
+.metodo-mais a:hover { border-color: var(--gold) }
+@media (max-width: 1000px) and (min-width: 761px) { .nav-links { gap: 12px } .nav-links a { font-size: 12.5px } }
 a.live-card { display: block; color: inherit; transition: border-color .2s, transform .2s }
 a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
 .sistema-acoes { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px }
@@ -507,6 +512,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
 
 @media (max-width: 760px) {
   .nav-sistema { display: none }
+  nav .nav-links a.so-celular { display: block; color: var(--gold) }
   nav { gap: 8px }
   .nav-acoes { margin-left: auto }
   nav .nav-toggle { margin-left: 0 }
@@ -528,13 +534,15 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
   <div class="nav-links">
     <a href="#sobre">O Trader</a>
     <a href="#metodologia">Metodologia</a>
+    <a href="indicadores.html">Indicadores</a>
     <a href="#sala">Sala ao Vivo</a>
     <a href="#lives">Lives</a>
     <a href="#sistema">Gestão de Risco</a>
     <a href="#pacotes">Pacotes</a>
+    <a class="so-celular" href="area-do-aluno.html">🔒 Área do aluno</a>
   </div>
   <div class="nav-acoes">
-    <a class="nav-sistema" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Acessar sistema</a>
+    <a class="nav-sistema" href="area-do-aluno.html">🔒 Área do aluno</a>
     <a class="nav-cta" href="#pacotes">Entrar na Sala</a>
   </div>
   <button class="nav-toggle" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
@@ -650,6 +658,7 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
       <p>O mesmo processo repetido todos os dias. Sem hero trades, sem overtrading. O resultado vem do volume de acertos no tempo.</p>
     </div>
   </div>
+  <div class="metodo-mais"><a href="indicadores.html">Conheça os 9 indicadores Trader Positivo →</a></div>
 </section>
 
 <!-- ── SALA AO VIVO ── -->
@@ -1001,7 +1010,9 @@ a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
     <a href="#lives">Lives</a>
     <a href="sistema.html">Gestão de Risco</a>
     <a href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Acessar sistema</a>
+    <a href="indicadores.html">Indicadores</a>
     <a href="#pacotes">Pacotes</a>
+    <a href="area-do-aluno.html">Área do aluno</a>
   </div>
   <p class="rodape-aviso">Conteúdo educacional. Não é recomendação de investimento. Operações com contratos futuros envolvem alto risco e podem gerar perdas superiores ao capital investido. Resultados passados não garantem resultados futuros.</p>
 </footer>
