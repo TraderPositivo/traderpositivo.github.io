@@ -1,5 +1,12 @@
-<title>TraderSystem</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap">
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TraderSystem · Trader Positivo</title>
+<meta name="description" content="TraderSystem: gestão de metas, stops, contratos e performance para quem opera WIN e WDO. Incluído no ecossistema Trader Positivo.">
+<meta name="theme-color" content="#0b0d13">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <style>
@@ -21,6 +28,7 @@
   --fg2:     #a0a8c0;
   --fg3:     #6a7490;
   --bd:      rgba(255,255,255,.07);
+  --fonte:   system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: light) {
@@ -48,7 +56,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 html { scroll-behavior: smooth }
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--fonte);
   background: var(--bg);
   color: var(--fg);
   font-size: 15px;
@@ -57,7 +65,7 @@ body {
   padding-block: 0;
 }
 img { max-width: 100% }
-h1,h2,h3,h4 { font-family: 'Syne', sans-serif; text-wrap: balance; line-height: 1.15 }
+h1,h2,h3,h4 { font-family: var(--fonte); text-wrap: balance; line-height: 1.15 }
 a { color: var(--gold); text-decoration: none }
 
 /* ── NAV ── */
@@ -71,7 +79,7 @@ nav {
   gap: 16px;
 }
 .nav-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--fonte);
   font-weight: 800;
   font-size: 18px;
   letter-spacing: -.3px;
@@ -127,7 +135,7 @@ nav {
   border-radius: 10px; padding: 20px 16px; text-align: center;
 }
 .hero-stat .val {
-  font-family: 'Inter', sans-serif; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600;
+  font-family: var(--fonte); font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600;
   color: var(--gold); font-variant-numeric: tabular-nums; letter-spacing: -.5px;
   white-space: nowrap;
 }
@@ -177,7 +185,7 @@ section:nth-child(even) { background: var(--bg2) }
 .mockup-bar .dot:nth-child(2) { background: var(--yellow) }
 .mockup-bar .dot:nth-child(3) { background: var(--green) }
 .mockup-bar .title-bar {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px;
+  font-family: var(--fonte); font-weight: 700; font-size: 13px;
   color: var(--fg2); flex: 1; text-align: center; letter-spacing: .5px;
 }
 .mockup-body { padding: 14px }
@@ -188,7 +196,7 @@ section:nth-child(even) { background: var(--bg2) }
   border-radius: 10px; padding: 14px; margin-bottom: 10px;
 }
 .db-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px }
-.db-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px }
+.db-card-name { font-family: var(--fonte); font-weight: 700; font-size: 14px }
 .badge {
   font-size: 10px; font-weight: 700; letter-spacing: 1px; padding: 3px 8px; border-radius: 99px;
 }
@@ -199,7 +207,7 @@ section:nth-child(even) { background: var(--bg2) }
 .db-corretora { font-size: 10px; color: var(--fg3); margin-bottom: 10px }
 .db-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
 .db-kv label { font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--fg3); display: block; margin-bottom: 2px }
-.db-kv .val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
+.db-kv .val { font-family: var(--fonte); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
 .db-kv .val.green { color: var(--green) }
 .db-kv .val.red { color: var(--red) }
 .db-kv .val.gold { color: var(--gold) }
@@ -211,7 +219,7 @@ section:nth-child(even) { background: var(--bg2) }
   background: var(--bg3); border-radius: 7px;
   font-size: 10px; color: var(--fg3); text-transform: uppercase; letter-spacing: .5px;
 }
-.db-pill .pval { display: block; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--fg); margin-bottom: 2px }
+.db-pill .pval { display: block; font-family: var(--fonte); font-weight: 700; font-size: 13px; color: var(--fg); margin-bottom: 2px }
 
 /* semaforo mockup */
 .sem-panel { padding: 14px }
@@ -228,7 +236,7 @@ section:nth-child(even) { background: var(--bg2) }
 .sem-circle.verde { background: rgba(76,175,130,.15); box-shadow: 0 0 24px rgba(76,175,130,.5); border: 2px solid var(--green) }
 .sem-circle.amarelo { background: rgba(240,192,64,.15); box-shadow: 0 0 24px rgba(240,192,64,.4); border: 2px solid var(--yellow) }
 .sem-circle.vermelho { background: rgba(224,92,106,.15); box-shadow: 0 0 24px rgba(224,92,106,.5); border: 2px solid var(--red) }
-.sem-label { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: 1px }
+.sem-label { font-family: var(--fonte); font-weight: 800; font-size: 18px; letter-spacing: 1px }
 .sem-motivo {
   background: var(--bg3); border-radius: 8px; padding: 8px 12px;
   font-size: 12px; color: var(--fg2); margin-bottom: 10px;
@@ -236,7 +244,7 @@ section:nth-child(even) { background: var(--bg2) }
 .sem-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px }
 .sem-stat { background: var(--bg3); border-radius: 7px; padding: 8px; text-align: center }
 .sem-stat label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 2px }
-.sem-stat .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
+.sem-stat .v { font-family: var(--fonte); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
 
 /* calculadora mockup */
 .calc-tabs { display: flex; gap: 6px; margin-bottom: 10px }
@@ -249,7 +257,7 @@ section:nth-child(even) { background: var(--bg2) }
 .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px }
 .calc-row { background: var(--bg3); border-radius: 7px; padding: 8px 10px }
 .calc-row label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 3px }
-.calc-row .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
+.calc-row .v { font-family: var(--fonte); font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums }
 .calc-row .v.red { color: var(--red) }
 .calc-row .v.green { color: var(--green) }
 .calc-row .v.gold { color: var(--gold) }
@@ -258,7 +266,7 @@ section:nth-child(even) { background: var(--bg2) }
 .perf-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 10px }
 .perf-card { background: var(--bg3); border-radius: 7px; padding: 9px }
 .perf-card label { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--fg3); display: block; margin-bottom: 3px }
-.perf-card .v { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
+.perf-card .v { font-family: var(--fonte); font-weight: 700; font-size: 15px; font-variant-numeric: tabular-nums }
 .perf-card .v.green { color: var(--green) }
 .perf-card .v.red { color: var(--red) }
 .perf-card .v.gold { color: var(--gold) }
@@ -325,7 +333,7 @@ section:nth-child(even) { background: var(--bg2) }
 .analise-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px }
 .analise-nota {
   width: 36px; height: 36px; border-radius: 8px; background: var(--gold); color: #000;
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px;
+  font-family: var(--fonte); font-weight: 800; font-size: 16px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .analise p { color: var(--fg2); line-height: 1.6; margin-bottom: 6px }
@@ -341,9 +349,9 @@ section:nth-child(even) { background: var(--bg2) }
   background: var(--card); border: 1px solid var(--bd);
   border-radius: 10px; padding: 12px 20px; min-width: 140px; text-align: center;
 }
-.conta-pill .cn { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; margin-bottom: 4px }
+.conta-pill .cn { font-family: var(--fonte); font-weight: 700; font-size: 13px; margin-bottom: 4px }
 .conta-pill .cb { font-size: 11px; color: var(--fg3) }
-.conta-pill .cv { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums }
+.conta-pill .cv { font-family: var(--fonte); font-size: 16px; font-weight: 700; margin-top: 2px; font-variant-numeric: tabular-nums }
 
 /* HOW IT WORKS */
 .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; max-width: 900px; margin: 40px auto 0 }
@@ -352,7 +360,7 @@ section:nth-child(even) { background: var(--bg2) }
   border-radius: 12px; padding: 24px 20px; position: relative;
 }
 .how-num {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem;
+  font-family: var(--fonte); font-weight: 800; font-size: 2rem;
   color: var(--gold-bd); position: absolute; top: 16px; right: 16px;
 }
 .how-icon { font-size: 28px; margin-bottom: 12px }
@@ -370,7 +378,7 @@ section:nth-child(even) { background: var(--bg2) }
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--gold); color: #000; font-weight: 700; font-size: 15px;
   padding: 14px 32px; border-radius: 8px; cursor: pointer;
-  border: none; font-family: 'Syne', sans-serif;
+  border: none; font-family: var(--fonte);
   transition: background .2s, transform .1s;
 }
 .cta-btn:hover { background: var(--gold2); transform: translateY(-1px) }
@@ -385,7 +393,7 @@ footer {
   text-align: center;
   color: var(--fg3); font-size: 13px;
 }
-footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
+footer strong { color: var(--gold); font-family: var(--fonte) }
 
 /* RESPONSIVE */
 @media (max-width: 720px) {
@@ -401,20 +409,58 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
   .how-grid { grid-template-columns: 1fr }
   .ck-cols { grid-template-columns: 1fr }
 }
+
+/* ── TIPOGRAFIA (estilo OrçaLar) ── */
+h1, h2, h3, h4 { font-weight: 800; letter-spacing: -0.02em }
+.hero h1 { font-weight: 900; letter-spacing: -0.03em; line-height: 1.05 }
+.nav-logo { letter-spacing: -0.02em }
+.section-text p { font-size: 16px }
+
+/* ── NAV + BOTÕES ── */
+.nav-voltar { color: var(--fg2); font-size: 14px; font-weight: 600; white-space: nowrap }
+.nav-voltar:hover { color: var(--gold) }
+.nav-acoes { display: flex; align-items: center; gap: 12px }
+a.nav-cta { color: #000; border-radius: 12px; padding: 9px 18px }
+a.nav-cta:hover { background: var(--gold2) }
+.cta-btn { border-radius: 14px; font-size: 16px; text-decoration: none; color: #000 }
+.cta-btn.contorno { background: transparent; color: var(--fg); border: 1px solid var(--bd) }
+.cta-btn.contorno:hover { border-color: var(--gold); background: transparent }
+.cta-acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px }
+.nav-toggle { display: none; background: none; border: 1px solid var(--bd); border-radius: 10px; width: 40px; height: 40px; color: var(--fg); cursor: pointer; font-size: 18px }
+@media (max-width: 720px) {
+  nav { flex-wrap: wrap; padding: 12px 16px }
+  .nav-toggle { display: block }
+  .nav-voltar { display: none }
+  nav .nav-links.open {
+    display: flex; flex-direction: column; align-items: stretch; gap: 0; width: 100%; order: 3;
+    border-top: 1px solid var(--bd); margin-top: 10px; padding-top: 6px;
+  }
+  nav .nav-links.open a { padding: 12px 4px; font-size: 16px; border-bottom: 1px solid var(--bd) }
+  section { padding: 56px 16px }
+  .section-inner.reverse > :first-child, .section-inner.reverse > :last-child { order: 0 }
+  .hero { padding: 56px 16px 40px }
+  .cta-acoes .cta-btn { flex: 1 1 100%; justify-content: center }
+}
 </style>
+</head>
+<body>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo"><span>Trader</span>System</div>
+  <a class="nav-logo" href="index.html" style="color:var(--fg)"><span>Trader</span>System</a>
   <div class="nav-links">
     <a href="#dashboard">Dashboard</a>
-    <a href="#operar">Controle</a>
+    <a href="#plano">Plano</a>
     <a href="#performance">Performance</a>
     <a href="#checklist">Checklist</a>
     <a href="#csv">CSV</a>
     <a href="#config">Config</a>
   </div>
-  <div class="nav-cta">Solicitar acesso</div>
+  <div class="nav-acoes">
+    <a class="nav-voltar" href="index.html">← Trader Positivo</a>
+    <a class="nav-cta" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Entrar</a>
+    <button class="nav-toggle" type="button" aria-label="Menu" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -503,15 +549,15 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
           <div style="font-size:10px;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Mercado — Outubro 2026</div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
             <div style="text-align:center">
-              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:22px;color:var(--fg);font-variant-numeric:tabular-nums">16</div>
+              <div style="font-family:var(--fonte);font-weight:700;font-size:22px;color:var(--fg);font-variant-numeric:tabular-nums">16</div>
               <div style="font-size:10px;color:var(--fg3)">Pregões restantes</div>
             </div>
             <div style="text-align:center">
-              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--green)">✓ Sim</div>
+              <div style="font-family:var(--fonte);font-weight:700;font-size:16px;color:var(--green)">✓ Sim</div>
               <div style="font-size:10px;color:var(--fg3)">Hoje é pregão?</div>
             </div>
             <div style="text-align:center">
-              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;color:var(--gold);font-variant-numeric:tabular-nums">R$ 500</div>
+              <div style="font-family:var(--fonte);font-weight:700;font-size:16px;color:var(--gold);font-variant-numeric:tabular-nums">R$ 500</div>
               <div style="font-size:10px;color:var(--fg3)">Média necessária</div>
             </div>
           </div>
@@ -521,27 +567,27 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
   </div>
 </section>
 
-<!-- SECTION 2: OPERAR / SEMÁFORO -->
-<section id="operar">
+<!-- SECTION 2: PLANO DO PREGÃO + SEMÁFORO -->
+<section id="plano">
   <div class="section-inner reverse">
     <div class="section-text">
-      <div class="section-eyebrow">Controle Operacional</div>
-      <h2>Semáforo automático que protege seu capital</h2>
-      <p>Com o controle ativo, o sistema avalia em tempo real se você pode abrir novas operações. Stop diário, máximo de operações, janela de horário e loss limit do ciclo são monitorados juntos.</p>
-      <p>A calculadora de contratos adapta o tamanho automaticamente: em modo seguro ou crítico, sugere metade dos contratos normais.</p>
+      <div class="section-eyebrow">Plano do Pregão</div>
+      <h2>Antes da primeira entrada, o plano já está pronto</h2>
+      <p>A aba <strong style="color:var(--fg)">Plano</strong> monta o briefing da sessão: capital disponível, parâmetros da conta e posição de hoje. Os contratos saem da conta <em>capital × risco% ÷ (stop × valor do ponto)</em>, com stop, alvo 1:2 e custos B3 já calculados.</p>
+      <p>No Dashboard, o semáforo avalia em tempo real se você ainda pode operar: stop diário, máximo de operações, janela de horário e loss limit do ciclo são monitorados juntos.</p>
       <ul class="feature-list">
-        <li>Semáforo VERDE / AMARELO / VERMELHO automático</li>
-        <li>Stop diário e máximo de ops configuráveis por conta</li>
-        <li>Janela de horário (manhã, tarde ou personalizada)</li>
-        <li>Calculadora WIN e WDO: stop, alvo e break-even em reais</li>
-        <li>Modo conservador: reduz contratos automaticamente</li>
+        <li>Briefing da sessão com capital disponível e posição do dia</li>
+        <li>Contratos calculados pelo risco, para WIN e WDO</li>
+        <li>Stop, alvo 1:2, break-even e custos B3 em reais</li>
+        <li>Plano de metas e taxa de acerto mínima para ser lucrativo</li>
+        <li>Semáforo VERDE / AMARELO / VERMELHO no Dashboard</li>
       </ul>
     </div>
     <div>
       <div class="mockup" style="margin-bottom:12px">
         <div class="mockup-bar">
           <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          <div class="title-bar">Controle de Operações</div>
+          <div class="title-bar">Dashboard — Semáforo</div>
         </div>
         <div class="sem-panel">
           <div class="sem-light">
@@ -568,7 +614,7 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
       <div class="mockup">
         <div class="mockup-bar">
           <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-          <div class="title-bar">Calculadora WIN — Normal · 2ct</div>
+          <div class="title-bar">Plano do Pregão — WIN · 2ct</div>
         </div>
         <div class="mockup-body">
           <div class="calc-tabs">
@@ -816,27 +862,27 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Meta diária</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 600</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 600</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Stop diário</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 1.500</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 1.500</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Meta mensal</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 8.000</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums">R$ 8.000</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Loss limit ciclo</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 5.000</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;color:var(--red);font-variant-numeric:tabular-nums">R$ 5.000</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Contratos WIN</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">2 ct</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px;font-variant-numeric:tabular-nums">2 ct</div>
           </div>
           <div style="background:var(--bg3);border-radius:7px;padding:9px 10px">
             <div style="font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--fg3);margin-bottom:3px">Janela de operação</div>
-            <div style="font-family:'Inter',sans-serif;font-weight:600;font-size:14px">☀️ Manhã</div>
+            <div style="font-family:var(--fonte);font-weight:600;font-size:14px">☀️ Manhã</div>
           </div>
         </div>
         <div style="background:var(--bg3);border-radius:7px;padding:9px 12px;font-size:11px;color:var(--fg3)">
@@ -911,18 +957,25 @@ footer strong { color: var(--gold); font-family: 'Syne', sans-serif }
 <!-- CTA -->
 <section class="cta-section">
   <h2>Pronto para operar com <em style="color:var(--gold)">disciplina</em>?</h2>
-  <p>Solicite acesso ao TraderSystem e comece a controlar seu capital de forma profissional.</p>
-  <button class="cta-btn" onclick="this.textContent='✓ Obrigado! Entraremos em contato.'">
-    Quero acesso ao sistema
-  </button>
+  <p>O TraderSystem vem incluído nos planos do Trader Positivo. Já é aluno? Entre direto no sistema.</p>
+  <div class="cta-acoes">
+    <a class="cta-btn" href="index.html#pacotes">Ver os planos</a>
+    <a class="cta-btn contorno" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Já sou aluno · Entrar</a>
+  </div>
   <div class="cta-contact">
     Ou entre em contato diretamente: <strong>matheuscosta1056@gmail.com</strong>
   </div>
 </section>
 
 <footer>
-  <strong>TraderSystem</strong> &nbsp;·&nbsp; Sistema de gestão para day traders
+  <strong>TraderSystem</strong> &nbsp;·&nbsp; Sistema de gestão para day traders &nbsp;·&nbsp; <a href="index.html">Trader Positivo</a>
+  <p style="max-width:640px;margin:14px auto 0;font-size:12px;color:var(--fg3)">Dados das telas são exemplos. Conteúdo educacional, não é recomendação de investimento. Operações com contratos futuros envolvem alto risco.</p>
 </footer>
+
+<script>
+document.querySelectorAll('nav .nav-links a').forEach(a =>
+  a.addEventListener('click', () => a.closest('.nav-links').classList.remove('open')));
+</script>
 
 <script>
 // equity curve chart
@@ -965,3 +1018,5 @@ new Chart(ctx, {
   }
 });
 </script>
+</body>
+</html>

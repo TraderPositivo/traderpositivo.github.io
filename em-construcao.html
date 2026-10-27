@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Em construção · Trader Positivo</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#08090e">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #08090e; --card: #1a1d2e; --bg3: #161825;
+  --gold: #c8971e; --gold2: #e8b840; --gold-bg: rgba(200,151,30,.08); --gold-bd: rgba(200,151,30,.22);
+  --fg: #eceef6; --fg2: #9ba3c0; --fg3: #5a6280; --bd: rgba(255,255,255,.065);
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; margin: 0; padding: 0 }
+body {
+  font-family: var(--fonte); background: var(--bg); color: var(--fg); line-height: 1.6;
+  min-height: 100vh; display: flex; flex-direction: column;
+  background-image: radial-gradient(ellipse 70% 45% at 50% 0%, rgba(200,151,30,.12), transparent 65%);
+}
+a { color: var(--gold); text-decoration: none }
+.topo { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--bd) }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; font-size: 19px; letter-spacing: -0.02em }
+.marca span { color: var(--gold) }
+.marca img { width: 32px; height: 32px }
+main { flex: 1; display: grid; place-items: center; padding: 40px 16px }
+.card {
+  width: 100%; max-width: 560px; text-align: center; background: var(--card); border: 1px solid var(--bd);
+  border-radius: 24px; padding: 40px 24px; box-shadow: 0 10px 40px rgba(0,0,0,.4);
+}
+.ic { font-size: 44px; line-height: 1 }
+.etiqueta {
+  display: inline-block; margin-top: 16px; background: var(--gold-bg); border: 1px solid var(--gold-bd);
+  color: var(--gold2); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 99px;
+}
+h1 { font-size: clamp(26px, 6vw, 36px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin: 14px 0 10px }
+p { color: var(--fg2); max-width: 30em; margin: 0 auto }
+.acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 26px }
+.btn { display: inline-block; font-weight: 700; font-size: 16px; padding: 13px 22px; border-radius: 14px; text-align: center }
+.btn.ouro { background: var(--gold); color: #000 }
+.btn.ouro:hover { background: var(--gold2) }
+.btn.contorno { color: var(--fg); border: 1px solid var(--bd) }
+.btn.contorno:hover { border-color: var(--gold) }
+.redes { margin-top: 22px; font-size: 14px; color: var(--fg3) }
+.redes a { color: var(--fg2); margin: 0 6px }
+.redes a:hover { color: var(--gold) }
+@media (max-width: 480px) { .acoes .btn { flex: 1 1 100% } }
+</style>
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="index.html"><img src="favicon.svg" alt="">Trader <span>Positivo</span></a>
+</header>
+<main>
+  <div class="card">
+    <div class="ic" id="ic">🚧</div>
+    <span class="etiqueta">Em construção</span>
+    <h1 id="titulo">Estamos preparando esta página</h1>
+    <p id="texto">Ela vai ao ar em breve. Enquanto isso, fale com a gente pelo Instagram.</p>
+    <div class="acoes">
+      <a class="btn ouro" href="https://www.instagram.com/traderpositivo8/" target="_blank" rel="noopener">Falar no Instagram</a>
+      <a class="btn contorno" href="index.html">Voltar ao início</a>
+    </div>
+    <div class="redes">
+      <a href="https://www.instagram.com/marceloceribelli/" target="_blank" rel="noopener">@marceloceribelli</a> ·
+      <a href="https://www.instagram.com/traderpositivo8/" target="_blank" rel="noopener">@traderpositivo8</a>
+    </div>
+  </div>
+</main>
+<script>
+// O link de origem diz o que estava sendo procurado: em-construcao.html?p=sala
+const PAGINAS = {
+  sala: ['🔴', 'Inscrição na Sala ao Vivo', 'As inscrições para a sala ao vivo abrem em breve. Chame a gente no Instagram para garantir sua vaga.'],
+  'lives-gravadas': ['📚', 'Plano Lives Gravadas', 'A assinatura da biblioteca de lives abre em breve. Chame a gente no Instagram para saber mais.'],
+  lives: ['▶️', 'Biblioteca de lives', 'As lives gravadas ficam disponíveis para os alunos assim que a biblioteca for liberada.'],
+  mentoria: ['👥', 'Mentoria Individual', 'As vagas de mentoria são limitadas. Chame a gente no Instagram para consultar a disponibilidade.'],
+  whatsapp: ['💬', 'Atendimento pelo WhatsApp', 'O atendimento pelo WhatsApp está sendo configurado. Por enquanto, fale com a gente pelo Instagram.'],
+  acesso: ['🔑', 'Acesso ao TraderSystem', 'O acesso ao TraderSystem vem junto com os planos. Chame a gente no Instagram para liberar o seu.'],
+};
+const p = PAGINAS[new URLSearchParams(location.search).get('p')];
+if (p) {
+  document.getElementById('ic').textContent = p[0];
+  document.getElementById('titulo').textContent = p[1];
+  document.getElementById('texto').textContent = p[2];
+  document.title = p[1] + ' · Trader Positivo';
+}
+</script>
+</body>
+</html>

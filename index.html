@@ -1,5 +1,15 @@
-﻿<title>Trader Positivo</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap">
+﻿<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trader Positivo · Sala ao vivo de mini índice</title>
+<meta name="description" content="Marcelo Ceribelli opera WIN ao vivo, de segunda a sexta, das 9h ao meio-dia. Sala ao vivo, lives gravadas e o TraderSystem de gestão de risco.">
+<meta name="theme-color" content="#08090e">
+<meta property="og:title" content="Trader Positivo">
+<meta property="og:description" content="Sala ao vivo, lives gravadas e TraderSystem: o ecossistema do Trader Positivo.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 
 <style>
@@ -20,13 +30,14 @@
   --fg2:     #9ba3c0;
   --fg3:     #5a6280;
   --bd:      rgba(255,255,255,.065);
+  --fonte:   system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
 html { scroll-behavior: smooth }
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--fonte);
   background: var(--bg); color: var(--fg);
   font-size: 15px; line-height: 1.6;
   padding: 0; overflow-x: hidden;
@@ -35,8 +46,8 @@ img { max-width: 100% }
 a { color: var(--gold); text-decoration: none }
 
 /* ── TYPOGRAPHY ── */
-.display { font-family: 'Bebas Neue', sans-serif; line-height: 1; letter-spacing: 1px }
-h1,h2,h3 { font-family: 'Syne', sans-serif; text-wrap: balance; line-height: 1.15 }
+.display { font-family: var(--fonte); line-height: 1; letter-spacing: 1px }
+h1,h2,h3 { font-family: var(--fonte); text-wrap: balance; line-height: 1.15 }
 
 /* ── NAV ── */
 nav {
@@ -52,10 +63,10 @@ nav {
   width: 32px; height: 32px; border-radius: 50%;
   background: linear-gradient(135deg, var(--gold), #8a5a00);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif; font-size: 14px; color: #000; letter-spacing: 0;
+  font-family: var(--fonte); font-size: 14px; color: #000; letter-spacing: 0;
 }
 .nav-brand-name {
-  font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px;
+  font-family: var(--fonte); font-size: 18px; letter-spacing: 1px;
   color: var(--fg);
 }
 .nav-brand-name span { color: var(--gold) }
@@ -64,7 +75,7 @@ nav {
 .nav-links a:hover { color: var(--gold) }
 .nav-cta {
   background: var(--gold); color: #000;
-  font-weight: 700; font-size: 13px; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 13px; font-family: var(--fonte);
   padding: 8px 20px; border-radius: 6px; white-space: nowrap;
   border: none; cursor: pointer;
 }
@@ -101,14 +112,14 @@ nav {
 .hero-eyebrow::before { content: "●"; font-size: 7px }
 
 .hero-title {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--fonte);
   font-size: clamp(4rem, 11vw, 9rem);
   letter-spacing: 3px; line-height: .9;
   margin-bottom: 12px;
 }
 .hero-title .accent { color: var(--gold) }
 .hero-subtitle {
-  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-family: var(--fonte); font-weight: 700;
   font-size: clamp(1rem, 2.5vw, 1.5rem); color: var(--fg2);
   margin-bottom: 32px; letter-spacing: 1px;
 }
@@ -130,7 +141,7 @@ nav {
 .hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px }
 .btn-primary {
   background: var(--gold); color: #000;
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
+  font-family: var(--fonte); font-weight: 700; font-size: 15px;
   padding: 14px 32px; border-radius: 8px; border: none; cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
   transition: background .2s, transform .1s;
@@ -138,7 +149,7 @@ nav {
 .btn-primary:hover { background: var(--gold2); transform: translateY(-1px) }
 .btn-secondary {
   background: transparent; color: var(--fg);
-  font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px;
+  font-family: var(--fonte); font-weight: 600; font-size: 15px;
   padding: 14px 32px; border-radius: 8px;
   border: 1px solid var(--bd); cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
@@ -182,13 +193,13 @@ section:nth-child(even) { background: var(--bg2) }
   width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 20px;
   background: linear-gradient(135deg, var(--gold), #5a3800);
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: #000;
+  font-family: var(--fonte); font-size: 42px; color: #000;
 }
-.sobre-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; margin-bottom: 4px }
+.sobre-name { font-family: var(--fonte); font-weight: 800; font-size: 1.5rem; margin-bottom: 4px }
 .sobre-role { color: var(--gold); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px }
 .sobre-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px }
 .sobre-stat { background: var(--bg3); border-radius: 10px; padding: 14px; text-align: center }
-.sobre-stat .sv { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.5rem; color: var(--gold); font-variant-numeric: tabular-nums }
+.sobre-stat .sv { font-family: var(--fonte); font-weight: 700; font-size: 1.5rem; color: var(--gold); font-variant-numeric: tabular-nums }
 .sobre-stat .sl { font-size: 10px; color: var(--fg3); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px }
 .sobre-quote {
   margin-top: 20px; padding: 14px 16px;
@@ -207,7 +218,7 @@ section:nth-child(even) { background: var(--bg2) }
   border-radius: 14px; padding: 24px 20px;
 }
 .metodo-icon { font-size: 28px; margin-bottom: 14px }
-.metodo-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; margin-bottom: 8px }
+.metodo-card h4 { font-family: var(--fonte); font-weight: 700; font-size: 15px; margin-bottom: 8px }
 .metodo-card p { color: var(--fg2); font-size: 13px; line-height: 1.7 }
 
 /* ── SALA AO VIVO ── */
@@ -241,7 +252,7 @@ section:nth-child(even) { background: var(--bg2) }
 .sala-overlay .label {
   background: rgba(0,0,0,.7); border: 1px solid var(--gold-bd);
   border-radius: 8px; padding: 10px 20px;
-  font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--gold); letter-spacing: 2px;
+  font-family: var(--fonte); font-size: 2rem; color: var(--gold); letter-spacing: 2px;
 }
 .sala-ops {
   padding: 12px 16px;
@@ -254,7 +265,7 @@ section:nth-child(even) { background: var(--bg2) }
 .sala-op .tipo { font-weight: 700; font-size: 10px; text-transform: uppercase }
 .sala-op .tipo.c { color: var(--green) }
 .sala-op .tipo.v { color: var(--red) }
-.sala-op .pts { font-family: 'Inter', sans-serif; font-weight: 600; font-variant-numeric: tabular-nums }
+.sala-op .pts { font-family: var(--fonte); font-weight: 600; font-variant-numeric: tabular-nums }
 .sala-op .pts.g { color: var(--green) }
 .sala-op .pts.r { color: var(--red) }
 .sala-body { padding: 16px 18px }
@@ -277,12 +288,12 @@ section:nth-child(even) { background: var(--bg2) }
 .pacote-destaque-label {
   position: absolute; top: 16px; right: -24px;
   background: var(--gold); color: #000;
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 10px;
+  font-family: var(--fonte); font-weight: 700; font-size: 10px;
   padding: 3px 32px; transform: rotate(30deg);
   letter-spacing: 1px;
 }
 .pacote-icon { font-size: 32px; margin-bottom: 16px }
-.pacote-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; margin-bottom: 6px }
+.pacote-name { font-family: var(--fonte); font-weight: 800; font-size: 1.1rem; margin-bottom: 6px }
 .pacote-desc { color: var(--fg2); font-size: 13px; line-height: 1.6; margin-bottom: 20px }
 .pacote-preco {
   display: flex; align-items: baseline; gap: 4px;
@@ -290,7 +301,7 @@ section:nth-child(even) { background: var(--bg2) }
 }
 .pacote-preco .curr { font-size: 14px; color: var(--fg2); font-weight: 600; align-self: flex-start; margin-top: 6px }
 .pacote-preco .val {
-  font-family: 'Inter', sans-serif; font-weight: 700; font-size: 2.4rem;
+  font-family: var(--fonte); font-weight: 700; font-size: 2.4rem;
   color: var(--fg); font-variant-numeric: tabular-nums; letter-spacing: -1px;
 }
 .pacote-preco .per { font-size: 12px; color: var(--fg3); margin-left: 2px }
@@ -300,7 +311,7 @@ section:nth-child(even) { background: var(--bg2) }
 .pacote-itens li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0 }
 .pacote-btn {
   margin-top: auto; padding: 12px; border-radius: 8px;
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px;
+  font-family: var(--fonte); font-weight: 700; font-size: 14px;
   cursor: pointer; border: none; text-align: center;
   transition: opacity .2s;
 }
@@ -353,7 +364,7 @@ section:nth-child(even) { background: var(--bg2) }
 }
 .sistema-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin: 16px 0 }
 .sstat { background: var(--bg3); border-radius: 8px; padding: 12px; text-align: center }
-.sstat .sv { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.3rem; font-variant-numeric: tabular-nums }
+.sstat .sv { font-family: var(--fonte); font-weight: 700; font-size: 1.3rem; font-variant-numeric: tabular-nums }
 .sstat .sv.g { color: var(--green) }
 .sstat .sv.go { color: var(--gold) }
 .sstat .sl { font-size: 9px; color: var(--fg3); text-transform: uppercase; letter-spacing: .8px; margin-top: 2px }
@@ -398,7 +409,7 @@ section:nth-child(even) { background: var(--bg2) }
 }
 .cta-final > * { position: relative }
 .cta-big {
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: var(--fonte);
   font-size: clamp(3rem, 7vw, 6rem);
   letter-spacing: 2px; margin-bottom: 20px;
 }
@@ -407,7 +418,7 @@ section:nth-child(even) { background: var(--bg2) }
 .whatsapp-btn {
   display: inline-flex; align-items: center; gap: 10px;
   background: #25d366; color: #fff;
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px;
+  font-family: var(--fonte); font-weight: 700; font-size: 16px;
   padding: 16px 36px; border-radius: 8px; border: none; cursor: pointer;
   transition: background .2s, transform .1s; margin-bottom: 14px;
 }
@@ -423,7 +434,7 @@ footer {
   padding: 32px 24px; text-align: center;
   color: var(--fg3); font-size: 13px;
 }
-footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--gold); letter-spacing: 1px }
+footer .brand { font-family: var(--fonte); font-size: 18px; color: var(--gold); letter-spacing: 1px }
 
 /* ── RESPONSIVE ── */
 .nav-toggle { display: none }
@@ -459,7 +470,54 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
   .sobre-stats { grid-template-columns: 1fr 1fr }
   .lives-grid { grid-template-columns: 1fr !important }
 }
+
+/* ── TIPOGRAFIA (estilo OrçaLar: fonte do sistema, títulos grossos e compactos) ── */
+h1, h2, h3, h4, .section-title { font-weight: 800; letter-spacing: -0.02em }
+.hero-title {
+  font-weight: 900; letter-spacing: -0.04em; line-height: .95;
+  font-size: clamp(3.2rem, 11vw, 7.5rem);
+}
+.hero-subtitle { font-weight: 700; letter-spacing: -0.01em }
+.cta-big { font-weight: 900; letter-spacing: -0.03em; line-height: 1; font-size: clamp(2.2rem, 6.5vw, 4.5rem) }
+.nav-brand-name { font-weight: 800; font-size: 19px; letter-spacing: -0.02em }
+.nav-logo-circle { font-weight: 800; font-size: 13px }
+.avatar-circle { font-weight: 800; font-size: 38px; letter-spacing: -0.02em }
+.sala-overlay .label { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.01em }
+footer .brand { font-weight: 800; letter-spacing: -0.01em }
+.section-body { font-size: 16px }
+
+/* ── BOTÕES ── */
+a.btn-primary, a.btn-secondary, a.nav-cta, a.whatsapp-btn, a.pacote-btn { text-decoration: none }
+a.btn-primary, a.nav-cta, a.pacote-btn.primary { color: #000 }
+a.btn-secondary, a.pacote-btn.secondary { color: var(--fg) }
+a.whatsapp-btn { color: #fff }
+.btn-primary, .btn-secondary, .whatsapp-btn { border-radius: 14px; font-size: 16px }
+.nav-cta, .pacote-btn { border-radius: 12px }
+.pacote-btn { display: block; padding: 13px }
+.nav-acoes { display: flex; align-items: center; gap: 8px }
+.nav-sistema {
+  color: var(--fg2); font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 12px;
+  border: 1px solid var(--bd); white-space: nowrap;
+}
+.nav-sistema:hover { color: var(--gold); border-color: var(--gold-bd) }
+a.live-card { display: block; color: inherit; transition: border-color .2s, transform .2s }
+a.live-card:hover { border-color: var(--gold-bd); transform: translateY(-2px) }
+.sistema-acoes { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 14px }
+.sistema-acoes a { font-size: 14px; padding: 11px 20px }
+
+@media (max-width: 760px) {
+  .nav-sistema { display: none }
+  nav { gap: 8px }
+  .nav-acoes { margin-left: auto }
+  nav .nav-toggle { margin-left: 0 }
+  nav .nav-cta { padding: 8px 12px }
+  .hero-ctas { width: 100%; max-width: 360px }
+  .hero-ctas a { flex: 1 1 100%; justify-content: center }
+  .whatsapp-btn { width: 100%; max-width: 360px; justify-content: center }
+}
 </style>
+</head>
+<body>
 
 <!-- ── NAV ── -->
 <nav>
@@ -475,7 +533,10 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
     <a href="#sistema">Sistema</a>
     <a href="#pacotes">Pacotes</a>
   </div>
-  <button class="nav-cta">Entrar na Sala</button>
+  <div class="nav-acoes">
+    <a class="nav-sistema" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Acessar sistema</a>
+    <a class="nav-cta" href="#pacotes">Entrar na Sala</a>
+  </div>
   <button class="nav-toggle" onclick="this.closest('nav').querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -496,8 +557,8 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
     <div class="hero-badge">TraderSystem</div>
   </div>
   <div class="hero-ctas">
-    <button class="btn-primary">Quero entrar na sala →</button>
-    <button class="btn-secondary">Assistir live gravada</button>
+    <a class="btn-primary" href="#pacotes">Quero entrar na sala →</a>
+    <a class="btn-secondary" href="#lives">Assistir live gravada</a>
   </div>
   <div class="hero-scroll">
     <span>Conheça o ecossistema</span>
@@ -643,11 +704,11 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
           </div>
           <div style="display:flex;gap:8px;margin-top:10px">
             <div style="flex:1;background:var(--bg3);border-radius:7px;padding:8px;text-align:center">
-              <div style="font-family:'Inter',sans-serif;font-weight:700;color:var(--green);font-size:16px;font-variant-numeric:tabular-nums">+R$ 960</div>
+              <div style="font-family:var(--fonte);font-weight:700;color:var(--green);font-size:16px;font-variant-numeric:tabular-nums">+R$ 960</div>
               <div style="font-size:10px;color:var(--fg3);text-transform:uppercase;margin-top:2px">Resultado dia</div>
             </div>
             <div style="flex:1;background:var(--bg3);border-radius:7px;padding:8px;text-align:center">
-              <div style="font-family:'Inter',sans-serif;font-weight:700;font-size:16px;font-variant-numeric:tabular-nums">2/5</div>
+              <div style="font-family:var(--fonte);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums">2/5</div>
               <div style="font-size:10px;color:var(--fg3);text-transform:uppercase;margin-top:2px">Ops hoje</div>
             </div>
             <div style="flex:1;background:rgba(62,207,122,.1);border:1px solid rgba(62,207,122,.25);border-radius:7px;padding:8px;text-align:center">
@@ -669,52 +730,52 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
     <p class="section-body" style="max-width:520px;margin:0 auto">Toda sessão ao vivo fica salva na biblioteca. Revisão de operações, estudos de setup, dias de mercado difícil — tudo documentado e disponível.</p>
   </div>
   <div class="lives-grid" style="max-width:1080px;margin:40px auto 0">
-    <div class="live-card">
+    <a class="live-card" href="em-construcao.html?p=lives">
       <div class="live-thumb">📈<span style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(200,151,30,.9);display:flex;align-items:center;justify-content:center;font-size:14px;color:#000">▶</span></div>
       <div class="live-info">
         <div class="live-tag">Sala ao vivo</div>
         <div class="live-title">VWAP como nível de entrada — 3 setups ao vivo</div>
         <div class="live-meta">Oct 24 · 1h 42min</div>
       </div>
-    </div>
-    <div class="live-card">
+    </a>
+    <a class="live-card" href="em-construcao.html?p=lives">
       <div class="live-thumb">🌊<span style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(200,151,30,.9);display:flex;align-items:center;justify-content:center;font-size:14px;color:#000">▶</span></div>
       <div class="live-info">
         <div class="live-tag">Metodologia</div>
         <div class="live-title">Weis Wave na prática — como identificar exaustão</div>
         <div class="live-meta">Oct 22 · 58min</div>
       </div>
-    </div>
-    <div class="live-card">
+    </a>
+    <a class="live-card" href="em-construcao.html?p=lives">
       <div class="live-thumb">🛡️<span style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(200,151,30,.9);display:flex;align-items:center;justify-content:center;font-size:14px;color:#000">▶</span></div>
       <div class="live-info">
         <div class="live-tag">Gestão de risco</div>
         <div class="live-title">Como configurar o TraderSystem para proteger seu ciclo</div>
         <div class="live-meta">Oct 20 · 45min</div>
       </div>
-    </div>
-    <div class="live-card">
+    </a>
+    <a class="live-card" href="em-construcao.html?p=lives">
       <div class="live-thumb">📊<span style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(200,151,30,.9);display:flex;align-items:center;justify-content:center;font-size:14px;color:#000">▶</span></div>
       <div class="live-info">
         <div class="live-tag">Análise</div>
         <div class="live-title">Volume Profile — POC e VAH como suporte e resistência</div>
         <div class="live-meta">Oct 18 · 1h 12min</div>
       </div>
-    </div>
-    <div class="live-card">
+    </a>
+    <a class="live-card" href="em-construcao.html?p=lives">
       <div class="live-thumb">🎯<span style="position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(200,151,30,.9);display:flex;align-items:center;justify-content:center;font-size:14px;color:#000">▶</span></div>
       <div class="live-info">
         <div class="live-tag">Sala ao vivo</div>
         <div class="live-title">Dia difícil: mercado lateral e como evitar overtrading</div>
         <div class="live-meta">Oct 15 · 2h 05min</div>
       </div>
-    </div>
-    <div class="live-card" style="border-style:dashed;background:transparent;display:flex;align-items:center;justify-content:center;min-height:160px">
+    </a>
+    <a class="live-card" href="em-construcao.html?p=lives" style="border-style:dashed;background:transparent;display:flex;align-items:center;justify-content:center;min-height:160px">
       <div style="text-align:center;color:var(--fg3)">
         <div style="font-size:28px;margin-bottom:8px">+</div>
         <div style="font-size:13px">+120 aulas gravadas<br>disponíveis no plano</div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -725,14 +786,12 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
       <div class="eyebrow">TraderSystem</div>
       <h2 class="section-title">O sistema de gestão incluído no ecossistema</h2>
       <p class="section-body">Todos os alunos da sala têm acesso ao TraderSystem — a plataforma de gestão de contas que o próprio Marcelo usa ao vivo.</p>
-      <p class="section-body">Configure suas metas, stops e contratos. O semáforo avisa quando parar. A análise inteligente mostra onde você pode melhorar.</p>
+      <p class="section-body">Configure suas metas, stops e contratos. O semáforo avisa quando parar, o plano do pregão mostra quanto arriscar e a análise inteligente aponta onde você pode melhorar.</p>
       <ul class="check-list">
-        <li>Dashboard com todas as contas em tempo real</li>
-        <li>Semáforo VERDE / AMARELO / VERMELHO automático</li>
-        <li>Calculadora de contratos WIN e WDO</li>
-        <li>Importação de CSV direto do Profit</li>
-        <li>Análise inteligente de performance por ciclo</li>
-        <li>Checklist de setup antes de entrar</li>
+        <li><strong>Dashboard:</strong> todas as contas, semáforo VERDE / AMARELO / VERMELHO e importação do CSV do Profit</li>
+        <li><strong>Plano do pregão:</strong> capital disponível, contratos pelo risco, stop, alvo 1:2 e custos B3</li>
+        <li><strong>Performance:</strong> evolução do saldo, dias de gain e loss e análise inteligente do período</li>
+        <li><strong>Config:</strong> metas, stops, loss limit do ciclo e checklist de entrada por conta</li>
       </ul>
     </div>
     <div>
@@ -745,26 +804,27 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
             <span style="width:12px;height:12px;border-radius:50%;background:#febc2e;display:block"></span>
             <span style="width:12px;height:12px;border-radius:50%;background:#28c840;display:block"></span>
           </div>
-          <span style="font-family:'Inter',sans-serif;font-size:12px;color:#8b949e;flex:1;text-align:center">TraderSystem — Dashboard</span>
+          <span style="font-family:var(--fonte);font-size:12px;color:#8b949e;flex:1;text-align:center">TraderSystem — Dashboard</span>
         </div>
         <div style="padding:20px">
           <div style="display:flex;gap:8px;margin-bottom:16px">
-            <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:8px 14px;font-size:11px;color:#c8971e;font-weight:700">Dashboard</div>
-            <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 14px;font-size:11px;color:#8b949e">Operar</div>
-            <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 14px;font-size:11px;color:#8b949e">Performance</div>
+            <div style="background:#1c2128;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#c8971e;font-weight:700">Dashboard</div>
+            <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Plano</div>
+            <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Performance</div>
+            <div style="background:transparent;border:1px solid #30363d;border-radius:8px;padding:8px 12px;font-size:11px;color:#8b949e">Config</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
             <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
               <div style="font-size:10px;color:#8b949e;margin-bottom:4px">META</div>
-              <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#e6edf3">R$ 2.500</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#e6edf3">R$ 2.500</div>
             </div>
             <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
               <div style="font-size:10px;color:#8b949e;margin-bottom:4px">STOP</div>
-              <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#f85149">R$ 1.500</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#f85149">R$ 1.500</div>
             </div>
             <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:12px;text-align:center">
               <div style="font-size:10px;color:#8b949e;margin-bottom:4px">RESULTADO</div>
-              <div style="font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:#3fb950">+R$ 840</div>
+              <div style="font-family:var(--fonte);font-size:15px;font-weight:700;color:#3fb950">+R$ 840</div>
             </div>
           </div>
           <div style="background:#0d4a1f;border:1px solid #3fb950;border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:10px;margin-bottom:14px">
@@ -774,19 +834,18 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
             <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 12px">
               <div style="font-size:10px;color:#8b949e;margin-bottom:6px">WIN · Contratos sugeridos</div>
-              <div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:#e6edf3">3</div>
+              <div style="font-family:var(--fonte);font-size:20px;font-weight:700;color:#e6edf3">3</div>
             </div>
             <div style="background:#161b22;border:1px solid #30363d;border-radius:8px;padding:10px 12px">
               <div style="font-size:10px;color:#8b949e;margin-bottom:6px">Ops hoje</div>
-              <div style="font-family:'Inter',sans-serif;font-size:20px;font-weight:700;color:#e6edf3">2 / 5</div>
+              <div style="font-family:var(--fonte);font-size:20px;font-weight:700;color:#e6edf3">2 / 5</div>
             </div>
           </div>
         </div>
       </div>
-      <div style="margin-top:10px;text-align:center">
-        <a href="https://traderpositivo.github.io/sistema.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold);font-weight:600;font-size:13px;padding:9px 20px;border-radius:8px;">
-          🔗 Ver apresentação completa do TraderSystem
-        </a>
+      <div class="sistema-acoes">
+        <a class="btn-primary" href="sistema.html">Conhecer o TraderSystem</a>
+        <a class="btn-secondary" href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Já sou aluno · Entrar</a>
       </div>
     </div>
   </div>
@@ -875,7 +934,7 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
         <li>Chat da comunidade</li>
         <li style="opacity:.5;text-decoration:line-through">Sala ao vivo</li>
       </ul>
-      <div class="pacote-btn secondary">Começar agora</div>
+      <a class="pacote-btn secondary" href="em-construcao.html?p=lives-gravadas">Começar agora</a>
     </div>
     <div class="pacote-card destaque">
       <div class="pacote-destaque-label">POPULAR</div>
@@ -896,7 +955,7 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
         <li>Suporte direto no chat</li>
         <li>Análise semanal de performance</li>
       </ul>
-      <div class="pacote-btn primary">Entrar na sala agora</div>
+      <a class="pacote-btn primary" href="em-construcao.html?p=sala">Entrar na sala agora</a>
     </div>
     <div class="pacote-card">
       <div class="pacote-icon">👥</div>
@@ -915,7 +974,7 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
         <li>Configuração personalizada do TraderSystem</li>
         <li>Acesso direto ao WhatsApp do Marcelo</li>
       </ul>
-      <div class="pacote-btn secondary">Consultar disponibilidade</div>
+      <a class="pacote-btn secondary" href="em-construcao.html?p=mentoria">Consultar disponibilidade</a>
     </div>
   </div>
 </section>
@@ -924,7 +983,7 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
 <section class="cta-final">
   <div class="cta-big">PRONTO PARA OPERAR<br><span>COM CONSISTÊNCIA?</span></div>
   <p class="cta-sub">Entre para a comunidade do Trader Positivo e comece a operar com método, gestão e acompanhamento profissional.</p>
-  <button class="whatsapp-btn">💬 Falar no WhatsApp</button>
+  <a class="whatsapp-btn" href="em-construcao.html?p=whatsapp">💬 Falar no WhatsApp</a>
   <div class="cta-ou">ou acesse diretamente</div>
   <div class="cta-links">
     <a class="cta-link" href="https://www.instagram.com/marceloceribelli/" target="_blank">📸 @marceloceribelli</a>
@@ -937,7 +996,27 @@ footer .brand { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: v
 <footer>
   <div class="brand">TRADER POSITIVO</div>
   <div style="margin-top:8px">Marcelo Ceribelli · @marceloceribelli · Sala ao vivo seg–sex · 09h–12h</div>
+  <div class="rodape-links">
+    <a href="#sala">Sala ao vivo</a>
+    <a href="#lives">Lives</a>
+    <a href="sistema.html">TraderSystem</a>
+    <a href="https://trader-frontend-one.vercel.app" target="_blank" rel="noopener">Acessar sistema</a>
+    <a href="#pacotes">Pacotes</a>
+  </div>
+  <p class="rodape-aviso">Conteúdo educacional. Não é recomendação de investimento. Operações com contratos futuros envolvem alto risco e podem gerar perdas superiores ao capital investido. Resultados passados não garantem resultados futuros.</p>
 </footer>
+<style>
+  .rodape-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 16px }
+  .rodape-links a { color: var(--fg2); font-size: 14px }
+  .rodape-links a:hover { color: var(--gold) }
+  .rodape-aviso { max-width: 640px; margin: 18px auto 0; font-size: 12px; color: var(--fg3); line-height: 1.6 }
+</style>
+
+<script>
+// fecha o menu do celular ao tocar num link
+document.querySelectorAll('nav .nav-links a').forEach(a =>
+  a.addEventListener('click', () => a.closest('.nav-links').classList.remove('open')));
+</script>
 
 <script>
 // sala chart — candlestick-style area
@@ -965,3 +1044,5 @@ new Chart(ctx1, {
 </script>
 
 
+</body>
+</html>
