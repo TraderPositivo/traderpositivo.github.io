@@ -1,0 +1,59 @@
+/* Área do aluno · Trader Positivo — mesmo visual do site */
+:root {
+  --bg: #08090e; --bg2: #0f1018; --bg3: #161825; --card: #1a1d2e;
+  --gold: #c8971e; --gold2: #e8b840; --gold-bg: rgba(200,151,30,.08); --gold-bd: rgba(200,151,30,.22);
+  --green: #3ecf7a; --red: #e0566a; --yellow: #f0c040;
+  --fg: #eceef6; --fg2: #9ba3c0; --fg3: #5a6280; --bd: rgba(255,255,255,.065);
+  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+body { font-family: var(--fonte); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.55; min-height: 100vh; overflow-x: hidden;
+  background-image: radial-gradient(ellipse 70% 38% at 50% 0%, rgba(200,151,30,.10), transparent 65%) }
+a { color: var(--gold); text-decoration: none }
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15 }
+[hidden] { display: none !important }
+.envelope { max-width: 1040px; margin: 0 auto; padding: 0 20px }
+
+/* topo */
+.topo { border-bottom: 1px solid var(--bd); background: rgba(8,9,14,.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 20 }
+.topo-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; white-space: nowrap }
+.marca span { color: var(--gold) }
+.marca small { color: var(--fg3); font-weight: 600; font-size: 14px; letter-spacing: 0 }
+.marca img { width: 30px; height: 30px }
+.topo-acoes { display: flex; align-items: center; gap: 10px }
+.topo-acoes .nome { color: var(--fg2); font-size: 13px; font-weight: 600 }
+@media (max-width: 600px) { .marca small, .topo-acoes .nome { display: none } }
+
+.demo { background: rgba(240,192,64,.1); border: 1px solid rgba(240,192,64,.3); color: var(--yellow); font-size: 13px; font-weight: 600;
+  padding: 9px 14px; border-radius: 12px; margin: 16px 0 0; display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap }
+.demo button { background: none; border: 1px solid rgba(240,192,64,.4); color: var(--yellow); border-radius: 8px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer }
+
+/* botões */
+.btn { display: inline-block; border: 0; font: inherit; font-weight: 700; font-size: 15px; padding: 12px 20px; border-radius: 12px; cursor: pointer; text-align: center }
+.btn.ouro { background: var(--gold); color: #000 }
+.btn.ouro:hover { background: var(--gold2) }
+.btn.leve { background: var(--gold-bg); color: var(--gold2); border: 1px solid var(--gold-bd) }
+.btn.contorno { background: transparent; color: var(--fg); border: 1px solid var(--bd) }
+.btn.contorno:hover { border-color: var(--gold) }
+.btn.peq { padding: 7px 12px; font-size: 13px; border-radius: 10px }
+.btn.travado { background: var(--bg3); color: var(--fg3); border: 1px solid var(--bd); cursor: default }
+.btn[disabled] { opacity: .6; cursor: wait }
+
+/* formulários */
+label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px }
+.campo { width: 100%; background: var(--bg); border: 1px solid var(--bd); border-radius: 12px; color: var(--fg); font: inherit; font-size: 16px; padding: 11px 13px; outline: none }
+.campo:focus { border-color: var(--gold) }
+.grupo { margin-bottom: 14px }
+.msg { font-size: 14px; font-weight: 600; margin-top: 12px; min-height: 20px }
+.msg.erro { color: var(--red) }
+.msg.ok { color: var(--green) }
+
+/* cartões */
+.card { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; padding: 20px }
+.sub { color: var(--fg2); font-size: 14px }
+.etiqueta { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 99px; padding: 3px 10px; background: var(--bg3); color: var(--fg2); border: 1px solid var(--bd) }
+.etiqueta.ok { color: var(--green); background: rgba(62,207,122,.1); border-color: rgba(62,207,122,.25) }
+.etiqueta.ruim { color: var(--red); background: rgba(224,86,106,.1); border-color: rgba(224,86,106,.25) }
+.etiqueta.ouro { color: var(--gold2); background: var(--gold-bg); border-color: var(--gold-bd) }
