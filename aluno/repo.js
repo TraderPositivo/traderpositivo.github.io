@@ -133,10 +133,10 @@ function semente() {
       .concat([{ id: 10, tipo: 'mentoria', titulo: 'Encontro da mentoria', inicio: em(2, '19:30'), fim: em(2, '21:00'), com: 'Marcelo', link: '', planos: ['mentoria'] },
         { id: 11, tipo: 'evento', titulo: 'Aula aberta: como ler o fluxo no WIN', inicio: em(6, '20:00'), fim: em(6, '21:00'), com: 'Marcelo', link: '', planos: ['lives', 'sala', 'mentoria'] }]),
     cursos: [
-      { id: 1, tipo: 'gravacoes', titulo: 'Gravações da sala', descricao: 'As gravações das sessões ao vivo, da mais recente para a primeira.', tema: 'Sala ao vivo', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 0, ativo: true },
-      { id: 2, tipo: 'curso', titulo: 'Primeiros passos no WIN e WDO', descricao: 'Para quem está começando nos minicontratos da B3.', tema: 'Iniciante', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: true, ordem: 1, ativo: true },
-      { id: 3, tipo: 'curso', titulo: 'Indicadores Trader Positivo', descricao: 'Instalação e uso de cada indicador, no MT5 e no Profit.', tema: 'Indicadores', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 2, ativo: true },
-      { id: 4, tipo: 'curso', titulo: 'Gestão de risco na prática', descricao: 'Risco por operação, stops, loss limit e o GesRisk Trader.', tema: 'Gestão de risco', capa_url: '', planos: ['sala', 'mentoria'], gratuito: false, ordem: 3, ativo: true },
+      { id: 1, tipo: 'gravacoes', titulo: 'Gravações da sala', descricao: 'As gravações das sessões ao vivo, da mais recente para a primeira.', tema: 'Sala ao vivo', capa_url: 'https://traderpositivo.github.io/img/capas/gravacoes.jpg', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 0, ativo: true },
+      { id: 2, tipo: 'curso', titulo: 'Primeiros passos no WIN e WDO', descricao: 'Para quem está começando nos minicontratos da B3.', tema: 'Iniciante', capa_url: 'https://traderpositivo.github.io/img/capas/primeiros-passos.jpg', planos: ['lives', 'sala', 'mentoria'], gratuito: true, ordem: 1, ativo: true },
+      { id: 3, tipo: 'curso', titulo: 'Indicadores Trader Positivo', descricao: 'Instalação e uso de cada indicador, no MT5 e no Profit.', tema: 'Indicadores', capa_url: 'https://traderpositivo.github.io/img/capas/indicadores.jpg', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 2, ativo: true },
+      { id: 4, tipo: 'curso', titulo: 'Gestão de risco na prática', descricao: 'Risco por operação, stops, loss limit e o GesRisk Trader.', tema: 'Gestão de risco', capa_url: 'https://traderpositivo.github.io/img/capas/gestao-de-risco.jpg', planos: ['sala', 'mentoria'], gratuito: false, ordem: 3, ativo: true },
     ],
     aulas,
     progresso: [{ email: 'aluno@demo.com', aula_id: 9, concluida: true }, { email: 'aluno@demo.com', aula_id: 10, concluida: true }],
@@ -164,7 +164,7 @@ function semente() {
 }
 
 function criarRepoDemo() {
-  const CHAVE = 'tp-area-demo-v2'
+  const CHAVE = 'tp-area-demo-v3' // v3: cursos com capa
   const ler = () => { try { return JSON.parse(localStorage.getItem(CHAVE)) || semente() } catch (_) { return semente() } }
   let db = ler()
   const salvar = () => { try { localStorage.setItem(CHAVE, JSON.stringify(db)) } catch (_) {} }

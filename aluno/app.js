@@ -264,7 +264,7 @@ TELAS.mentoria = (args) => {
   <div class="cabeca-pag"><div class="olho">${esc(NOME_SALA)}</div><h2>Mentoria</h2><p>As gravações das sessões ao vivo e os encontros da mentoria.</p></div>
   ${!S.liberado ? bloqueado('A mentoria') : `
   <div class="grade g2">
-    <div class="card realce"><div class="olho">Gravações da sala</div>
+    <div class="card realce">${link(grav?.capa_url) ? `<img src="${esc(grav.capa_url)}" alt="" style="width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;border:1px solid var(--linha);margin-bottom:14px">` : ''}<div class="olho">Gravações da sala</div>
       <p class="sub" style="margin:8px 0 14px">${prox ? (S.d.progresso.size ? 'Continue de onde parou:' : 'Você ainda não começou: comece pela aula 1.') : 'Você já assistiu a todas. 🎉'}</p>
       ${prox ? `<div style="font-weight:700;font-size:18px">${esc(prox.titulo)}</div><p class="fraco" style="margin:4px 0 14px">Aula ${prox.numero}${prox.bloco ? ' · ' + esc(prox.bloco) : ''}</p>
       <a class="btn ouro peq" href="#/aula/${prox.id}">${icone('play', 'style="width:14px;height:14px"')} ${S.d.progresso.size ? 'Continuar' : 'Começar pela aula 1'}</a>` : ''}
@@ -346,7 +346,7 @@ TELAS.cursos = (args) => {
 function cartaoCurso(c) {
   const pct = c.total ? Math.round((c.feitas / c.total) * 100) : 0
   return `<a class="card" href="#/curso/${c.id}" style="display:flex;flex-direction:column;gap:10px;color:var(--fg)">
-    <div style="aspect-ratio:16/8;border-radius:12px;background:${link(c.capa_url) ? `center/cover url('${esc(c.capa_url)}')` : 'linear-gradient(135deg,#1b1608,#0d0f12)'};border:1px solid var(--linha);display:flex;align-items:flex-end;padding:12px">
+    <div style="aspect-ratio:16/9;border-radius:12px;background:${link(c.capa_url) ? `center/cover url('${esc(c.capa_url)}')` : 'linear-gradient(135deg,#1b1608,#0d0f12)'};border:1px solid var(--linha);display:flex;align-items:flex-end;padding:12px">
       ${link(c.capa_url) ? '' : `<span class="display" style="font-size:24px">${esc(c.titulo)}</span>`}</div>
     <div class="fraco">${esc(c.tema)}${c.gratuito ? ' · Gratuito' : ''}</div><div style="font-weight:700;font-size:17px">${esc(c.titulo)}</div>
     <div class="barra-prog"><i style="width:${pct}%"></i></div>
@@ -433,7 +433,7 @@ TELAS.explorar = (args) => {
     const ok = cursoLiberado(c), total = aulasDe(c.id).length
     const planosTxt = c.planos.map((p) => PLANOS[p]).join(', ')
     return `<div class="card" style="display:flex;flex-direction:column;gap:10px">
-      <div style="aspect-ratio:16/8;border-radius:12px;background:${link(c.capa_url) ? `center/cover url('${esc(c.capa_url)}')` : 'linear-gradient(135deg,#1b1608,#0d0f12)'};border:1px solid var(--linha);display:flex;align-items:flex-end;padding:12px">${link(c.capa_url) ? '' : `<span class="display" style="font-size:24px">${esc(c.titulo)}</span>`}</div>
+      <div style="aspect-ratio:16/9;border-radius:12px;background:${link(c.capa_url) ? `center/cover url('${esc(c.capa_url)}')` : 'linear-gradient(135deg,#1b1608,#0d0f12)'};border:1px solid var(--linha);display:flex;align-items:flex-end;padding:12px">${link(c.capa_url) ? '' : `<span class="display" style="font-size:24px">${esc(c.titulo)}</span>`}</div>
       <div class="fraco">${esc(c.tema)}${ok && total ? ` · ${total} aulas` : ''}${c.gratuito ? ' · Gratuito' : ''}</div><b style="font-size:17px">${esc(c.titulo)}</b><p class="sub" style="flex:1">${esc(c.descricao)}</p>
       ${ok ? `<a class="btn ouro peq" href="#/curso/${c.id}">Começar</a>` : `<div class="fraco">${icone('cadeado', 'style="width:14px;height:14px;vertical-align:-2px"')} Incluído em: ${esc(planosTxt)}</div><a class="btn contorno peq" href="${esc(RENOVAR_URL)}">Liberar o curso</a>`}</div>`
   }).join('') || '<div class="card vazio">Nenhum curso com esse filtro.</div>'}</div>`
