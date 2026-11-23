@@ -7,7 +7,7 @@
 export const SUPABASE_URL = ''
 export const SUPABASE_ANON_KEY = ''
 
-// TraderSystem: adicional "Plus" da assinatura, abre em link à parte
+// GesRisk Trader: adicional "Plus" da assinatura, abre em link à parte
 export const TRADERSYSTEM_URL = 'https://trader-frontend-one.vercel.app'
 export const RENOVAR_URL = '../index.html#pacotes'
 export const SUPORTE_URL = 'https://www.instagram.com/traderpositivo8/'

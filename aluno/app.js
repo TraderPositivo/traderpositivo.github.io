@@ -116,7 +116,7 @@ function faixaPlano() {
   if (S.admin) return ''
   if (!S.assin) return `<div class="faixa ruim"><span>Não encontramos um plano para ${esc(S.sessao.email)}. Entre com o e-mail da compra ou <a href="${esc(SUPORTE_URL)}" target="_blank" rel="noopener">fale com a equipe</a>.</span></div>`
   if (!S.liberado) return `<div class="faixa ruim"><span style="flex:1">Seu plano venceu em <b>${dataBR(S.assin.acesso_ate)}</b>. Renove para voltar à sala, às gravações e aos indicadores.</span><a class="btn ouro peq" href="${esc(RENOVAR_URL)}">Renovar</a></div>`
-  return `<div class="faixa ok"><span>Seu acesso está liberado até <b>${dataBR(S.assin.acesso_ate)}</b>: sala ao vivo, gravações, cursos${S.plus ? ', indicadores e o TraderSystem' : ' e indicadores'}.</span></div>`
+  return `<div class="faixa ok"><span>Seu acesso está liberado até <b>${dataBR(S.assin.acesso_ate)}</b>: sala ao vivo, gravações, cursos${S.plus ? ', indicadores e o GesRisk Trader' : ' e indicadores'}.</span></div>`
 }
 function bloqueado(oque) {
   return `<div class="card vazio">${icone('cadeado', 'style="width:28px;height:28px;margin-bottom:8px"')}<br>
@@ -214,7 +214,7 @@ TELAS.inicio = () => {
       <div style="font-weight:700;font-size:20px">${S.admin ? 'Acesso completo' : esc(PLANOS[plano()] || 'Sem plano')}</div>
       <p class="fraco" style="margin:4px 0 12px">${S.assin ? (S.liberado ? 'Liberado até ' : 'Venceu em ') + dataBR(S.assin.acesso_ate) : ''}</p>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--linha);border-radius:12px">
-        <div><div style="font-weight:700">TraderSystem <span class="tag plus">PLUS</span></div><div class="fraco">${S.plus ? 'Incluído no seu plano' : 'Adicional da assinatura'}</div></div>
+        <div><div style="font-weight:700">GesRisk Trader <span class="tag plus">PLUS</span></div><div class="fraco">${S.plus ? 'Incluído no seu plano' : 'Adicional da assinatura'}</div></div>
         ${S.plus ? `<a class="btn leve peq" href="${esc(TRADERSYSTEM_URL)}" target="_blank" rel="noopener">Abrir ↗</a>` : '<a class="btn contorno peq" href="#/tradersystem">Conhecer</a>'}
       </div>
       ${!S.liberado && !S.admin ? `<a class="btn ouro" style="width:100%;margin-top:12px" href="${esc(RENOVAR_URL)}">Renovar plano</a>` : ''}
@@ -448,14 +448,14 @@ TELAS.eventos = () => {
 }
 
 TELAS.tradersystem = () => `${faixaAcesso()}
-  <div class="cabeca-pag"><div class="olho">Adicional da assinatura</div><h2>Gestão de Risco · TraderSystem <span class="tag plus" style="vertical-align:middle">PLUS</span></h2>
+  <div class="cabeca-pag"><div class="olho">Adicional da assinatura</div><h2>Gestão de Risco · GesRisk Trader <span class="tag plus" style="vertical-align:middle">PLUS</span></h2>
     <p>O sistema de gestão de risco que o Marcelo usa ao vivo: plano do pregão, contratos pelo risco, dashboard das contas e performance. Ele roda à parte, com login próprio.</p></div>
   <div class="grade g2">
     <div class="card realce"><b style="font-size:18px">O que você ganha</b>
       <ul style="margin:12px 0 0 18px;display:grid;gap:6px" class="sub"><li>Plano do pregão com contratos calculados pelo risco</li><li>Dashboard com resultado do dia e do ciclo</li><li>Alerta de loss limit e metas</li><li>Importação do CSV do Profit e performance do período</li></ul></div>
     <div class="card">${S.plus
-      ? `<b style="font-size:18px">Incluído no seu plano</b><p class="sub" style="margin:8px 0 16px">Abre em outra aba. Entre com o mesmo e-mail.</p><a class="btn ouro" href="${esc(TRADERSYSTEM_URL)}" target="_blank" rel="noopener">Abrir o TraderSystem ↗</a>`
-      : `<b style="font-size:18px">Adicione à sua assinatura</b><p class="sub" style="margin:8px 0 16px">O TraderSystem é um adicional. Fale com a equipe para incluir no seu plano.</p><a class="btn ouro" href="${esc(SUPORTE_URL)}" target="_blank" rel="noopener">Quero o TraderSystem</a>
+      ? `<b style="font-size:18px">Incluído no seu plano</b><p class="sub" style="margin:8px 0 16px">Abre em outra aba. Entre com o mesmo e-mail.</p><a class="btn ouro" href="${esc(TRADERSYSTEM_URL)}" target="_blank" rel="noopener">Abrir o GesRisk Trader ↗</a>`
+      : `<b style="font-size:18px">Adicione à sua assinatura</b><p class="sub" style="margin:8px 0 16px">O GesRisk Trader é um adicional. Fale com a equipe para incluir no seu plano.</p><a class="btn ouro" href="${esc(SUPORTE_URL)}" target="_blank" rel="noopener">Quero o GesRisk Trader</a>
          <p class="fraco" style="margin-top:10px"><a href="../sistema.html" target="_blank" rel="noopener">Ver como funciona ↗</a></p>`}</div>
   </div>`
 

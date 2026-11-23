@@ -126,7 +126,7 @@ label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px }
     <div class="grade">
       <form class="card" id="form" novalidate>
         <h2>Escolha o plano</h2>
-        <p class="sub">Todos os planos incluem o TraderSystem e os indicadores, dentro da Área do aluno.</p>
+        <p class="sub">Todos os planos incluem a Área do aluno e os indicadores. O GesRisk Trader é um adicional (Plus).</p>
         <div class="planos" id="planos"></div>
         <div class="ciclo" id="ciclo">
           <button type="button" data-ciclo="mensal">Mensal</button>
@@ -201,11 +201,11 @@ label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px }
 <script>
 const PLANOS = {
   lives:    { nome: 'Lives Gravadas', desc: 'Estude no seu ritmo.', mensal: 97,  anual: 797,
-              itens: ['+120 lives gravadas', 'Módulo de metodologia', 'TraderSystem (gestão de risco)', 'Indicadores Trader Positivo', 'Chat da comunidade'] },
+              itens: ['+120 lives gravadas', 'Módulo de metodologia', 'Indicadores Trader Positivo', 'Chat da comunidade'] },
   sala:     { nome: 'Sala ao Vivo', desc: 'Opere junto com o Marcelo, todo dia.', mensal: 297, anual: 2497,
-              itens: ['Sala ao vivo seg–sex, 9h às 12h', 'WIN e WDO operados ao vivo', 'Replay de todas as sessões', 'TraderSystem (gestão de risco)', 'Indicadores Trader Positivo', 'Análise semanal de performance'] },
+              itens: ['Sala ao vivo seg–sex, 9h às 12h', 'WIN e WDO operados ao vivo', 'Replay de todas as sessões', 'Indicadores Trader Positivo', 'Análise semanal de performance'] },
   mentoria: { nome: 'Mentoria Individual', desc: 'Acompanhamento personalizado.', mensal: 997, anual: null,
-              itens: ['Tudo do plano Sala ao Vivo', '1 sessão individual por semana', 'Análise do seu histórico de trades', 'TraderSystem configurado com você', 'WhatsApp direto com o Marcelo'] },
+              itens: ['Tudo do plano Sala ao Vivo', '1 sessão individual por semana', 'Análise do seu histórico de trades', 'GesRisk Trader incluído e configurado com você', 'WhatsApp direto com o Marcelo'] },
 }
 const brl = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
 const $ = id => document.getElementById(id)
@@ -261,9 +261,9 @@ $('form').addEventListener('submit', e => {
   const p = PLANOS[plano]
   const sala = plano !== 'lives'
   const etapas = [
-    ['👤', 'Conta criada com o seu e-mail', `${email} vira o seu login no TraderSystem e na Área do aluno.`],
+    ['👤', 'Conta criada com o seu e-mail', `${email} vira o seu login na Área do aluno.`],
     ['📧', 'E-mail de primeiro acesso', 'Você recebe um link para criar a sua senha.'],
-    ['🎓', 'Área do aluno liberada', `Plano ${p.nome}, com TraderSystem, indicadores${plano === 'lives' ? ' e lives gravadas' : ', lives e aulas'}.`],
+    ['🎓', 'Área do aluno liberada', `Plano ${p.nome}, com indicadores${plano === 'lives' ? ' e lives gravadas' : ', lives e aulas'}.`],
     ...(sala ? [['🔴', 'Sala ao vivo liberada para o seu e-mail', 'Inscrição no Zoom feita automaticamente com o mesmo e-mail. Sem conferência por nome.']] : []),
     ['🔁', 'Renovação automática', ciclo === 'anual' ? 'Acesso por 12 meses. Se não renovar, o acesso é pausado e seus dados ficam guardados.' : 'Todo mês. Se o pagamento não for renovado, o acesso é pausado e seus dados ficam guardados.'],
   ]

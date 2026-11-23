@@ -93,7 +93,7 @@ function traduzir(msg) {
 
 // ── Modo demonstração ───────────────────────────────────────────────────────
 // Logins de exemplo (qualquer senha):
-//   aluno@demo.com   → plano Sala, em dia, com o Plus TraderSystem
+//   aluno@demo.com   → plano Sala, em dia, com o Plus GesRisk Trader
 //   lives@demo.com   → plano Lives, em dia, sem o Plus
 //   vencido@demo.com → plano Sala, vencido
 //   admin@demo.com   → administrador
@@ -117,7 +117,7 @@ function semente() {
   curso2.forEach((t, i) => aulas.push({ id: aulaId++, curso_id: 2, bloco: 'Primeiros passos', numero: i + 1, titulo: t, descricao: '', duracao: `${12 + i * 3}min`, video_url: yt, material_url: '', publicado_em: hoje }))
   const curso3 = ['Instalando no MetaTrader 5', 'Instalando no Profit', 'VWAP Diário e Ancorada', 'Volume Profile', 'Weis Wave e Força vs Resultado', 'Volume Barras e Fibonacci']
   curso3.forEach((t, i) => aulas.push({ id: aulaId++, curso_id: 3, bloco: 'Indicadores', numero: i + 1, titulo: t, descricao: '', duracao: `${15 + i * 4}min`, video_url: yt, material_url: '', publicado_em: hoje }))
-  const curso4 = ['Risco fixo por operação', 'Stop diário e mensal', 'Loss limit na mesa proprietária', 'Usando o TraderSystem']
+  const curso4 = ['Risco fixo por operação', 'Stop diário e mensal', 'Loss limit na mesa proprietária', 'Usando o GesRisk Trader']
   curso4.forEach((t, i) => aulas.push({ id: aulaId++, curso_id: 4, bloco: 'Gestão', numero: i + 1, titulo: t, descricao: '', duracao: `${20 + i * 5}min`, video_url: yt, material_url: '', publicado_em: hoje }))
 
   return {
@@ -136,7 +136,7 @@ function semente() {
       { id: 1, tipo: 'gravacoes', titulo: 'Gravações da sala', descricao: 'As gravações das sessões ao vivo, da mais recente para a primeira.', tema: 'Sala ao vivo', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 0, ativo: true },
       { id: 2, tipo: 'curso', titulo: 'Primeiros passos no WIN e WDO', descricao: 'Para quem está começando nos minicontratos da B3.', tema: 'Iniciante', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: true, ordem: 1, ativo: true },
       { id: 3, tipo: 'curso', titulo: 'Indicadores Trader Positivo', descricao: 'Instalação e uso de cada indicador, no MT5 e no Profit.', tema: 'Indicadores', capa_url: '', planos: ['lives', 'sala', 'mentoria'], gratuito: false, ordem: 2, ativo: true },
-      { id: 4, tipo: 'curso', titulo: 'Gestão de risco na prática', descricao: 'Risco por operação, stops, loss limit e o TraderSystem.', tema: 'Gestão de risco', capa_url: '', planos: ['sala', 'mentoria'], gratuito: false, ordem: 3, ativo: true },
+      { id: 4, tipo: 'curso', titulo: 'Gestão de risco na prática', descricao: 'Risco por operação, stops, loss limit e o GesRisk Trader.', tema: 'Gestão de risco', capa_url: '', planos: ['sala', 'mentoria'], gratuito: false, ordem: 3, ativo: true },
     ],
     aulas,
     progresso: [{ email: 'aluno@demo.com', aula_id: 9, concluida: true }, { email: 'aluno@demo.com', aula_id: 10, concluida: true }],

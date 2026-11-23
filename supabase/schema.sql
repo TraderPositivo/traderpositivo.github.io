@@ -1,8 +1,8 @@
 -- Trader Positivo — banco da Área do aluno (Supabase / Postgres)
--- Separado do TraderSystem. Rodar uma vez no SQL Editor do projeto Supabase.
+-- Separado do GesRisk Trader. Rodar uma vez no SQL Editor do projeto Supabase.
 --
 -- Acesso:
---   1. O admin cadastra a ASSINATURA pelo e-mail do aluno (plano, "acesso até" e o Plus TraderSystem).
+--   1. O admin cadastra a ASSINATURA pelo e-mail do aluno (plano, "acesso até" e o Plus GesRisk Trader).
 --   2. O aluno faz o "Primeiro acesso" com esse mesmo e-mail e cria a senha.
 --   3. Enquanto "acesso_ate" for hoje ou depois, o banco entrega o conteúdo do plano dele.
 --      Venceu: continua entrando, mas os links (aulas, sala, downloads) deixam de vir do banco.
@@ -14,7 +14,7 @@ create table if not exists public.assinaturas (
   nome           text not null default '',
   plano          text not null default 'sala' check (plano in ('lives', 'sala', 'mentoria')),
   acesso_ate     date,
-  tradersystem   boolean not null default false,      -- adicional "Plus": acesso ao TraderSystem
+  tradersystem   boolean not null default false,      -- adicional "Plus": acesso ao GesRisk Trader
   observacao     text not null default '',
   criado_em      timestamptz not null default now(),
   atualizado_em  timestamptz not null default now()
