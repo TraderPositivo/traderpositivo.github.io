@@ -3,263 +3,283 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Admin · Área do aluno · Trader Positivo</title>
+<title>Administração · Área do aluno · Trader Positivo</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#08090e">
+<meta name="theme-color" content="#07080a">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,800&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;700&display=swap">
 <link rel="stylesheet" href="estilo.css">
 <style>
-.cabeca { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap; margin: 22px 0 14px }
-.cabeca h1 { font-size: 26px }
-.abas { display: inline-flex; background: var(--bg3); border: 1px solid var(--bd); border-radius: 12px; padding: 4px; gap: 4px }
-.abas button { background: none; border: 0; color: var(--fg2); font: inherit; font-size: 14px; font-weight: 700; padding: 8px 14px; border-radius: 9px; cursor: pointer }
-.abas button[aria-pressed="true"] { background: var(--gold); color: #000 }
-.numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px }
-.numero { padding: 14px 16px }
-.numero b { display: block; font-size: 26px; letter-spacing: -0.02em }
+.adm { max-width: 1100px; margin: 0 auto; padding: 22px 20px 60px }
+.adm-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px }
+.numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px }
+@media (max-width: 700px) { .numeros { grid-template-columns: 1fr 1fr } }
+.numero b { display: block; font-family: var(--mono); font-size: 26px }
 .numero span { font-size: 12px; color: var(--fg3); text-transform: uppercase; letter-spacing: .06em }
-.ferramentas { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px }
-.ferramentas .campo { flex: 1; min-width: 200px }
+.ferr { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 }
+.ferr .campo { flex: 1; min-width: 200px }
 .linhas { display: grid; gap: 8px }
-.linha { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 16px }
-.linha .quem { min-width: 0; flex: 1 }
-.linha .quem b { display: block; font-size: 15px; overflow-wrap: anywhere }
+.linha { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 13px 16px }
+.linha .quem { flex: 1; min-width: 200px }
+.linha .quem b { display: block; overflow-wrap: anywhere }
 .linha .quem span { font-size: 13px; color: var(--fg2); overflow-wrap: anywhere }
 .linha .acoes { display: flex; gap: 6px; flex-wrap: wrap }
-.grupo-tipo { margin: 20px 0 8px; font-size: 13px; font-weight: 800; color: var(--gold); text-transform: uppercase; letter-spacing: .08em }
-
-dialog { margin: auto; background: var(--bg2); color: var(--fg); border: 1px solid var(--bd); border-radius: 18px; padding: 22px; width: min(480px, calc(100vw - 32px)); max-height: 90vh }
-dialog::backdrop { background: rgba(0,0,0,.6); backdrop-filter: blur(4px) }
-dialog h2 { font-size: 19px; margin-bottom: 14px }
-.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px }
-.marcar { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px }
-.marcar label { display: flex; align-items: center; gap: 6px; font-weight: 600; margin: 0 }
-.rodape-dialog { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap }
+dialog { margin: auto; background: var(--bg2); color: var(--fg); border: 1px solid var(--linha2); border-radius: 18px; padding: 22px; width: min(540px, calc(100vw - 24px)); max-height: 92vh }
+dialog::backdrop { background: rgba(0,0,0,.65); backdrop-filter: blur(4px) }
+dialog h3 { font-size: 20px; margin-bottom: 14px }
+.marcas { display: flex; flex-wrap: wrap; gap: 14px }
+.marcas label, .marca-unica { display: flex; align-items: center; gap: 7px; font-weight: 600; color: var(--fg); margin: 0 }
 .dica { font-size: 12px; color: var(--fg3); margin-top: 4px }
+.rodape-dlg { display: flex; gap: 8px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap }
 </style>
 </head>
 <body>
-
-<header class="topo">
-  <div class="envelope topo-in">
-    <a class="marca" href="index.html"><img src="../favicon.svg" alt="">Trader <span>Positivo</span><small>· Admin</small></a>
-    <div class="topo-acoes"><a class="btn contorno peq" href="index.html">← Área do aluno</a></div>
+<div class="adm" id="adm" hidden>
+  <div class="adm-topo">
+    <div><div class="olho">Trader Positivo · Área do aluno</div><h2 style="font-size:28px;margin-top:4px">Administração</h2></div>
+    <a class="btn contorno peq" href="index.html">← Voltar à Área do aluno</a>
   </div>
-</header>
+  <div class="faixa demo" id="avisoDemo" hidden><span>Modo demonstração: o que você mudar aqui fica só neste navegador.</span></div>
+  <div class="chips" id="abas"></div>
+  <div id="corpo" style="margin-top:16px"></div>
+</div>
+<p class="adm sub" id="semAcesso" hidden>Esta área é só para administradores. <a href="index.html">Voltar</a></p>
 
-<main class="envelope" id="principal" hidden>
-  <div class="demo" id="avisoDemo" hidden><span>Modo demonstração: o que você mudar aqui fica só neste navegador.</span></div>
-
-  <div class="cabeca">
-    <div><h1>Administração</h1><p class="sub">Alunos, planos, validade e conteúdo da Área do aluno.</p></div>
-    <div class="abas" id="abas">
-      <button type="button" data-aba="alunos" aria-pressed="true">Alunos</button>
-      <button type="button" data-aba="conteudo" aria-pressed="false">Conteúdo</button>
-    </div>
-  </div>
-
-  <!-- ALUNOS -->
-  <section id="abaAlunos">
-    <div class="numeros">
-      <div class="card numero"><b id="nAtivos" style="color:var(--green)">0</b><span>Em dia</span></div>
-      <div class="card numero"><b id="nVencendo" style="color:var(--yellow)">0</b><span>Vencem em 7 dias</span></div>
-      <div class="card numero"><b id="nVencidos" style="color:var(--red)">0</b><span>Vencidos</span></div>
-    </div>
-    <div class="ferramentas">
-      <input class="campo" id="busca" type="search" placeholder="Buscar por nome ou e-mail">
-      <button class="btn ouro" id="novoAluno" type="button">+ Novo aluno</button>
-    </div>
-    <div class="linhas" id="listaAlunos"></div>
-  </section>
-
-  <!-- CONTEÚDO -->
-  <section id="abaConteudo" hidden>
-    <div class="ferramentas"><p class="sub" style="flex:1">Item sem link aparece como "Em breve". Use links do YouTube (não listado), Google Drive ou Zoom.</p>
-      <button class="btn ouro" id="novoConteudo" type="button">+ Novo conteúdo</button></div>
-    <div id="listaConteudo"></div>
-  </section>
-</main>
-
-<p class="envelope sub" id="semAcesso" style="margin-top:40px" hidden>Esta área é só para administradores. <a href="index.html">Voltar</a></p>
-
-<dialog id="dlgAluno">
-  <form method="dialog" id="formAluno" novalidate>
-    <h2 id="tituloAluno">Novo aluno</h2>
-    <div class="grupo"><label for="aEmail">E-mail (o mesmo da compra)</label><input class="campo" id="aEmail" type="email" required></div>
-    <div class="grupo"><label for="aNome">Nome</label><input class="campo" id="aNome"></div>
-    <div class="duas grupo">
-      <div><label for="aPlano">Plano</label><select class="campo" id="aPlano"></select></div>
-      <div><label for="aAte">Acesso até</label><input class="campo" id="aAte" type="date"></div>
-    </div>
-    <div class="grupo"><label for="aObs">Observação</label><input class="campo" id="aObs" placeholder="ex.: pagou por Pix em 27/10"></div>
-    <p class="dica">O aluno cria a conta na Área do aluno com este e-mail e já entra com o plano liberado.</p>
-    <p class="msg erro" id="msgAluno"></p>
-    <div class="rodape-dialog">
-      <button class="btn contorno" value="cancelar" type="button" id="cancelarAluno">Cancelar</button>
-      <button class="btn ouro" type="submit">Salvar</button>
-    </div>
-  </form>
-</dialog>
-
-<dialog id="dlgConteudo">
-  <form method="dialog" id="formConteudo" novalidate>
-    <h2 id="tituloConteudo">Novo conteúdo</h2>
-    <div class="duas grupo">
-      <div><label for="cTipo">Tipo</label><select class="campo" id="cTipo"></select></div>
-      <div><label for="cOrdem">Ordem</label><input class="campo" id="cOrdem" type="number" value="0"></div>
-    </div>
-    <div class="grupo"><label for="cTitulo">Título</label><input class="campo" id="cTitulo" required></div>
-    <div class="grupo"><label for="cDesc">Descrição</label><input class="campo" id="cDesc"></div>
-    <div class="grupo"><label for="cUrl">Link</label><input class="campo" id="cUrl" type="url" placeholder="https://..."></div>
-    <div class="grupo"><label for="cPlat">Plataforma (indicadores)</label><input class="campo" id="cPlat" placeholder="MT5 · Profit"></div>
-    <div class="grupo"><label>Quais planos veem</label><div class="marcar" id="cPlanos"></div></div>
-    <div class="grupo marcar"><label><input type="checkbox" id="cAtivo" checked> Visível para os alunos</label></div>
-    <p class="msg erro" id="msgConteudo"></p>
-    <div class="rodape-dialog">
-      <button class="btn contorno" type="button" id="removerConteudo" hidden style="margin-right:auto;color:var(--red)">Remover</button>
-      <button class="btn contorno" type="button" id="cancelarConteudo">Cancelar</button>
-      <button class="btn ouro" type="submit">Salvar</button>
-    </div>
-  </form>
-</dialog>
+<dialog id="dlg"><form id="form" novalidate><h3 id="dlgTitulo"></h3><div id="campos"></div><p class="msg erro" id="dlgMsg"></p>
+  <div class="rodape-dlg"><button class="btn contorno" type="button" id="dlgRemover" style="margin-right:auto;color:var(--red)" hidden>Remover</button>
+  <button class="btn contorno" type="button" id="dlgCancelar">Cancelar</button><button class="btn ouro" type="submit">Salvar</button></div></form></dialog>
 
 <script type="module">
-import { repo, DEMO, PLANOS, hojeSP, maisDias, emDia } from './repo.js'
+import { repo, DEMO, PLANOS, hojeSP, maisDias, emDia, CHAVES } from './repo.js'
 
 const $ = (id) => document.getElementById(id)
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
-const fmt = (iso) => (iso ? iso.split('-').reverse().join('/') : '—')
-const TIPOS = { sala: 'Sala ao vivo', instalacao: 'Instalação dos indicadores', indicador: 'Indicadores', live: 'Lives gravadas', aula: 'Aulas' }
+const dataBR = (iso) => (iso ? iso.slice(0, 10).split('-').reverse().join('/') : '—')
+const TZ = 'America/Sao_Paulo'
+const quando = (iso) => new Date(iso).toLocaleString('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: TZ })
+// datetime-local (horário de Brasília) <-> ISO
+const paraLocal = (iso) => (iso ? new Date(new Date(iso).getTime() - 3 * 3600e3).toISOString().slice(0, 16) : '')
+const deLocal = (v) => (v ? new Date(v + ':00-03:00').toISOString() : null)
+const TODOS = Object.keys(PLANOS)
 
 const sessao = await repo.sessao()
 if (!sessao || !(await repo.souAdmin())) { $('semAcesso').hidden = false; throw new Error('sem acesso') }
-$('principal').hidden = false
+$('adm').hidden = false
 $('avisoDemo').hidden = !DEMO
 
-$('aPlano').innerHTML = Object.entries(PLANOS).map(([v, n]) => `<option value="${v}">${n}</option>`).join('')
-$('cTipo').innerHTML = Object.entries(TIPOS).map(([v, n]) => `<option value="${v}">${n}</option>`).join('')
-$('cPlanos').innerHTML = Object.entries(PLANOS).map(([v, n]) => `<label><input type="checkbox" value="${v}" checked> ${n}</label>`).join('')
-
-$('abas').onclick = (e) => {
-  const b = e.target.closest('button'); if (!b) return
-  document.querySelectorAll('#abas button').forEach((x) => x.setAttribute('aria-pressed', x === b))
-  $('abaAlunos').hidden = b.dataset.aba !== 'alunos'
-  $('abaConteudo').hidden = b.dataset.aba !== 'conteudo'
+let cursos = []
+// ── configuração de cada aba: lista + formulário ────────────────────────────
+const ABAS = {
+  assinaturas: {
+    nome: 'Alunos', novo: '+ Novo aluno', ordem: (a, b) => (a.acesso_ate || '').localeCompare(b.acesso_ate || ''),
+    busca: (x) => `${x.email} ${x.nome}`,
+    linha: (x) => `<div class="quem"><b>${esc(x.nome || x.email)}</b><span>${esc(x.email)} · ${esc(PLANOS[x.plano] || x.plano)}${x.tradersystem ? ' · <span class="tag plus">PLUS</span>' : ''}${x.observacao ? ' · ' + esc(x.observacao) : ''}</span></div>
+      <span class="tag ${emDia(x) ? 'compra' : 'venda'}">${emDia(x) ? 'até ' : 'venceu '}${dataBR(x.acesso_ate)}</span>
+      <div class="acoes"><button class="btn leve peq" type="button" data-renovar="${esc(x.email)}">+30 dias</button><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'email', t: 'E-mail (o mesmo da compra)', tipo: 'email', obrig: true, fixoAoEditar: true },
+      { k: 'nome', t: 'Nome' },
+      { k: 'plano', t: 'Plano', tipo: 'select', opcoes: PLANOS, padrao: 'sala', meia: true },
+      { k: 'acesso_ate', t: 'Acesso até', tipo: 'date', padrao: () => maisDias(hojeSP(), 30), meia: true },
+      { k: 'tradersystem', t: 'Plus: acesso ao TraderSystem', tipo: 'check' },
+      { k: 'observacao', t: 'Observação', dica: 'ex.: pagou por Pix em 23/11' },
+    ],
+  },
+  agenda: {
+    nome: 'Agenda', novo: '+ Nova sessão', ordem: (a, b) => b.inicio.localeCompare(a.inicio), busca: (x) => `${x.titulo} ${x.com}`,
+    linha: (x) => `<div class="quem"><b>${esc(x.titulo)}</b><span>${quando(x.inicio)}${x.fim ? ' até ' + quando(x.fim).slice(-5) : ''} · com ${esc(x.com)} · ${{ sala: 'Sala ao vivo', mentoria: 'Mentoria', evento: 'Evento aberto' }[x.tipo]}</span></div>
+      <span class="tag ${x.link ? 'compra' : ''}">${x.link ? 'Link próprio' : 'Link padrão'}</span><div class="acoes"><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'tipo', t: 'Tipo', tipo: 'select', opcoes: { sala: 'Sala ao vivo', mentoria: 'Encontro da mentoria', evento: 'Evento aberto (gratuito)' }, padrao: 'sala', meia: true },
+      { k: 'com', t: 'Com', padrao: 'Marcelo', meia: true },
+      { k: 'titulo', t: 'Título', padrao: 'Sala ao vivo', obrig: true },
+      { k: 'inicio', t: 'Início (horário de Brasília)', tipo: 'datetime', obrig: true, meia: true },
+      { k: 'fim', t: 'Fim', tipo: 'datetime', meia: true },
+      { k: 'link', t: 'Link do Zoom', tipo: 'url', dica: 'Vazio = usa o link padrão da sala (aba Downloads e links).' },
+      { k: 'planos', t: 'Quais planos veem', tipo: 'planos', padrao: ['sala', 'mentoria'] },
+    ],
+  },
+  cursos: {
+    nome: 'Cursos', novo: '+ Novo curso', ordem: (a, b) => a.ordem - b.ordem, busca: (x) => `${x.titulo} ${x.tema}`,
+    linha: (x) => `<div class="quem"><b>${esc(x.titulo)}${x.ativo ? '' : ' (oculto)'}</b><span>${x.tipo === 'gravacoes' ? 'Biblioteca de gravações da sala' : esc(x.tema)} · ${x.gratuito ? 'Gratuito' : x.planos.map((p) => PLANOS[p]).join(', ')}</span></div>
+      <div class="acoes"><a class="btn leve peq" href="#aulas/${x.id}">Aulas</a><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'titulo', t: 'Título', obrig: true },
+      { k: 'tipo', t: 'Tipo', tipo: 'select', opcoes: { curso: 'Curso', gravacoes: 'Gravações da sala' }, padrao: 'curso', meia: true },
+      { k: 'tema', t: 'Tema', padrao: 'Método', meia: true },
+      { k: 'descricao', t: 'Descrição', tipo: 'textarea' },
+      { k: 'capa_url', t: 'Imagem de capa (link)', tipo: 'url' },
+      { k: 'planos', t: 'Quais planos acessam', tipo: 'planos', padrao: TODOS },
+      { k: 'gratuito', t: 'Gratuito para qualquer cadastrado', tipo: 'check' },
+      { k: 'ordem', t: 'Ordem', tipo: 'number', padrao: 0, meia: true },
+      { k: 'ativo', t: 'Visível', tipo: 'check', padrao: true },
+    ],
+  },
+  aulas: {
+    nome: 'Aulas', novo: '+ Nova aula', ordem: (a, b) => a.curso_id - b.curso_id || b.numero - a.numero, busca: (x) => `${x.titulo} ${x.bloco}`,
+    filtroCurso: true,
+    linha: (x) => `<div class="quem"><b>Aula ${x.numero} · ${esc(x.titulo)}</b><span>${esc(cursos.find((c) => c.id === x.curso_id)?.titulo || '')}${x.bloco ? ' · ' + esc(x.bloco) : ''}${x.duracao ? ' · ' + esc(x.duracao) : ''}</span></div>
+      <span class="tag ${x.video_url ? 'compra' : ''}">${x.video_url ? 'Com vídeo' : 'Sem vídeo'}</span><div class="acoes"><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'curso_id', t: 'Curso', tipo: 'curso', obrig: true },
+      { k: 'numero', t: 'Número', tipo: 'number', padrao: 1, meia: true },
+      { k: 'duracao', t: 'Duração', dica: 'ex.: 1h42', meia: true },
+      { k: 'titulo', t: 'Título', obrig: true },
+      { k: 'bloco', t: 'Bloco', dica: 'Agrupa as aulas: Fundamentos, Leitura de fluxo...' },
+      { k: 'descricao', t: 'Descrição', tipo: 'textarea' },
+      { k: 'video_url', t: 'Vídeo (YouTube não listado)', tipo: 'url' },
+      { k: 'material_url', t: 'Material de apoio (link)', tipo: 'url' },
+    ],
+  },
+  analises: {
+    nome: 'Análises', novo: '+ Nova análise', ordem: (a, b) => b.criado_em.localeCompare(a.criado_em), busca: (x) => `${x.ativo} ${x.texto}`,
+    linha: (x) => `<div class="quem"><b>${esc(x.ativo)} · <span class="tag ${x.direcao}">${x.direcao}</span> · ${esc(x.momento)}</b><span>${esc(x.texto.slice(0, 120))}</span></div>
+      <span class="fraco">${quando(x.criado_em)}</span><div class="acoes"><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'ativo', t: 'Ativo', tipo: 'select', opcoes: { WIN: 'WIN', WDO: 'WDO', IND: 'IND', DOL: 'DOL', 'S&P': 'S&P', NASDAQ: 'Nasdaq' }, padrao: 'WIN', meia: true },
+      { k: 'direcao', t: 'Direção', tipo: 'select', opcoes: { compra: 'Compra', venda: 'Venda', neutro: 'Neutro' }, padrao: 'compra', meia: true },
+      { k: 'momento', t: 'Momento', tipo: 'select', opcoes: { 'Pré-abertura': 'Pré-abertura', 'Manhã': 'Manhã', 'Tarde': 'Tarde', 'Semanal': 'Semanal' }, padrao: 'Pré-abertura', meia: true },
+      { k: 'autor', t: 'Autor', padrao: 'Marcelo Ceribelli', meia: true },
+      { k: 'texto', t: 'Análise', tipo: 'textarea', obrig: true },
+      { k: 'imagem_url', t: 'Print do gráfico (link)', tipo: 'url' },
+    ],
+    antesDeSalvar: (o) => { if (!o.id) o.criado_em = new Date().toISOString() },
+  },
+  avisos: {
+    nome: 'Avisos', novo: '+ Novo aviso', ordem: (a, b) => (b.criado_em || '').localeCompare(a.criado_em || ''), busca: (x) => x.texto,
+    linha: (x) => `<div class="quem"><b>${esc(x.texto)}</b><span>${x.ativo ? 'Aparece no Início' : 'Oculto'}</span></div><div class="acoes"><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [{ k: 'texto', t: 'Aviso', tipo: 'textarea', obrig: true }, { k: 'link', t: 'Link (opcional)', tipo: 'url' }, { k: 'ativo', t: 'Mostrar no Início', tipo: 'check', padrao: true }],
+    antesDeSalvar: (o) => { if (!o.id) o.criado_em = new Date().toISOString() },
+  },
+  conteudo: {
+    nome: 'Downloads e links', novo: '+ Novo item', ordem: (a, b) => a.tipo.localeCompare(b.tipo) || a.ordem - b.ordem, busca: (x) => x.titulo,
+    linha: (x) => `<div class="quem"><b>${esc(x.titulo)}${x.ativo ? '' : ' (oculto)'}</b><span>${{ indicador: 'Indicador', instalacao: 'Instalação', sala: 'Link padrão da sala' }[x.tipo]} · ${x.url ? esc(x.url) : 'sem link: aparece "Em breve"'}</span></div>
+      <span class="tag ${x.url ? 'compra' : ''}">${x.url ? 'Com link' : 'Em breve'}</span><div class="acoes"><button class="btn contorno peq" type="button" data-editar>Editar</button></div>`,
+    campos: [
+      { k: 'tipo', t: 'Tipo', tipo: 'select', opcoes: { indicador: 'Indicador', instalacao: 'Como instalar', sala: 'Link padrão da sala' }, padrao: 'indicador', meia: true },
+      { k: 'ordem', t: 'Ordem', tipo: 'number', padrao: 0, meia: true },
+      { k: 'titulo', t: 'Título', obrig: true }, { k: 'descricao', t: 'Descrição' },
+      { k: 'url', t: 'Link (Google Drive, YouTube, Zoom)', tipo: 'url' }, { k: 'plataforma', t: 'Plataforma', dica: 'ex.: MT5 · Profit' },
+      { k: 'planos', t: 'Quais planos veem', tipo: 'planos', padrao: TODOS }, { k: 'ativo', t: 'Visível', tipo: 'check', padrao: true },
+    ],
+  },
 }
 
-// ── alunos ─────────────────────────────────────────────────────────────────
-let alunos = []
-async function carregarAlunos() {
-  alunos = await repo.listarAssinaturas()
-  const hoje = hojeSP(), em7 = maisDias(hoje, 7)
-  $('nAtivos').textContent = alunos.filter(emDia).length
-  $('nVencendo').textContent = alunos.filter((a) => emDia(a) && a.acesso_ate <= em7).length
-  $('nVencidos').textContent = alunos.filter((a) => !emDia(a)).length
-  desenharAlunos()
-}
-function desenharAlunos() {
-  const q = $('busca').value.trim().toLowerCase()
-  const lista = alunos.filter((a) => !q || a.email.includes(q) || (a.nome || '').toLowerCase().includes(q))
-  $('listaAlunos').innerHTML = lista.length ? lista.map((a) => {
-    const ok = emDia(a)
-    return `<div class="card linha">
-      <div class="quem"><b>${esc(a.nome || a.email)}</b><span>${esc(a.email)} · ${esc(PLANOS[a.plano] || a.plano)}${a.observacao ? ' · ' + esc(a.observacao) : ''}</span></div>
-      <span class="etiqueta ${ok ? 'ok' : 'ruim'}">${ok ? 'até ' : 'venceu '}${fmt(a.acesso_ate)}</span>
-      <div class="acoes">
-        <button class="btn leve peq" data-renovar="${esc(a.email)}" type="button">+30 dias</button>
-        <button class="btn contorno peq" data-editar="${esc(a.email)}" type="button">Editar</button>
-      </div></div>`
-  }).join('') : '<div class="card sub" style="text-align:center">Nenhum aluno encontrado.</div>'
-}
-$('busca').oninput = desenharAlunos
-$('listaAlunos').onclick = async (e) => {
-  const r = e.target.closest('[data-renovar]'), ed = e.target.closest('[data-editar]')
-  if (r) { r.disabled = true; await repo.renovar(r.dataset.renovar, 30); carregarAlunos() }
-  if (ed) abrirAluno(alunos.find((a) => a.email === ed.dataset.editar))
+let aba = 'assinaturas', dados = [], filtroCurso = ''
+$('abas').innerHTML = Object.entries(ABAS).map(([k, a]) => `<button class="chip" type="button" data-aba="${k}">${a.nome}</button>`).join('')
+$('abas').onclick = (e) => { const b = e.target.closest('[data-aba]'); if (b) { location.hash = b.dataset.aba } }
+window.addEventListener('hashchange', lerHash)
+
+async function lerHash() {
+  const [a, curso] = location.hash.replace('#', '').split('/')
+  aba = ABAS[a] ? a : 'assinaturas'
+  filtroCurso = aba === 'aulas' ? curso || '' : ''
+  document.querySelectorAll('#abas [data-aba]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.aba === aba))
+  await carregar()
 }
 
-let editandoEmail = null
-function abrirAluno(a) {
-  editandoEmail = a?.email || null
-  $('tituloAluno').textContent = a ? 'Editar aluno' : 'Novo aluno'
-  $('aEmail').value = a?.email || ''
-  $('aEmail').disabled = !!a
-  $('aNome').value = a?.nome || ''
-  $('aPlano').value = a?.plano || 'sala'
-  $('aAte').value = a?.acesso_ate || maisDias(hojeSP(), 30)
-  $('aObs').value = a?.observacao || ''
-  $('msgAluno').textContent = ''
-  $('dlgAluno').showModal()
+async function carregar() {
+  cursos = await repo.listar('cursos')
+  dados = (await repo.listar(aba)).sort(ABAS[aba].ordem)
+  desenhar()
 }
-$('novoAluno').onclick = () => abrirAluno(null)
-$('cancelarAluno').onclick = () => $('dlgAluno').close()
-$('formAluno').onsubmit = async (e) => {
+
+function desenhar() {
+  const cfg = ABAS[aba]
+  let topo = ''
+  if (aba === 'assinaturas') {
+    const em7 = maisDias(hojeSP(), 7)
+    topo = `<div class="numeros">
+      <div class="card numero"><b style="color:var(--green)">${dados.filter(emDia).length}</b><span>Em dia</span></div>
+      <div class="card numero"><b style="color:var(--yellow)">${dados.filter((x) => emDia(x) && x.acesso_ate <= em7).length}</b><span>Vencem em 7 dias</span></div>
+      <div class="card numero"><b style="color:var(--red)">${dados.filter((x) => !emDia(x)).length}</b><span>Vencidos</span></div>
+      <div class="card numero"><b style="color:var(--gold2)">${dados.filter((x) => emDia(x) && x.tradersystem).length}</b><span>Com Plus</span></div></div>`
+  }
+  const filtroAulas = cfg.filtroCurso ? `<select class="campo" id="filtroCurso" style="max-width:280px"><option value="">Todos os cursos</option>${cursos.map((c) => `<option value="${c.id}" ${String(c.id) === filtroCurso ? 'selected' : ''}>${esc(c.titulo)}</option>`).join('')}</select>` : ''
+  $('corpo').innerHTML = `${topo}<div class="ferr"><input class="campo" id="busca" type="search" placeholder="Buscar...">${filtroAulas}<button class="btn ouro" type="button" id="novo">${cfg.novo}</button></div><div class="linhas" id="linhas"></div>`
+  $('busca').oninput = desenharLinhas
+  if ($('filtroCurso')) $('filtroCurso').onchange = (e) => { location.hash = `aulas/${e.target.value}` }
+  $('novo').onclick = () => abrir(null)
+  desenharLinhas()
+}
+function desenharLinhas() {
+  const cfg = ABAS[aba], q = $('busca').value.trim().toLowerCase()
+  const lista = dados.filter((x) => (!filtroCurso || String(x.curso_id) === filtroCurso) && (!q || cfg.busca(x).toLowerCase().includes(q)))
+  $('linhas').innerHTML = lista.map((x, i) => `<div class="card linha" data-i="${dados.indexOf(x)}">${cfg.linha(x)}</div>`).join('') || '<div class="card vazio">Nada por aqui ainda.</div>'
+}
+$('corpo').onclick = async (e) => {
+  const r = e.target.closest('[data-renovar]')
+  if (r) { r.disabled = true; await repo.renovar(r.dataset.renovar, 30); return carregar() }
+  const ed = e.target.closest('[data-editar]')
+  if (ed) abrir(dados[Number(ed.closest('[data-i]').dataset.i)])
+}
+
+// ── formulário genérico ─────────────────────────────────────────────────────
+let editando = null
+function campoHTML(c, v) {
+  const id = 'f_' + c.k
+  const rot = `<label for="${id}">${c.t}</label>`
+  const dica = c.dica ? `<p class="dica">${c.dica}</p>` : ''
+  let input
+  if (c.tipo === 'select') input = `<select class="campo" id="${id}">${Object.entries(c.opcoes).map(([o, n]) => `<option value="${esc(o)}" ${o === v ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>`
+  else if (c.tipo === 'curso') input = `<select class="campo" id="${id}">${cursos.map((cu) => `<option value="${cu.id}" ${cu.id === v ? 'selected' : ''}>${esc(cu.titulo)}</option>`).join('')}</select>`
+  else if (c.tipo === 'textarea') input = `<textarea class="campo" id="${id}">${esc(v)}</textarea>`
+  else if (c.tipo === 'check') return `<div class="grupo"><label class="marca-unica"><input type="checkbox" id="${id}" ${v ? 'checked' : ''}> ${c.t}</label>${dica}</div>`
+  else if (c.tipo === 'planos') input = `<div class="marcas" id="${id}">${Object.entries(PLANOS).map(([p, n]) => `<label><input type="checkbox" value="${p}" ${(v || []).includes(p) ? 'checked' : ''}> ${n}</label>`).join('')}</div>`
+  else {
+    const tipo = { email: 'email', date: 'date', datetime: 'datetime-local', number: 'number', url: 'url' }[c.tipo] || 'text'
+    const valor = c.tipo === 'datetime' ? paraLocal(v) : v
+    input = `<input class="campo" id="${id}" type="${tipo}" value="${esc(valor)}" ${editando && c.fixoAoEditar ? 'disabled' : ''} ${c.tipo === 'url' ? 'placeholder="https://..."' : ''}>`
+  }
+  return `<div class="grupo" ${c.meia ? 'data-meia' : ''}>${rot}${input}${dica}</div>`
+}
+function abrir(x) {
+  editando = x
+  const cfg = ABAS[aba]
+  $('dlgTitulo').textContent = (x ? 'Editar · ' : 'Novo · ') + cfg.nome.toLowerCase()
+  const html = cfg.campos.map((c) => {
+    const padrao = typeof c.padrao === 'function' ? c.padrao() : c.padrao
+    let v = x ? x[c.k] : padrao
+    if (!x && c.k === 'curso_id' && filtroCurso) v = Number(filtroCurso)
+    if (!x && c.k === 'curso_id' && !v) v = cursos[0]?.id
+    return campoHTML(c, v ?? (c.tipo === 'check' ? false : ''))
+  })
+  // campos "meia" lado a lado, dois a dois
+  let saida = '', pend = []
+  html.forEach((h) => { if (h.includes('data-meia')) { pend.push(h); if (pend.length === 2) { saida += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">${pend.join('')}</div>`; pend = [] } } else { saida += pend.join('') + h; pend = [] } })
+  $('campos').innerHTML = saida + pend.join('')
+  $('dlgRemover').hidden = !x
+  $('dlgMsg').textContent = ''
+  $('dlg').showModal()
+}
+$('dlgCancelar').onclick = () => $('dlg').close()
+$('dlgRemover').onclick = async () => {
+  if (!confirm('Remover este item? Não dá para desfazer.')) return
+  await repo.remover(aba, editando[CHAVES[aba]]); $('dlg').close(); carregar()
+}
+$('form').onsubmit = async (e) => {
   e.preventDefault()
-  const email = (editandoEmail || $('aEmail').value).trim().toLowerCase()
-  if (!/^\S+@\S+\.\S+$/.test(email)) { $('msgAluno').textContent = 'Informe um e-mail válido.'; return }
-  if (!editandoEmail && alunos.some((a) => a.email === email)) { $('msgAluno').textContent = 'Esse e-mail já está cadastrado. Use Editar.'; return }
-  try {
-    await repo.salvarAssinatura({ email, nome: $('aNome').value.trim(), plano: $('aPlano').value, acesso_ate: $('aAte').value, observacao: $('aObs').value.trim() })
-    $('dlgAluno').close(); carregarAlunos()
-  } catch (err) { $('msgAluno').textContent = err.message }
+  const cfg = ABAS[aba]
+  const o = editando ? { ...editando } : {}
+  for (const c of cfg.campos) {
+    const el = $('f_' + c.k)
+    if (c.tipo === 'check') o[c.k] = el.checked
+    else if (c.tipo === 'planos') o[c.k] = [...el.querySelectorAll('input:checked')].map((i) => i.value)
+    else if (c.tipo === 'number' || c.tipo === 'curso') o[c.k] = Number(el.value) || 0
+    else if (c.tipo === 'datetime') o[c.k] = deLocal(el.value)
+    else if (c.tipo === 'date') o[c.k] = el.value || null
+    else o[c.k] = el.value.trim()
+    if (c.obrig && (o[c.k] === '' || o[c.k] == null)) { $('dlgMsg').textContent = `Preencha: ${c.t}.`; return }
+    if (c.tipo === 'url' && o[c.k] && !/^https?:\/\//i.test(o[c.k])) { $('dlgMsg').textContent = `${c.t}: o link precisa começar com https://`; return }
+    if (c.tipo === 'planos' && !o[c.k].length) { $('dlgMsg').textContent = 'Marque pelo menos um plano.'; return }
+  }
+  if (aba === 'assinaturas' && !editando && dados.some((x) => x.email === o.email.toLowerCase())) { $('dlgMsg').textContent = 'Esse e-mail já está cadastrado. Use Editar.'; return }
+  cfg.antesDeSalvar?.(o)
+  try { await repo.salvar(aba, o); $('dlg').close(); carregar() }
+  catch (err) { $('dlgMsg').textContent = err.message }
 }
 
-// ── conteúdo ───────────────────────────────────────────────────────────────
-let itens = []
-async function carregarConteudo() {
-  itens = await repo.listarConteudoAdmin()
-  $('listaConteudo').innerHTML = Object.entries(TIPOS).map(([tipo, nome]) => {
-    const doTipo = itens.filter((c) => c.tipo === tipo)
-    if (!doTipo.length) return ''
-    return `<div class="grupo-tipo">${nome}</div><div class="linhas">${doTipo.map((c) => `
-      <div class="card linha">
-        <div class="quem"><b>${esc(c.titulo)}${c.ativo ? '' : ' (oculto)'}</b><span>${c.url ? esc(c.url) : 'Sem link: aparece como "Em breve"'}</span></div>
-        <span class="etiqueta ${c.url ? 'ok' : ''}">${c.url ? 'Com link' : 'Em breve'}</span>
-        <div class="acoes"><button class="btn contorno peq" data-editar="${c.id}" type="button">Editar</button></div>
-      </div>`).join('')}</div>`
-  }).join('')
-}
-$('listaConteudo').onclick = (e) => {
-  const b = e.target.closest('[data-editar]'); if (b) abrirConteudo(itens.find((c) => String(c.id) === b.dataset.editar))
-}
-let editandoId = null
-function abrirConteudo(c) {
-  editandoId = c?.id || null
-  $('tituloConteudo').textContent = c ? 'Editar conteúdo' : 'Novo conteúdo'
-  $('cTipo').value = c?.tipo || 'live'
-  $('cOrdem').value = c?.ordem ?? 0
-  $('cTitulo').value = c?.titulo || ''
-  $('cDesc').value = c?.descricao || ''
-  $('cUrl').value = c?.url || ''
-  $('cPlat').value = c?.plataforma || ''
-  document.querySelectorAll('#cPlanos input').forEach((i) => (i.checked = !c || c.planos.includes(i.value)))
-  $('cAtivo').checked = c ? c.ativo : true
-  $('removerConteudo').hidden = !c
-  $('msgConteudo').textContent = ''
-  $('dlgConteudo').showModal()
-}
-$('novoConteudo').onclick = () => abrirConteudo(null)
-$('cancelarConteudo').onclick = () => $('dlgConteudo').close()
-$('removerConteudo').onclick = async () => {
-  if (!confirm('Remover este conteúdo da Área do aluno?')) return
-  await repo.removerConteudo(editandoId); $('dlgConteudo').close(); carregarConteudo()
-}
-$('formConteudo').onsubmit = async (e) => {
-  e.preventDefault()
-  const url = $('cUrl').value.trim()
-  const planos = [...document.querySelectorAll('#cPlanos input:checked')].map((i) => i.value)
-  if (!$('cTitulo').value.trim()) { $('msgConteudo').textContent = 'Informe o título.'; return }
-  if (url && !/^https?:\/\//i.test(url)) { $('msgConteudo').textContent = 'O link precisa começar com https://'; return }
-  if (!planos.length) { $('msgConteudo').textContent = 'Marque pelo menos um plano.'; return }
-  try {
-    await repo.salvarConteudo({ id: editandoId, tipo: $('cTipo').value, ordem: $('cOrdem').value, titulo: $('cTitulo').value.trim(),
-      descricao: $('cDesc').value.trim(), url, plataforma: $('cPlat').value.trim(), planos, ativo: $('cAtivo').checked })
-    $('dlgConteudo').close(); carregarConteudo()
-  } catch (err) { $('msgConteudo').textContent = err.message }
-}
-
-carregarAlunos()
-carregarConteudo()
+lerHash()
 </script>
 </body>
 </html>

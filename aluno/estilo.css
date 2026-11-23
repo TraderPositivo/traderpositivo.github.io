@@ -1,59 +1,150 @@
-/* Área do aluno · Trader Positivo — mesmo visual do site */
+/* Área do aluno · Trader Positivo
+   Disposição: menu lateral fixo no desktop, barra inferior no celular, cartões escuros. */
 :root {
-  --bg: #08090e; --bg2: #0f1018; --bg3: #161825; --card: #1a1d2e;
-  --gold: #c8971e; --gold2: #e8b840; --gold-bg: rgba(200,151,30,.08); --gold-bd: rgba(200,151,30,.22);
-  --green: #3ecf7a; --red: #e0566a; --yellow: #f0c040;
-  --fg: #eceef6; --fg2: #9ba3c0; --fg3: #5a6280; --bd: rgba(255,255,255,.065);
-  --fonte: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --bg: #07080a; --bg2: #0d0f12; --card: #121418; --card2: #171a1f; --linha: #23272e; --linha2: #2e333b;
+  --gold: #d4a52c; --gold2: #f0c75a; --gold-bg: rgba(212,165,44,.09); --gold-bd: rgba(212,165,44,.45);
+  --green: #3ecf7a; --green-bg: rgba(62,207,122,.1); --red: #e85d6c; --red-bg: rgba(232,93,108,.1); --yellow: #f0c040;
+  --fg: #f3f4f1; --fg2: #b4bab6; --fg3: #6b7275;
+  --corpo: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --titulo: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --menu: 248px;
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
-body { font-family: var(--fonte); background: var(--bg); color: var(--fg); font-size: 16px; line-height: 1.55; min-height: 100vh; overflow-x: hidden;
-  background-image: radial-gradient(ellipse 70% 38% at 50% 0%, rgba(200,151,30,.10), transparent 65%) }
-a { color: var(--gold); text-decoration: none }
-h1, h2, h3 { font-weight: 800; letter-spacing: -0.02em; line-height: 1.15 }
+body { font-family: var(--corpo); background: var(--bg); color: var(--fg); font-size: 15.5px; line-height: 1.5; min-height: 100vh; overflow-x: hidden }
+a { color: var(--gold2); text-decoration: none }
+button { font: inherit; color: inherit }
 [hidden] { display: none !important }
-.envelope { max-width: 1040px; margin: 0 auto; padding: 0 20px }
-
-/* topo */
-.topo { border-bottom: 1px solid var(--bd); background: rgba(8,9,14,.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 20 }
-.topo-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px }
-.marca { display: flex; align-items: center; gap: 10px; color: var(--fg); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; white-space: nowrap }
-.marca span { color: var(--gold) }
-.marca small { color: var(--fg3); font-weight: 600; font-size: 14px; letter-spacing: 0 }
-.marca img { width: 30px; height: 30px }
-.topo-acoes { display: flex; align-items: center; gap: 10px }
-.topo-acoes .nome { color: var(--fg2); font-size: 13px; font-weight: 600 }
-@media (max-width: 600px) { .marca small, .topo-acoes .nome { display: none } }
-
-.demo { background: rgba(240,192,64,.1); border: 1px solid rgba(240,192,64,.3); color: var(--yellow); font-size: 13px; font-weight: 600;
-  padding: 9px 14px; border-radius: 12px; margin: 16px 0 0; display: flex; gap: 10px; justify-content: space-between; align-items: center; flex-wrap: wrap }
-.demo button { background: none; border: 1px solid rgba(240,192,64,.4); color: var(--yellow); border-radius: 8px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer }
-
-/* botões */
-.btn { display: inline-block; border: 0; font: inherit; font-weight: 700; font-size: 15px; padding: 12px 20px; border-radius: 12px; cursor: pointer; text-align: center }
-.btn.ouro { background: var(--gold); color: #000 }
-.btn.ouro:hover { background: var(--gold2) }
-.btn.leve { background: var(--gold-bg); color: var(--gold2); border: 1px solid var(--gold-bd) }
-.btn.contorno { background: transparent; color: var(--fg); border: 1px solid var(--bd) }
-.btn.contorno:hover { border-color: var(--gold) }
-.btn.peq { padding: 7px 12px; font-size: 13px; border-radius: 10px }
-.btn.travado { background: var(--bg3); color: var(--fg3); border: 1px solid var(--bd); cursor: default }
-.btn[disabled] { opacity: .6; cursor: wait }
-
-/* formulários */
-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px }
-.campo { width: 100%; background: var(--bg); border: 1px solid var(--bd); border-radius: 12px; color: var(--fg); font: inherit; font-size: 16px; padding: 11px 13px; outline: none }
-.campo:focus { border-color: var(--gold) }
-.grupo { margin-bottom: 14px }
-.msg { font-size: 14px; font-weight: 600; margin-top: 12px; min-height: 20px }
-.msg.erro { color: var(--red) }
-.msg.ok { color: var(--green) }
-
-/* cartões */
-.card { background: var(--card); border: 1px solid var(--bd); border-radius: 18px; padding: 20px }
+h1, h2, h3, h4 { font-weight: 700; line-height: 1.15; letter-spacing: -0.01em }
+.display { font-family: var(--titulo); font-style: italic; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .95 }
+.display em { font-style: italic; color: var(--gold2) }
+.mono { font-family: var(--mono) }
+.olho { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold2); display: flex; align-items: center; gap: 6px }
 .sub { color: var(--fg2); font-size: 14px }
-.etiqueta { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 99px; padding: 3px 10px; background: var(--bg3); color: var(--fg2); border: 1px solid var(--bd) }
-.etiqueta.ok { color: var(--green); background: rgba(62,207,122,.1); border-color: rgba(62,207,122,.25) }
-.etiqueta.ruim { color: var(--red); background: rgba(224,86,106,.1); border-color: rgba(224,86,106,.25) }
-.etiqueta.ouro { color: var(--gold2); background: var(--gold-bg); border-color: var(--gold-bd) }
+.fraco { color: var(--fg3); font-size: 13px }
+
+/* ── botões ── */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; font-weight: 700; font-size: 14.5px;
+  padding: 10px 16px; border-radius: 12px; cursor: pointer; text-align: center; white-space: nowrap; transition: background .15s, border-color .15s }
+.btn.ouro { background: var(--gold); color: #120d02 }
+.btn.ouro:hover { background: var(--gold2) }
+.btn.leve { background: var(--gold-bg); color: var(--fg); border-color: var(--gold-bd) }
+.btn.leve:hover { background: rgba(212,165,44,.16) }
+.btn.contorno { background: transparent; border-color: var(--linha2); color: var(--fg) }
+.btn.contorno:hover { border-color: var(--gold-bd) }
+.btn.peq { padding: 7px 12px; font-size: 13px; border-radius: 10px }
+.btn.travado { background: var(--card2); color: var(--fg3); border-color: var(--linha); cursor: default }
+.btn[disabled] { opacity: .6; cursor: wait }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--linha2); background: transparent; color: var(--fg2); border-radius: 99px;
+  padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap }
+.chip b { color: var(--fg3); font-weight: 600 }
+.chip[aria-pressed="true"] { background: var(--gold-bg); border-color: var(--gold-bd); color: var(--fg) }
+.chips { display: flex; gap: 8px; flex-wrap: wrap }
+.tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .04em; border-radius: 6px; padding: 2px 8px; background: var(--card2); color: var(--fg2); border: 1px solid var(--linha) }
+.tag.ouro { color: var(--gold2); background: var(--gold-bg); border-color: var(--gold-bd) }
+.tag.compra { color: var(--green); background: var(--green-bg); border-color: rgba(62,207,122,.3) }
+.tag.venda { color: var(--red); background: var(--red-bg); border-color: rgba(232,93,108,.3) }
+.tag.plus { color: #120d02; background: var(--gold); border-color: var(--gold); font-size: 10px; padding: 1px 6px }
+
+/* ── formulários ── */
+label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--fg2) }
+.campo { width: 100%; background: var(--bg); border: 1px solid var(--linha2); border-radius: 11px; color: var(--fg); font: inherit; font-size: 15.5px; padding: 11px 13px; outline: none }
+.campo:focus { border-color: var(--gold-bd) }
+textarea.campo { resize: vertical; min-height: 90px }
+.grupo { margin-bottom: 14px }
+.msg { font-size: 14px; font-weight: 600; margin-top: 10px; min-height: 20px }
+.msg.erro { color: var(--red) } .msg.ok { color: var(--green) }
+
+/* ── cartões ── */
+.card { background: var(--card); border: 1px solid var(--linha); border-radius: 16px; padding: 20px; min-width: 0 }
+.card.realce { border-color: var(--gold-bd) }
+.card-topo { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 14px }
+.card-topo .olho { color: var(--fg2) }
+.vazio { border-style: dashed; background: transparent; text-align: center; color: var(--fg3); font-size: 14px; padding: 28px 18px }
+.grade { display: grid; gap: 14px; grid-template-columns: 1fr }
+.grade > * { min-width: 0 }
+@media (min-width: 760px) { .grade.g2 { grid-template-columns: 1fr 1fr } .grade.g3 { grid-template-columns: repeat(2, 1fr) } }
+@media (min-width: 1100px) { .grade.g3 { grid-template-columns: repeat(3, 1fr) } }
+.barra-prog { height: 6px; background: var(--card2); border-radius: 99px; overflow: hidden }
+.barra-prog i { display: block; height: 100%; background: var(--gold) }
+
+/* ── casca ── */
+.casca { display: flex; min-height: 100vh }
+.menu-lateral { width: var(--menu); flex-shrink: 0; position: fixed; inset: 0 auto 0 0; background: var(--bg2); border-right: 1px solid var(--linha);
+  display: flex; flex-direction: column; padding: 18px 14px; gap: 4px; z-index: 40; overflow-y: auto }
+.logo { display: flex; align-items: center; gap: 10px; padding: 4px 8px 18px; color: var(--fg) }
+.logo img { width: 34px; height: 34px }
+.logo b { font-family: var(--titulo); font-style: italic; font-weight: 800; font-size: 22px; text-transform: uppercase; letter-spacing: .02em; line-height: .9 }
+.logo b span { color: var(--gold2); display: block; font-size: 12px; letter-spacing: .18em; font-style: normal; font-family: var(--corpo); font-weight: 700 }
+.item-menu { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border-radius: 10px; color: var(--fg2); font-weight: 600; font-size: 14.5px; border: 1px solid transparent }
+.item-menu svg { width: 18px; height: 18px; flex-shrink: 0; opacity: .85 }
+.item-menu:hover { background: var(--card); color: var(--fg) }
+.item-menu[aria-current="page"] { background: var(--card2); border-color: var(--linha2); color: var(--fg) }
+.item-menu[aria-current="page"] svg { color: var(--gold2); opacity: 1 }
+.item-menu .tag { margin-left: auto }
+.menu-sep { height: 1px; background: var(--linha); margin: 10px 6px }
+.menu-rodape { margin-top: auto; padding: 12px 8px 0; font-size: 12px; color: var(--fg3) }
+
+.conteudo-app { flex: 1; margin-left: var(--menu); min-width: 0 }
+.topo { position: sticky; top: 0; z-index: 30; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 28px;
+  background: rgba(7,8,10,.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--linha) }
+.topo h1 { font-size: 18px; font-weight: 600; color: var(--fg2) }
+.topo-acoes { display: flex; align-items: center; gap: 10px }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--card2); border: 1px solid var(--linha2); display: grid; place-items: center; font-weight: 700; font-size: 14px; color: var(--gold2); cursor: pointer }
+.menu-conta { position: absolute; right: 24px; top: 56px; background: var(--card); border: 1px solid var(--linha2); border-radius: 14px; padding: 8px; min-width: 220px; box-shadow: 0 12px 30px rgba(0,0,0,.5) }
+.menu-conta a, .menu-conta button { display: block; width: 100%; text-align: left; padding: 9px 12px; border-radius: 9px; color: var(--fg2); background: none; border: 0; font-size: 14px; cursor: pointer }
+.menu-conta a:hover, .menu-conta button:hover { background: var(--card2); color: var(--fg) }
+.menu-conta .quem { padding: 8px 12px 10px; border-bottom: 1px solid var(--linha); margin-bottom: 6px; font-size: 13px; color: var(--fg3); overflow-wrap: anywhere }
+.pagina { padding: 22px 28px 60px; max-width: 1180px }
+.faixa { border-radius: 12px; padding: 10px 14px; font-size: 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
+.faixa.ok { background: var(--gold-bg); border: 1px solid var(--gold-bd) }
+.faixa.ruim { background: var(--red-bg); border: 1px solid rgba(232,93,108,.4); color: #ffd5da }
+.faixa.demo { background: rgba(240,192,64,.08); border: 1px dashed rgba(240,192,64,.4); color: var(--yellow); justify-content: space-between }
+.faixa.demo button { background: none; border: 1px solid rgba(240,192,64,.4); color: var(--yellow); border-radius: 8px; padding: 3px 10px; font-size: 12px; cursor: pointer }
+.cabeca-pag { margin: 6px 0 18px }
+.cabeca-pag h2 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em }
+.cabeca-pag p { color: var(--fg2); margin-top: 4px; max-width: 46em }
+.secao { margin-top: 28px }
+.secao-topo { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; flex-wrap: wrap; margin-bottom: 12px }
+.secao-topo h3 { font-size: 19px }
+
+.barra-inferior { display: none }
+.atendimento { position: fixed; right: 20px; bottom: 20px; z-index: 35; width: 50px; height: 50px; border-radius: 50%; background: var(--gold); color: #120d02;
+  display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.5) }
+.atendimento svg { width: 24px; height: 24px }
+
+@media (max-width: 900px) {
+  .menu-lateral { transform: translateX(-100%); transition: transform .2s; box-shadow: 0 0 40px rgba(0,0,0,.6) }
+  .menu-lateral.aberto { transform: none }
+  .conteudo-app { margin-left: 0 }
+  .topo { padding: 0 16px }
+  .pagina { padding: 16px 16px 96px }
+  .cabeca-pag h2 { font-size: 26px }
+  .barra-inferior { display: grid; grid-template-columns: repeat(6, 1fr); position: fixed; inset: auto 0 0 0; z-index: 40; background: rgba(13,15,18,.96);
+    backdrop-filter: blur(12px); border-top: 1px solid var(--linha); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)) }
+  .barra-inferior a, .barra-inferior button { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; font-weight: 600; color: var(--fg3);
+    background: none; border: 0; padding: 4px 0; cursor: pointer }
+  .barra-inferior svg { width: 21px; height: 21px }
+  .barra-inferior [aria-current="page"] { color: var(--gold2) }
+  .atendimento { bottom: 80px; right: 14px; width: 46px; height: 46px }
+  .so-desktop { display: none !important }
+}
+@media (min-width: 901px) { .so-celular { display: none !important } }
+.veu { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 39 }
+
+/* ── entrada (login) ── */
+.entrada { min-height: 100vh; display: grid; place-items: center; padding: 30px 16px;
+  background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(212,165,44,.10), transparent 65%), var(--bg) }
+.entrada-caixa { width: 100%; max-width: 420px }
+.entrada-logo { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 22px }
+.entrada-logo img { width: 64px; height: 64px }
+.entrada-logo b { font-family: var(--titulo); font-style: italic; font-weight: 800; font-size: 34px; text-transform: uppercase; line-height: .9; text-align: center }
+.entrada-logo b span { display: block; color: var(--gold2); font-size: 13px; letter-spacing: .3em; font-style: normal; font-family: var(--corpo); margin-top: 4px }
+.abas { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border: 1px solid var(--linha2); border-radius: 12px; padding: 4px; gap: 4px; margin-bottom: 18px }
+.abas button { background: none; border: 0; color: var(--fg2); font-size: 14px; font-weight: 700; padding: 9px; border-radius: 9px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px }
+.abas button[aria-pressed="true"] { background: var(--gold); color: #120d02 }
+.entrada h2 { font-family: var(--titulo); font-style: italic; font-weight: 800; font-size: 30px; text-transform: uppercase; margin-bottom: 2px }
+.entrada .btn { width: 100% }
+.linkzinho { display: block; text-align: right; font-size: 13px; font-weight: 600; color: var(--gold2); background: none; border: 0; cursor: pointer; margin: -4px 0 14px auto }
+.entrada-pe { text-align: center; font-size: 13px; color: var(--fg3); margin-top: 14px }
